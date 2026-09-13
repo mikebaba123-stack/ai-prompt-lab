@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ห้องทดลองพรอมป์ AI</title>
+<meta name="description" content="สมุดบันทึกการทดลองเขียน Prompt 6 เครื่องมือ ผ่านหัวข้อปัญญาประดิษฐ์ (GE931-1)">
+<meta name="color-scheme" content="light dark">
+<style>
+html{color-scheme:light dark}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --bg:#F1F0EB; --panel:#FBFAF7; --panel-2:#FFFFFF;
+  --ink:#191B21; --muted:#61646E; --faint:#8B8E97;
+  --line:#DEDCD4; --line-strong:#CBC8BE;
+  --accent:#D9480F; --accent-ink:#B23A0C; --accent-soft:#F8E4D8;
+  --petrol:#1E5566; --petrol-soft:#DBE9EE;
+  --code-bg:#14161D; --code-ink:#E9E9EC; --code-dim:#8A8FA0; --code-line:#272A34;
+  --out-bg:#FDFDFB; --out-ink:#1A1C22; --out-muted:#5D6069; --out-line:#E6E4DC;
+  --shadow:0 1px 2px rgba(20,20,25,.04), 0 8px 28px -14px rgba(20,20,25,.22);
+  --radius:14px;
+  --font-display:'Chakra Petch','IBM Plex Sans Thai',system-ui,sans-serif;
+  --font-body:'IBM Plex Sans Thai','Chakra Petch',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono','IBM Plex Sans Thai',ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1117; --panel:#161A23; --panel-2:#1B2029;
+    --ink:#ECEDF0; --muted:#9EA2AE; --faint:#71757F;
+    --line:#262B35; --line-strong:#353B48;
+    --accent:#FF6B35; --accent-ink:#FF8355; --accent-soft:#39241A;
+    --petrol:#83C0D2; --petrol-soft:#123039;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 34px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1117; --panel:#161A23; --panel-2:#1B2029;
+  --ink:#ECEDF0; --muted:#9EA2AE; --faint:#71757F;
+  --line:#262B35; --line-strong:#353B48;
+  --accent:#FF6B35; --accent-ink:#FF8355; --accent-soft:#39241A;
+  --petrol:#83C0D2; --petrol-soft:#123039;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 34px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;font-size:16.5px}
+img{max-width:100%;display:block}
+a{color:var(--accent-ink);text-decoration:none}
+a:hover{text-decoration:underline}
+::selection{background:var(--accent-soft);color:var(--accent-ink)}
+
+.page{max-width:1120px;margin:0 auto;padding-inline:20px;padding-block:0}
+
+/* ---------- header ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding-block:20px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--font-display);
+  font-weight:700;letter-spacing:.02em}
+.brand .dot{width:12px;height:12px;border-radius:3px;background:var(--accent);
+  box-shadow:0 0 0 4px var(--accent-soft)}
+.brand small{display:block;font-family:var(--font-body);font-weight:400;
+  font-size:11.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.tbtn{font-family:var(--font-mono);font-size:12px;letter-spacing:.05em;
+  border:1px solid var(--line-strong);background:var(--panel);color:var(--muted);
+  padding:8px 12px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.tbtn:hover{color:var(--ink);border-color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:52px 34px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:12.5px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-family:var(--font-display);font-weight:700;line-height:1.08;
+  font-size:clamp(2.1rem,6vw,3.6rem);margin:.4em 0 .3em;text-wrap:balance;letter-spacing:-.01em}
+.hero h1 .kw{color:var(--accent)}
+.hero .lead{font-size:1.14rem;color:var(--muted);max-width:60ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;
+  border:1px solid var(--line-strong);background:var(--panel);border-radius:999px;
+  padding:6px 13px;color:var(--muted)}
+.chip b{color:var(--ink);font-weight:600}
+.chip.kwchip{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink);font-weight:600}
+
+/* ---------- layout ---------- */
+.layout{display:grid;grid-template-columns:236px 1fr;gap:44px;
+  align-items:start;padding-block:40px}
+.rail{position:sticky;top:18px}
+.rail .rlabel{font-family:var(--font-display);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;
+  border-left:2px solid var(--line);}
+.rail a{display:flex;gap:10px;align-items:baseline;padding:7px 0 7px 16px;margin-left:-2px;
+  border-left:2px solid transparent;color:var(--muted);font-size:14px;line-height:1.35}
+.rail a:hover{color:var(--ink);text-decoration:none}
+.rail a.on{color:var(--ink);border-left-color:var(--accent);font-weight:600}
+.rail a .n{font-family:var(--font-mono);font-size:11.5px;color:var(--faint);flex:0 0 auto}
+.rail a.on .n{color:var(--accent)}
+
+main{min-width:0}
+
+/* ---------- generic blocks ---------- */
+.prose p{margin:0 0 1em}
+.prose h2{font-family:var(--font-display);font-weight:700;font-size:1.5rem;
+  margin:0 0 .5em;letter-spacing:-.01em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow)}
+.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.def{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--panel-2)}
+.def .t{font-family:var(--font-display);font-weight:600;color:var(--ink);margin-bottom:4px;
+  display:flex;align-items:center;gap:8px}
+.def .tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;
+  padding:2px 7px;border-radius:5px;background:var(--accent-soft);color:var(--accent-ink)}
+.def .tag.f{background:var(--petrol-soft);color:var(--petrol)}
+.def p{font-size:14.5px;color:var(--muted);margin:0}
+
+.legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px;padding-top:18px;
+  border-top:1px dashed var(--line-strong)}
+.legend .li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted)}
+.mk{flex:0 0 auto;width:23px;height:23px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:12px;font-weight:700;
+  background:var(--ink);color:var(--bg)}
+.mk.a{background:var(--accent);color:#fff}
+.mk.p{background:var(--petrol);color:#fff}
+
+/* ---------- experiment ---------- */
+.exp{padding-block:46px;border-top:1px solid var(--line)}
+.exp-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:8px}
+.exp-num{font-family:var(--font-display);font-weight:700;font-size:2.5rem;line-height:1;
+  color:var(--accent);flex:0 0 auto;font-feature-settings:"tnum"}
+.exp-head .htxt .ky{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint)}
+.exp-head h2{font-family:var(--font-display);font-weight:700;font-size:1.72rem;
+  margin:2px 0 6px;letter-spacing:-.01em;line-height:1.15}
+.exp-head .sub{color:var(--muted);font-size:15px;margin:0;max-width:64ch}
+.toollink{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;
+  font-family:var(--font-mono);color:var(--petrol);border:1px solid var(--line-strong);
+  padding:4px 10px;border-radius:7px}
+
+.steps{margin-top:26px;padding-left:30px;border-left:2px solid var(--line);
+  display:flex;flex-direction:column;gap:26px}
+.step{position:relative}
+.step > .badge{position:absolute;left:-42px;top:0;width:24px;height:24px;border-radius:50%;
+  display:grid;place-items:center;font-family:var(--font-mono);font-size:12px;font-weight:700;
+  background:var(--ink);color:var(--bg);box-shadow:0 0 0 4px var(--bg)}
+.step.z > .badge{background:var(--accent);color:#fff}
+.step.f > .badge{background:var(--petrol);color:#fff}
+.step .slabel{font-family:var(--font-display);font-weight:600;font-size:13px;
+  letter-spacing:.03em;color:var(--muted);margin-bottom:9px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.step .slabel .kind{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;
+  padding:2px 7px;border-radius:5px;text-transform:uppercase}
+.kind.zero{background:var(--accent-soft);color:var(--accent-ink)}
+.kind.few{background:var(--petrol-soft);color:var(--petrol)}
+
+/* prompt terminal block */
+.prompt{background:var(--code-bg);border-radius:11px;overflow:hidden;border:1px solid var(--code-line)}
+.prompt .bar{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 14px;border-bottom:1px solid var(--code-line)}
+.prompt .bar .lbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  color:var(--code-dim);display:flex;align-items:center;gap:9px}
+.prompt .bar .lbl::before{content:"";width:9px;height:9px;border-radius:50%;flex:0 0 auto;
+  margin-right:16px;background:var(--accent);box-shadow:15px 0 0 var(--code-dim)}
+.copy{font-family:var(--font-mono);font-size:11px;color:var(--code-dim);background:transparent;
+  border:1px solid var(--code-line);border-radius:6px;padding:4px 9px;cursor:pointer}
+.copy:hover{color:var(--code-ink);border-color:var(--code-dim)}
+.prompt pre{margin:0;padding:16px 18px;overflow-x:auto}
+.prompt code{font-family:var(--font-mono);font-size:13px;line-height:1.72;color:var(--code-ink);
+  white-space:pre;display:block}
+.prompt .cm{color:var(--code-dim)}
+
+/* output printout card */
+.output{background:var(--out-bg);color:var(--out-ink);border:1px solid var(--out-line);
+  border-radius:11px;box-shadow:var(--shadow);overflow:hidden}
+.output .otab{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--out-muted);padding:10px 16px;border-bottom:1px solid var(--out-line);
+  display:flex;align-items:center;justify-content:space-between;gap:10px}
+.output .otab .src{color:#9aa;font-size:10px}
+.output .obody{padding:20px 18px}
+.output p{color:var(--out-muted);margin:0}
+.output .mermaid{display:flex;justify-content:center}
+figure{margin:0}
+figcaption{font-size:12.5px;color:var(--out-muted);text-align:center;margin-top:10px;font-family:var(--font-mono)}
+
+/* problem flag */
+.flag{display:flex;gap:11px;align-items:flex-start;margin-top:14px;font-size:14px;
+  background:var(--accent-soft);border:1px solid transparent;border-radius:10px;padding:12px 14px;color:var(--accent-ink)}
+.flag .p{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  background:var(--accent);color:#fff;padding:3px 8px;border-radius:5px;flex:0 0 auto;margin-top:2px}
+.flag span{color:var(--accent-ink)}
+
+/* reflection compare */
+.reflect{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:4px 0}
+.reflect .cmp{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.reflect .col{padding:16px 20px}
+.reflect .col:first-child{border-right:1px solid var(--line)}
+.reflect .col .ch{font-family:var(--font-display);font-weight:600;font-size:12.5px;
+  letter-spacing:.04em;margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.reflect .col.before .ch{color:var(--muted)}
+.reflect .col.after .ch{color:var(--accent-ink)}
+.reflect .col ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted)}
+.reflect .col ul li{margin-bottom:5px}
+.reflect .lesson{border-top:1px solid var(--line);padding:15px 20px;font-size:14.5px}
+.reflect .lesson b{font-family:var(--font-display);color:var(--accent-ink)}
+
+/* desmos expr list */
+.exprs{font-family:var(--font-mono);font-size:12.5px;background:var(--out-bg);color:var(--out-ink);
+  border:1px dashed var(--out-line);border-radius:9px;padding:12px 14px;margin-top:14px;overflow-x:auto}
+.exprs div{white-space:nowrap;padding:3px 0;border-bottom:1px dotted var(--out-line)}
+.exprs div:last-child{border-bottom:0}
+.exprs .k{color:var(--out-muted)}
+
+/* math */
+.mathrow{display:flex;flex-direction:column;gap:6px}
+.mrow{padding:8px 4px}
+.mrow .cap{font-size:12.5px;color:var(--out-muted);font-family:var(--font-mono);margin-bottom:2px}
+mjx-container{color:var(--out-ink)!important}
+
+/* slides */
+.deck{background:var(--out-bg);border:1px solid var(--out-line);border-radius:11px;overflow:hidden;box-shadow:var(--shadow)}
+.deck .screen{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#fff, #f4f2ec)}
+.slide{position:absolute;inset:0;padding:28px 32px;display:none;flex-direction:column}
+.slide.on{display:flex}
+.slide .sn{font-family:var(--font-mono);font-size:11px;color:#a08;color:var(--accent);letter-spacing:.1em}
+.slide h4{font-family:var(--font-display);font-weight:700;color:#1a1c22;font-size:clamp(1.1rem,3vw,1.7rem);margin:6px 0 12px}
+.slide ul{margin:0;padding-left:20px;color:#3a3d45;font-size:clamp(.85rem,2.4vw,1.02rem);line-height:1.7}
+.slide ul li{margin-bottom:6px}
+.slide .note{margin-top:auto;font-size:11.5px;color:#8a8d96;font-family:var(--font-mono);border-top:1px dashed #e0ded6;padding-top:8px}
+.slide .cover{margin:auto 0;text-align:left}
+.slide .cover .big{font-family:var(--font-display);font-weight:700;font-size:clamp(1.4rem,5vw,2.6rem);color:#1a1c22;line-height:1.1}
+.slide .cover .big em{color:var(--accent);font-style:normal}
+.deckbar{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:11px 14px;border-top:1px solid var(--out-line);background:var(--out-bg)}
+.deckbar .dots{display:flex;gap:6px}
+.deckbar .dots button{width:8px;height:8px;border-radius:50%;border:0;background:#d8d5cc;cursor:pointer;padding:0}
+.deckbar .dots button.on{background:var(--accent);width:20px;border-radius:5px}
+.nav{font-family:var(--font-mono);font-size:12px;color:var(--out-muted);background:transparent;
+  border:1px solid var(--out-line);border-radius:7px;padding:6px 12px;cursor:pointer}
+.nav:hover{color:var(--out-ink);border-color:#bbb}
+.deckbar .pos{font-family:var(--font-mono);font-size:11.5px;color:var(--out-muted)}
+
+/* deploy steps */
+.deploy{padding-block:46px;border-top:1px solid var(--line)}
+.dsteps{counter-reset:d;display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.dstep{display:flex;gap:16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.dstep::before{counter-increment:d;content:counter(d);font-family:var(--font-display);font-weight:700;
+  color:var(--accent);font-size:1.3rem;flex:0 0 auto;width:26px;text-align:center}
+.dstep .dt{font-family:var(--font-display);font-weight:600;margin-bottom:3px}
+.dstep p{margin:0;font-size:14.5px;color:var(--muted)}
+.dstep code{font-family:var(--font-mono);font-size:12.5px;background:var(--code-bg);color:var(--code-ink);
+  padding:2px 6px;border-radius:5px}
+
+/* overall reflection principles */
+.princ{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+.pcard{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:var(--panel-2)}
+.pcard .pn{font-family:var(--font-mono);font-size:11px;color:var(--accent);letter-spacing:.08em}
+.pcard .pt{font-family:var(--font-display);font-weight:600;margin:3px 0 5px}
+.pcard p{font-size:14px;color:var(--muted);margin:0}
+
+footer{border-top:1px solid var(--line);padding-block:34px 60px;color:var(--faint);font-size:13.5px}
+footer .fx{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+footer b{color:var(--muted);font-family:var(--font-display)}
+
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr;gap:22px;padding-block:24px}
+  .rail{position:sticky;top:0;z-index:5;background:var(--bg);margin-inline:-20px;padding:10px 20px;
+    border-bottom:1px solid var(--line)}
+  .rail .rlabel{display:none}
+  .rail ol{flex-direction:row;overflow-x:auto;border-left:0;gap:4px;padding-bottom:2px;
+    scrollbar-width:none}
+  .rail ol::-webkit-scrollbar{display:none}
+  .rail a{border-left:0;border-bottom:2px solid transparent;padding:6px 10px;white-space:nowrap;
+    border-radius:8px;margin-left:0}
+  .rail a.on{border-left:0;background:var(--accent-soft);border-bottom-color:transparent}
+  .intro-grid,.princ{grid-template-columns:1fr}
+  .reflect .cmp{grid-template-columns:1fr}
+  .reflect .col:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .exp-num{font-size:2rem}
+  .steps{padding-left:24px}
+  .step > .badge{left:-36px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+html{scroll-behavior:smooth}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+</style>
+
+<div class="page">
+
+  <div class="top">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>ห้องทดลองพรอมป์ AI<small>Prompt Engineering Lab</small></span>
+    </div>
+    <button class="tbtn" id="themeToggle" aria-label="สลับธีมสว่าง/มืด">◑ สลับธีม</button>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">GE931-1 · ปีการศึกษา 2569 ภาคเรียนที่ 1</div>
+    <h1>ฝึกใช้ <span class="kw">Prompt</span> ใน 6 เครื่องมือ<br>ผ่านหัวข้อ <span class="kw">ปัญญาประดิษฐ์</span></h1>
+    <p class="lead">สมุดบันทึกการทดลอง 6 ชิ้น เปรียบเทียบผลลัพธ์จากพรอมป์แบบ <b>Zero-shot</b> (สั่งลอย ๆ)
+      กับ <b>Few-shot</b> (ใส่บริบทและรายละเอียด) เพื่อดูว่าการออกแบบพรอมป์ที่ดีเปลี่ยนผลลัพธ์ได้มากแค่ไหน</p>
+    <div class="meta">
+      <span class="chip kwchip">Keyword: ปัญญาประดิษฐ์ (AI)</span>
+      <span class="chip">ผู้จัดทำ <b>G</b></span>
+      <span class="chip">รูปแบบ <b>เว็บไซต์ + ฝัง GitHub Pages</b></span>
+      <span class="chip">โครงสร้าง <b>6 แง่ × 5 ขั้น</b></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="rail">
+      <div class="rlabel">สารบัญการทดลอง</div>
+      <ol id="nav">
+        <li><a href="#intro"><span class="n">00</span> วิธีอ่าน &amp; แนวคิด</a></li>
+        <li><a href="#exp-01"><span class="n">01</span> สร้างรูปด้วย AI</a></li>
+        <li><a href="#exp-02"><span class="n">02</span> กราฟคณิตศาสตร์ Desmos</a></li>
+        <li><a href="#exp-03"><span class="n">03</span> ไดอะแกรม Mermaid</a></li>
+        <li><a href="#exp-04"><span class="n">04</span> บทความ LaTeX</a></li>
+        <li><a href="#exp-05"><span class="n">05</span> สไลด์ NotebookLM</a></li>
+        <li><a href="#exp-06"><span class="n">06</span> เว็บไซต์บน GitHub</a></li>
+        <li><a href="#reflection"><span class="n">✦</span> สรุปภาพรวม</a></li>
+        <li><a href="#deploy"><span class="n">↑</span> วิธี Deploy</a></li>
+      </ol>
+    </aside>
+
+    <main>
+
+      <!-- ===== INTRO ===== -->
+      <section id="intro" class="prose" style="padding-bottom:8px">
+        <div class="panel">
+          <div class="eyebrow" style="color:var(--petrol)">แนวคิดของงานนี้</div>
+          <h2 style="margin-top:8px">พรอมป์ที่ดี = ผลลัพธ์ที่ดี</h2>
+          <p style="color:var(--muted);margin-bottom:0">งานชิ้นนี้คือการ “จดบันทึกการทดลอง” การเขียนพรอมป์
+            แต่ละแง่จะลองสั่งแบบง่ายที่สุดก่อน (zero-shot) ดูว่าได้อะไร แล้วค่อยเพิ่มบริบท ตัวอย่าง
+            และข้อกำหนด (few-shot) เพื่อเปรียบเทียบว่าอะไรเปลี่ยนไป และเราเรียนรู้อะไรจากมัน</p>
+
+          <div class="intro-grid">
+            <div class="def">
+              <div class="t"><span class="tag">Zero-shot</span> สั่งตรง ไม่มีตัวอย่าง</div>
+              <p>บอกสิ่งที่อยากได้สั้น ๆ ไม่ให้บริบทหรือรูปแบบ ปล่อยให้ AI เดาเอง — เร็วแต่คุมทิศทางยาก</p>
+            </div>
+            <div class="def">
+              <div class="t"><span class="tag f">Few-shot</span> ใส่บริบท + ตัวอย่าง + ข้อกำหนด</div>
+              <p>ระบุประธาน สไตล์ รูปแบบผลลัพธ์ ข้อจำกัด และตัวอย่าง — เขียนยากขึ้นแต่ผลลัพธ์ตรงและใช้งานได้จริง</p>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="li"><span class="mk a">1</span> พรอมป์แรก · Zero-shot</div>
+            <div class="li"><span class="mk">2</span> ผลลัพธ์ครั้งที่ 1</div>
+            <div class="li"><span class="mk p">3</span> พรอมป์ใหม่ · Few-shot</div>
+            <div class="li"><span class="mk">4</span> ผลลัพธ์ครั้งที่ 2</div>
+            <div class="li"><span class="mk">5</span> บทสะท้อน</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 01 : IMAGE ===== -->
+      <section id="exp-01" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">01</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 1 · Text-to-Image</div>
+            <h2>สร้างรูปด้วย AI</h2>
+            <p class="sub">สร้างภาพประกอบหัวข้อ “ปัญญาประดิษฐ์” — ทดสอบว่าการบรรยายภาพอย่างละเอียด
+              (ประธาน สไตล์ แสง สี สัดส่วน และสิ่งที่ไม่ต้องการ) ทำให้ได้ภาพต่างกันแค่ไหน</p>
+            <a class="toollink" href="https://www.canva.com" target="_blank" rel="noopener">↗ canva.com / เครื่องมือสร้างภาพ AI</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt">
+              <div class="bar"><span class="lbl">prompt · image</span><button class="copy">คัดลอก</button></div>
+              <pre><code>สร้างรูปเกี่ยวกับปัญญาประดิษฐ์</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output">
+              <div class="otab"><span>ผลลัพธ์ · ภาพจำลอง</span><span class="src">generated preview</span></div>
+              <div class="obody">
+                <figure>
+                  <svg viewBox="0 0 640 300" width="100%" role="img" aria-label="ภาพหุ่นยนต์ทั่วไปแบบคาดเดาไม่ได้">
+                    <rect width="640" height="300" fill="#eceae3"/>
+                    <circle cx="320" cy="150" r="70" fill="#c9c6bc"/>
+                    <rect x="292" y="120" width="56" height="46" rx="8" fill="#a7a49a"/>
+                    <circle cx="308" cy="142" r="7" fill="#eceae3"/><circle cx="332" cy="142" r="7" fill="#eceae3"/>
+                    <line x1="320" y1="80" x2="320" y2="62" stroke="#a7a49a" stroke-width="4"/><circle cx="320" cy="58" r="6" fill="#a7a49a"/>
+                    <text x="320" y="250" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a877e">หุ่นยนต์ลอย ๆ · ไม่มีคอนเซ็ปต์ชัด</text>
+                  </svg>
+                  <figcaption>ได้ “หุ่นยนต์” แบบทั่วไป องค์ประกอบ/สี/อารมณ์แล้วแต่ระบบจะเดา</figcaption>
+                </figure>
+                <div class="flag"><span class="p">ปัญหา</span><span>พรอมป์กว้างเกินไป ไม่ได้บอกสไตล์ องค์ประกอบ โทนสี หรือสัดส่วน ทำให้ภาพคาดเดาไม่ได้และมักไม่ตรงสิ่งที่ต้องการสื่อ</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt">
+              <div class="bar"><span class="lbl">prompt · image (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>สร้างภาพประกอบสไตล์ isometric 3D สะอาดตา หัวข้อ "AI ช่วยมนุษย์เรียนรู้"
+<span class="cm"># ประธานของภาพ</span>
+นักศึกษานั่งทำงานคู่กับผู้ช่วย AI ที่เป็นสมองดิจิทัลเรืองแสง
+<span class="cm"># องค์ประกอบ</span>
+โหนดโครงข่ายประสาทเชื่อมกันด้วยเส้นข้อมูล, ไอคอนหนังสือและกราฟลอยรอบตัว
+<span class="cm"># โทนสี</span>
+ส้มเบิร์นต์ (#D9480F) ตัดกับน้ำเงินปิโตรล (#1E5566) บนพื้นครีม
+<span class="cm"># แสงและอารมณ์</span>
+แสงนุ่ม มีเงาบาง ๆ ให้ดูมีมิติ — โทนทันสมัย เป็นมิตร น่าเชื่อถือ
+<span class="cm"># สัดส่วน</span>
+16:9 เว้นที่ว่างด้านบนสำหรับใส่หัวข้อ
+<span class="cm"># ไม่เอา (negative)</span>
+ตัวอักษรมั่ว, ลายน้ำ, ใบหน้าบิดเบี้ยว, สีฉูดฉาดเกินจริง</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output">
+              <div class="otab"><span>ผลลัพธ์ · ภาพจำลอง (refined)</span><span class="src">generated preview</span></div>
+              <div class="obody">
+                <figure>
+                  <svg viewBox="0 0 640 320" width="100%" role="img" aria-label="ภาพ isometric นักศึกษาทำงานกับผู้ช่วย AI">
+                    <defs>
+                      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#fbf4ec"/><stop offset="1" stop-color="#f3e7db"/>
+                      </linearGradient>
+                      <linearGradient id="brain" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#ff8355"/><stop offset="1" stop-color="#d9480f"/>
+                      </linearGradient>
+                    </defs>
+                    <rect width="640" height="320" fill="url(#sky)"/>
+                    <!-- ground platform (iso) -->
+                    <polygon points="320,120 560,235 320,300 80,235" fill="#dbe9ee"/>
+                    <polygon points="80,235 320,300 320,320 80,255" fill="#c3dbe3"/>
+                    <polygon points="560,235 320,300 320,320 560,255" fill="#b3d0da"/>
+                    <!-- network nodes -->
+                    <g stroke="#1e5566" stroke-width="1.6" opacity=".55">
+                      <line x1="430" y1="90" x2="500" y2="140"/><line x1="500" y1="140" x2="470" y2="200"/>
+                      <line x1="430" y1="90" x2="470" y2="200"/><line x1="500" y1="140" x2="545" y2="110"/>
+                      <line x1="150" y1="120" x2="120" y2="185"/><line x1="150" y1="120" x2="205" y2="150"/>
+                    </g>
+                    <g fill="#1e5566">
+                      <circle cx="430" cy="90" r="6"/><circle cx="500" cy="140" r="7"/><circle cx="470" cy="200" r="5"/>
+                      <circle cx="545" cy="110" r="5"/><circle cx="150" cy="120" r="6"/><circle cx="120" cy="185" r="5"/><circle cx="205" cy="150" r="4"/>
+                    </g>
+                    <!-- glowing brain -->
+                    <circle cx="380" cy="150" r="52" fill="#d9480f" opacity=".16"/>
+                    <path d="M356 150 q-16 -30 16 -34 q10 -16 30 -8 q22 -4 22 20 q16 8 4 28 q4 22 -22 20 q-14 14 -30 2 q-24 4 -20 -22 q-8 -10 0 -24 z" fill="url(#brain)"/>
+                    <g stroke="#fff" stroke-width="1.4" opacity=".8" fill="none">
+                      <path d="M380 120 v58 M366 134 q14 8 28 0 M366 166 q14 -8 28 0"/>
+                    </g>
+                    <!-- student -->
+                    <g>
+                      <rect x="205" y="175" width="70" height="44" rx="6" fill="#1e5566"/>
+                      <rect x="212" y="150" width="30" height="30" rx="6" fill="#e8b58a"/>
+                      <circle cx="227" cy="140" r="15" fill="#3a2a22"/>
+                      <rect x="250" y="205" width="120" height="8" rx="4" fill="#a7754f"/>
+                    </g>
+                    <!-- floating icons -->
+                    <g>
+                      <rect x="470" y="60" width="30" height="24" rx="4" fill="#fff" stroke="#d9480f" stroke-width="2"/>
+                      <line x1="476" y1="70" x2="494" y2="70" stroke="#d9480f" stroke-width="2"/><line x1="476" y1="76" x2="490" y2="76" stroke="#d9480f" stroke-width="2"/>
+                      <g transform="translate(120,70)"><rect width="34" height="26" rx="4" fill="#fff" stroke="#1e5566" stroke-width="2"/>
+                        <polyline points="5,20 13,12 20,17 29,6" fill="none" stroke="#1e5566" stroke-width="2"/></g>
+                    </g>
+                    <text x="320" y="34" text-anchor="middle" font-family="'Chakra Petch',sans-serif" font-size="21" font-weight="700" fill="#1a1c22">AI ช่วยมนุษย์เรียนรู้</text>
+                  </svg>
+                  <figcaption>ได้ภาพตรงคอนเซ็ปต์: มีประธาน โทนสีตามกำหนด องค์ประกอบครบ และเว้นที่ใส่หัวข้อ</figcaption>
+                </figure>
+                <p style="margin-top:12px;font-size:13px">*ภาพข้างต้นเป็นภาพจำลอง (vector) เพื่อสาธิตความต่างของผลลัพธ์ — พรอมป์ทั้งสองด้านบนคือพรอมป์จริงที่นำไปวางใน Canva / เครื่องมือสร้างภาพ AI ได้ทันที</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>ได้ “หุ่นยนต์” ทั่วไป</li><li>ไม่คุมสไตล์/สี/องค์ประกอบ</li><li>ต้องสุ่มหลายครั้ง</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>ตรงคอนเซ็ปต์ที่ต้องการ</li><li>โทนสีและสัดส่วนคุมได้</li><li>มี negative prompt กันข้อผิดพลาด</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> ภาพที่ดีเริ่มจาก “การบรรยายเหมือนสั่งช่างภาพ” — ระบุประธาน สไตล์ แสง สี สัดส่วน และสิ่งที่ไม่ต้องการ ยิ่งชัดยิ่งคุมผลลัพธ์ได้</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 02 : DESMOS ===== -->
+      <section id="exp-02" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">02</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 2 · Math Visualization</div>
+            <h2>อธิบายความสัมพันธ์ทางคณิตศาสตร์ด้วย Desmos</h2>
+            <p class="sub">ใช้กราฟอธิบาย “ฟังก์ชันกระตุ้น (activation function)” ซึ่งเป็นหัวใจของโครงข่ายประสาทเทียม
+              — เทียบ Sigmoid, Tanh และ ReLU ในกราฟเดียว</p>
+            <a class="toollink" href="https://www.desmos.com/calculator?lang=th" target="_blank" rel="noopener">↗ desmos.com/calculator</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · desmos</span><button class="copy">คัดลอก</button></div>
+              <pre><code>วาดกราฟของ AI ใน Desmos</code></pre></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์</span><span class="src">desmos</span></div>
+              <div class="obody">
+                <p>“AI” ไม่ใช่สมการเดียว ระบบจึงไม่รู้จะวาดอะไร — อาจได้เส้นตรงมั่ว ๆ หรือคำถามกลับว่า “ต้องการกราฟอะไร”</p>
+                <div class="flag"><span class="p">ปัญหา</span><span>ไม่ได้ระบุ “แนวคิดทางคณิตศาสตร์” ที่ต้องการสื่อ จึงไม่มีสมการ ช่วงแกน หรือจุดประสงค์ให้ Desmos ทำงาน</span></div>
+              </div></div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · desmos (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>ฉันต้องการอธิบาย "ฟังก์ชันกระตุ้น (activation function)"
+ในโครงข่ายประสาทเทียม ช่วยให้สมการและการตั้งค่าเพื่อพล็อต
+เปรียบเทียบ 3 ฟังก์ชันในกราฟเดียว:
+<span class="cm">1) Sigmoid : f(x) = 1 / (1 + e^(-x))</span>
+<span class="cm">2) Tanh    : g(x) = (e^x - e^(-x)) / (e^x + e^(-x))</span>
+<span class="cm">3) ReLU    : h(x) = max(0, x)</span>
+- ตั้งช่วงแกน x: -6 ถึง 6 , แกน y: -1.2 ถึง 3
+- ใส่สีต่างกันและ label กำกับแต่ละเส้น
+- อธิบายสั้น ๆ ว่าทำไม sigmoid/tanh "อิ่มตัว" ส่วน ReLU เป็นเส้นตรงครึ่งซีก</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์ · กราฟเปรียบเทียบ</span><span class="src">desmos preview</span></div>
+              <div class="obody">
+                <figure><div id="plot"></div>
+                  <figcaption>Sigmoid &amp; Tanh อิ่มตัวที่ปลายทั้งสองข้าง · ReLU ตัดที่ 0 แล้วเป็นเส้นตรง</figcaption></figure>
+                <div class="exprs">
+                  <div><span class="k">// วางทีละบรรทัดใน Desmos</span></div>
+                  <div>f(x) = \frac{1}{1+e^{-x}}</div>
+                  <div>g(x) = \tanh(x)</div>
+                  <div>h(x) = \max(0,\,x)</div>
+                  <div><span class="k">-6 &lt; x &lt; 6   (ตั้งช่วงแกน)</span></div>
+                </div>
+              </div></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>ไม่มีสมการให้วาด</li><li>ระบบไม่เข้าใจว่า “AI” วาดยังไง</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>ได้ 3 สมการชัดเจน พร้อมช่วงแกน</li><li>กราฟเทียบเห็นพฤติกรรมต่างกันทันที</li><li>มีคำอธิบายเชิงความหมายแนบ</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> คณิตศาสตร์ต้องแปลงแนวคิดนามธรรม (“AI”) ให้เป็น “ความสัมพันธ์ที่วาดได้” ก่อน — ระบุฟังก์ชัน ตัวแปร และช่วงแกน แล้ว Desmos จึงช่วยสื่อสารได้</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 03 : MERMAID ===== -->
+      <section id="exp-03" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">03</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 3 · Diagram-as-Code</div>
+            <h2>สร้างไดอะแกรมจาก Mermaid</h2>
+            <p class="sub">เขียนโค้ด Mermaid เพื่ออธิบาย “วงจรการพัฒนาโมเดล Machine Learning” ตั้งแต่เก็บข้อมูลจนถึง deploy และวนกลับมาปรับปรุง</p>
+            <a class="toollink" href="https://mermaid.ai/" target="_blank" rel="noopener">↗ mermaid.ai / mermaid.live</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · mermaid</span><button class="copy">คัดลอก</button></div>
+              <pre><code>ทำ flowchart เกี่ยวกับ AI ให้หน่อย</code></pre></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์</span><span class="src">mermaid</span></div>
+              <div class="obody">
+                <div class="prompt" style="border-radius:8px"><div class="bar"><span class="lbl">flowchart (กว้างเกินไป)</span></div>
+<pre><code>flowchart LR
+  A[AI] --> B[ดี]
+  A --> C[ไม่ดี]</code></pre></div>
+                <div class="flag"><span class="p">ปัญหา</span><span>ได้ผังลอย ๆ ไม่มีขั้นตอนหรือกระบวนการจริง นำไปใช้อธิบายอะไรไม่ได้</span></div>
+              </div></div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · mermaid (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>เขียนโค้ด Mermaid เป็น flowchart แนวตั้ง อธิบาย
+"วงจรการพัฒนาโมเดล Machine Learning" ให้มีขั้นตอน:
+เก็บข้อมูล → ทำความสะอาด → แบ่ง Train/Test → เทรนโมเดล
+→ มีจุดตัดสินใจ "ความแม่นยำพอหรือยัง?"
+   - ถ้าไม่พอ ให้วนกลับไปปรับ hyperparameter/เพิ่มข้อมูล
+   - ถ้าพอ ให้ไป Deploy แล้วเก็บ feedback วนกลับมาต้นทาง
+ใช้ภาษาไทยในทุก node และจัดให้อ่านง่าย</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์ · ไดอะแกรมที่เรนเดอร์แล้ว</span><span class="src">mermaid</span></div>
+              <div class="obody">
+<pre class="mermaid">
+flowchart TD
+  A["เก็บรวบรวมข้อมูล"] --> B["ทำความสะอาด &amp; เตรียมข้อมูล"]
+  B --> C["แบ่งชุด Train / Test"]
+  C --> D["เทรนโมเดล"]
+  D --> E{"ความแม่นยำ<br/>พอหรือยัง?"}
+  E -- "ยังไม่พอ" --> F["ปรับ hyperparameter<br/>/ เพิ่มข้อมูล"]
+  F --> D
+  E -- "พอแล้ว" --> G["นำไปใช้งาน (Deploy)"]
+  G --> H["ติดตามผล &amp; เก็บ feedback"]
+  H --> A
+</pre>
+              </div></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>3 node ไม่มีความหมาย</li><li>ไม่มีลำดับ/เงื่อนไข</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>เล่า “กระบวนการจริง” เป็นขั้น ๆ</li><li>มีจุดตัดสินใจและ loop วนปรับปรุง</li><li>ระบุทิศทางและภาษาไทยครบ</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> Diagram-as-code ให้ผลดีเมื่อเราบอก “ลำดับ + ความสัมพันธ์ + เงื่อนไข” ชัด ๆ เหมือนร่างผังในหัวก่อน แล้วปล่อยให้เครื่องมือจัดวางให้สวย</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 04 : LATEX ===== -->
+      <section id="exp-04" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">04</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 4 · Academic Writing</div>
+            <h2>เขียนบทความจาก LaTeX</h2>
+            <p class="sub">ร่างบทความวิชาการสั้นเรื่อง “นิวรอนเทียมและการเรียนรู้” พร้อมบทคัดย่อ หัวข้อ สมการ และบรรณานุกรม ในรูปแบบ LaTeX ที่คอมไพล์บน Overleaf ได้</p>
+            <a class="toollink" href="https://www.overleaf.com" target="_blank" rel="noopener">↗ overleaf.com</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · latex</span><button class="copy">คัดลอก</button></div>
+              <pre><code>เขียนบทความ LaTeX เรื่อง AI</code></pre></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์</span><span class="src">latex</span></div>
+              <div class="obody">
+                <div class="prompt" style="border-radius:8px"><div class="bar"><span class="lbl">.tex (โครงบาง)</span></div>
+<pre><code>\documentclass{article}
+\begin{document}
+AI is a technology. It is useful.
+\end{document}</code></pre></div>
+                <div class="flag"><span class="p">ปัญหา</span><span>ได้แค่โครงเปล่า ไม่มีบทคัดย่อ หัวข้อ สมการ หรือการอ้างอิง และไม่รองรับภาษาไทย</span></div>
+              </div></div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · latex (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>เขียนบทความวิชาการภาษาไทยด้วย LaTeX (คอมไพล์ด้วย XeLaTeX)
+หัวข้อ "นิวรอนเทียมและการเรียนรู้ของเครื่อง" ให้มี:
+- title, author, บทคัดย่อ (abstract)
+- 3 หัวข้อ: บทนำ / โมเดลนิวรอน / การเรียนรู้
+- สมการผลลัพธ์ของนิวรอน (sigmoid) และสมการ loss (cross-entropy)
+  แบบ numbered equation
+- ตั้งค่าฟอนต์ไทยด้วย fontspec และรายการอ้างอิง 2 รายการ
+ส่งเป็นไฟล์ .tex ที่พร้อมวางใน Overleaf</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์ · สมการที่เรนเดอร์ + ไฟล์ .tex</span><span class="src">xelatex</span></div>
+              <div class="obody">
+                <div class="mathrow">
+                  <div class="mrow"><div class="cap">ผลลัพธ์ของนิวรอน (สมการ 1)</div>
+                    $$\hat{y} = \sigma(\mathbf{w}^{\top}\mathbf{x}+b),\qquad \sigma(z)=\frac{1}{1+e^{-z}}$$</div>
+                  <div class="mrow"><div class="cap">ฟังก์ชันสูญเสีย Cross-Entropy (สมการ 2)</div>
+                    $$\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}\Big[y_i\log\hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\Big]$$</div>
+                </div>
+                <p style="margin-top:12px;font-size:13.5px">ไฟล์ <b>ai_article.tex</b> ฉบับเต็ม (ดาวน์โหลดแนบมาให้) — เปิด Overleaf → New Project → Upload → ตั้ง Compiler เป็น <b>XeLaTeX</b></p>
+              </div></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>โครงเปล่า 3 บรรทัด</li><li>ไม่มีสมการ/อ้างอิง</li><li>ภาษาไทยพัง</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>มี abstract, หัวข้อ, สมการเลขที่</li><li>ตั้งฟอนต์ไทย + บรรณานุกรม</li><li>คอมไพล์บน Overleaf ได้ทันที</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> งานเอกสารต้องระบุ “โครงสร้าง + องค์ประกอบ + สภาพแวดล้อมที่จะใช้” (ที่นี่คือ XeLaTeX + ฟอนต์ไทย) ไม่งั้นได้ผลลัพธ์ที่คอมไพล์ไม่ผ่าน</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 05 : SLIDES ===== -->
+      <section id="exp-05" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">05</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 5 · Summary Slides</div>
+            <h2>สร้างสไลด์สรุปงานด้วย NotebookLM</h2>
+            <p class="sub">สรุปหัวข้อ AI ให้เพื่อนในชั้นฟังภายใน 6 สไลด์ — ระบุกลุ่มผู้ฟัง จำนวนสไลด์ และเนื้อหาต่อสไลด์ พร้อมโน้ตผู้พูด</p>
+            <a class="toollink" href="https://notebooklm.google.com/" target="_blank" rel="noopener">↗ notebooklm.google.com</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · slides</span><button class="copy">คัดลอก</button></div>
+              <pre><code>สรุปเรื่อง AI เป็นสไลด์</code></pre></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์</span><span class="src">notebooklm</span></div>
+              <div class="obody">
+                <p>ได้ bullet ยาวเหยียดกองรวมกันในไม่กี่สไลด์ ไม่รู้ว่าพูดให้ใครฟัง ยาวหรือสั้นแค่ไหน และไม่มีโน้ตช่วยพูด</p>
+                <div class="flag"><span class="p">ปัญหา</span><span>ไม่ได้ระบุกลุ่มผู้ฟัง จำนวนสไลด์ ระดับความลึก หรือรูปแบบต่อสไลด์ ทำให้เนื้อหาไม่เป็นระเบียบ</span></div>
+              </div></div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · slides (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>สร้างสไลด์สรุปเรื่อง "ปัญญาประดิษฐ์เบื้องต้น"
+- ผู้ฟัง: เพื่อนร่วมชั้นวิชา GE931 (ไม่ใช่สายเทคนิค)
+- จำนวน: 6 สไลด์ พอดีนำเสนอ 5 นาที
+- แต่ละสไลด์ให้มี: หัวข้อ + 3 bullet สั้น + 1 โน้ตผู้พูด
+- ลำดับ: AI คืออะไร → ประเภท → ML ทำงานยังไง
+  → ใช้จริงที่ไหน → ข้อควรระวัง/จริยธรรม → สรุป+อนาคต
+- ใช้ภาษาเข้าใจง่าย มีตัวอย่างใกล้ตัว</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์ · เด็คสรุป 6 สไลด์</span><span class="src">slides preview</span></div>
+              <div class="obody" style="padding:0;border:0">
+                <div class="deck">
+                  <div class="screen" id="deckScreen">
+                    <div class="slide on">
+                      <div class="cover"><div class="sn">GE931 · 5 นาที</div>
+                        <div class="big">ปัญญาประดิษฐ์<br><em>เบื้องต้น</em></div>
+                        <p style="color:#5d6069;margin-top:10px;font-size:14px">6 สไลด์สำหรับเพื่อนร่วมชั้น (สายไม่เทคนิค)</p></div>
+                      <div class="note">โน้ต: เปิดด้วยคำถาม “วันนี้ใช้ AI อะไรไปบ้าง?”</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 1</div><h4>AI คืออะไร</h4>
+                      <ul><li>ระบบคอมพิวเตอร์ที่ “เรียนรู้” จากข้อมูลแทนการเขียนกฎทุกข้อ</li>
+                        <li>เลียนแบบงานที่ต้องใช้ความฉลาด เช่น มองเห็น เข้าใจภาษา</li>
+                        <li>ตัวอย่าง: แนะนำเพลง แปลภาษา ผู้ช่วยตอบแชท</li></ul>
+                      <div class="note">โน้ต: ย้ำว่า AI = เรียนจากตัวอย่าง ไม่ใช่เวทมนตร์</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 2</div><h4>ประเภทของ AI</h4>
+                      <ul><li>Narrow AI: เก่งเรื่องเดียว (ที่ใช้กันทุกวันนี้)</li>
+                        <li>General AI: ฉลาดรอบด้านเท่ามนุษย์ (ยังเป็นเป้าหมาย)</li>
+                        <li>ในเชิงเทคนิค: Machine Learning และ Deep Learning</li></ul>
+                      <div class="note">โน้ต: ปัจจุบันเราอยู่ยุค Narrow AI ทั้งหมด</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 3</div><h4>Machine Learning ทำงานอย่างไร</h4>
+                      <ul><li>ป้อน “ข้อมูลตัวอย่าง” จำนวนมากให้โมเดล</li>
+                        <li>โมเดลปรับค่าภายในจนทำนายได้แม่นขึ้น (เทรน)</li>
+                        <li>นำไปทำนายข้อมูลใหม่ที่ไม่เคยเห็น</li></ul>
+                      <div class="note">โน้ต: เชื่อมกับไดอะแกรมวงจร ML ในแง่ที่ 3</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 4</div><h4>AI ในชีวิตประจำวัน</h4>
+                      <ul><li>โซเชียล/สตรีมมิง: แนะนำคอนเทนต์</li>
+                        <li>สุขภาพ: ช่วยอ่านภาพเอกซเรย์</li>
+                        <li>การเดินทาง: นำทาง คาดการณ์รถติด</li></ul>
+                      <div class="note">โน้ต: ให้เพื่อนช่วยยกตัวอย่างเพิ่ม</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 5</div><h4>ข้อควรระวัง &amp; จริยธรรม</h4>
+                      <ul><li>อคติจากข้อมูล (bias) และความเป็นส่วนตัว</li>
+                        <li>ข้อมูลผิด/ภาพปลอม (deepfake)</li>
+                        <li>ต้องมี “มนุษย์ตรวจสอบ” เสมอ</li></ul>
+                      <div class="note">โน้ต: ชี้ว่าเครื่องมือดี ขึ้นกับคนใช้</div>
+                    </div>
+                    <div class="slide">
+                      <div class="sn">สไลด์ 6</div><h4>สรุป &amp; อนาคต</h4>
+                      <ul><li>AI คือผู้ช่วย ไม่ใช่ตัวแทนความคิดเรา</li>
+                        <li>ทักษะสำคัญ: ตั้งคำถาม/เขียนพรอมป์ให้เป็น</li>
+                        <li>เรียนรู้ต่อเนื่องเพื่อใช้ให้เกิดประโยชน์</li></ul>
+                      <div class="note">โน้ต: ปิดด้วย “AI จะไม่แทนคุณ แต่คนที่ใช้ AI เป็นจะแทน”</div>
+                    </div>
+                  </div>
+                  <div class="deckbar">
+                    <button class="nav" id="prev">← ก่อนหน้า</button>
+                    <div class="dots" id="dots"></div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <span class="pos" id="pos">1 / 7</span>
+                      <button class="nav" id="next">ถัดไป →</button>
+                    </div>
+                  </div>
+                </div>
+              </div></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>bullet กองรวม ไม่มีโครง</li><li>ไม่รู้กลุ่มผู้ฟัง/ความยาว</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>6 สไลด์ ลำดับชัด เล่าเรื่องได้</li><li>ปรับภาษาให้ผู้ฟังไม่เทคนิค</li><li>มีโน้ตผู้พูดช่วยนำเสนอ</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> สไลด์ที่ดีเริ่มจาก “ใครฟัง + ยาวแค่ไหน + โครงต่อสไลด์” การกำหนดกรอบเหล่านี้ทำให้ AI จัดเนื้อหาให้เหมาะกับการนำเสนอจริง</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== EXP 06 : WEBSITE ===== -->
+      <section id="exp-06" class="exp">
+        <div class="exp-head">
+          <div class="exp-num">06</div>
+          <div class="htxt">
+            <div class="ky">แง่ที่ 6 · Web + Deploy</div>
+            <h2>เขียนเว็บไซต์เพื่อฝากบน GitHub</h2>
+            <p class="sub">รวมผลงานแง่ที่ 1–5 มาไว้ในเว็บเดียว แล้ว deploy บน GitHub Pages — ผลลัพธ์ก็คือหน้าที่คุณกำลังอ่านอยู่นี้</p>
+            <a class="toollink" href="https://github.com/" target="_blank" rel="noopener">↗ github.com (GitHub Pages)</a>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step z">
+            <div class="badge">1</div>
+            <div class="slabel">พรอมป์แรก <span class="kind zero">Zero-shot</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · website</span><button class="copy">คัดลอก</button></div>
+              <pre><code>ทำเว็บเกี่ยวกับ AI</code></pre></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">2</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์</span><span class="src">html</span></div>
+              <div class="obody">
+                <p>ได้หน้า HTML ขาว ๆ หัวข้อ “AI” กับข้อความหนึ่งย่อหน้า ไม่มีโครงสร้าง ไม่มีผลงาน และ deploy ไม่ได้เพราะไม่รู้จะวางที่ไหน</p>
+                <div class="flag"><span class="p">ปัญหา</span><span>ไม่ได้ระบุเนื้อหา โครงหน้า สไตล์ การรองรับมือถือ หรือปลายทางที่จะ deploy</span></div>
+              </div></div>
+          </div>
+
+          <div class="step f">
+            <div class="badge">3</div>
+            <div class="slabel">พรอมป์ใหม่ <span class="kind few">Few-shot / เพิ่มรายละเอียด</span></div>
+            <div class="prompt"><div class="bar"><span class="lbl">prompt · website (refined)</span><button class="copy">คัดลอก</button></div>
+<pre><code>สร้างเว็บไซต์หน้าเดียว (index.html) ภาษาไทย หัวข้อ "ปัญญาประดิษฐ์"
+เพื่อ deploy บน GitHub Pages โดย:
+- รวมผลงาน 6 แง่ (รูป AI, กราฟ Desmos, ไดอะแกรม Mermaid,
+  บทความ LaTeX, สไลด์สรุป, ตัวเว็บเอง) ให้ต่อเนื่องเป็นเรื่องเดียว
+- แต่ละแง่แสดง 5 ขั้น: พรอมป์แรก → ผล → พรอมป์ใหม่ → ผล → บทสะท้อน
+- ดีไซน์ธีม "สมุดบันทึกการทดลอง" มีสารบัญ, สลับโหมดสว่าง/มืด
+- ฝัง Mermaid และสมการ (MathJax) ให้เรนเดอร์ในหน้าได้จริง
+- responsive รองรับมือถือ และเป็นไฟล์เดียวจบ ไม่พึ่งไฟล์ภายนอก</code></pre>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="badge">4</div>
+            <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
+            <div class="output"><div class="otab"><span>ผลลัพธ์ · เว็บไซต์นี้</span><span class="src">index.html</span></div>
+              <div class="obody">
+                <p style="color:var(--out-ink)"><b>คือหน้าที่คุณกำลังดูอยู่นี่เอง</b> — รวมผลงานทั้ง 6 แง่ไว้ต่อเนื่องกัน ฝัง Mermaid และสมการที่เรนเดอร์จริง สลับธีมได้ และเป็นไฟล์ <code style="font-family:var(--font-mono);background:#eee;padding:1px 5px;border-radius:4px">index.html</code> ไฟล์เดียวที่อัปขึ้น GitHub Pages ได้เลย (ดูวิธีด้านล่าง)</p>
+              </div></div>
+          </div>
+
+          <div class="step">
+            <div class="badge">5</div>
+            <div class="slabel">บทสะท้อน</div>
+            <div class="reflect">
+              <div class="cmp">
+                <div class="col before"><div class="ch">● Zero-shot</div>
+                  <ul><li>หน้าเปล่า ไม่มีเนื้อหา</li><li>ไม่มีดีไซน์/มือถือ</li><li>deploy ไม่ได้</li></ul></div>
+                <div class="col after"><div class="ch">● Few-shot</div>
+                  <ul><li>รวมผลงาน 6 แง่เป็นเรื่องเดียว</li><li>มีธีม สารบัญ ฝังสื่อจริง</li><li>ไฟล์เดียวพร้อมขึ้น GitHub Pages</li></ul></div>
+              </div>
+              <div class="lesson"><b>บทเรียน:</b> ยิ่งงานปลายทางซับซ้อน (เว็บที่ deploy จริง) พรอมป์ยิ่งต้องระบุ “เนื้อหา + โครงสร้าง + ข้อจำกัดทางเทคนิค + ปลายทาง” ครบ ผลลัพธ์จึงใช้งานได้ทันที</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== OVERALL REFLECTION ===== -->
+      <section id="reflection" class="exp">
+        <div class="exp-head">
+          <div class="exp-num" style="color:var(--petrol)">✦</div>
+          <div class="htxt">
+            <div class="ky">สรุปการเรียนรู้ภาพรวม</div>
+            <h2>จาก Zero-shot สู่ Few-shot: อะไรทำให้ผลลัพธ์ต่างกัน</h2>
+            <p class="sub">ทั้ง 6 การทดลองชี้ตรงกันว่า ผลลัพธ์ไม่ได้ขึ้นกับ “เครื่องมือ” อย่างเดียว แต่ขึ้นกับ “คุณภาพของพรอมป์” มากกว่า
+              สิ่งที่เพิ่มเข้าไปในพรอมป์ใหม่มักเป็น 5 อย่างซ้ำ ๆ กัน</p>
+          </div>
+        </div>
+        <div class="princ">
+          <div class="pcard"><div class="pn">หลักที่ 1</div><div class="pt">ให้บริบท (Context)</div><p>บอกว่าใครใช้ ใช้ทำอะไร ในสถานการณ์ไหน AI จึงเลือกแนวทางได้ตรง</p></div>
+          <div class="pcard"><div class="pn">หลักที่ 2</div><div class="pt">เจาะจง (Specificity)</div><p>ระบุประธาน ตัวแปร สไตล์ หรือขั้นตอนให้ชัด แทนคำกว้าง ๆ อย่าง “เกี่ยวกับ AI”</p></div>
+          <div class="pcard"><div class="pn">หลักที่ 3</div><div class="pt">กำหนดรูปแบบผลลัพธ์</div><p>บอกฟอร์แมตที่ต้องการ เช่น 6 สไลด์, สมการเลขที่, flowchart แนวตั้ง, ไฟล์ .tex</p></div>
+          <div class="pcard"><div class="pn">หลักที่ 4</div><div class="pt">ยกตัวอย่าง + ข้อจำกัด</div><p>ใส่ตัวอย่างและ “สิ่งที่ไม่ต้องการ” (negative) เพื่อกันผลลัพธ์หลุดกรอบ</p></div>
+          <div class="pcard"><div class="pn">หลักที่ 5</div><div class="pt">ทำซ้ำและปรับ (Iterate)</div><p>พรอมป์แรกคือจุดเริ่ม ดูผลแล้วค่อยเติมรายละเอียด — few-shot คือผลของการวนปรับ</p></div>
+          <div class="pcard" style="background:var(--accent-soft);border-color:transparent">
+            <div class="pn" style="color:var(--accent-ink)">ข้อสรุป</div>
+            <div class="pt" style="color:var(--accent-ink)">พรอมป์ = การสื่อสาร</div>
+            <p style="color:var(--accent-ink)">เขียนพรอมป์เหมือนสั่งงานเพื่อนร่วมทีม ยิ่งสื่อสารชัด ผลลัพธ์ยิ่งใกล้สิ่งที่คิดไว้</p></div>
+        </div>
+      </section>
+
+      <!-- ===== DEPLOY ===== -->
+      <section id="deploy" class="deploy">
+        <div class="eyebrow" style="color:var(--petrol)">โบนัส</div>
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.6rem;margin:.3em 0 .2em">นำเว็บนี้ขึ้น GitHub Pages</h2>
+        <p style="color:var(--muted);max-width:65ch;margin:0">ไฟล์ <code style="font-family:var(--font-mono);background:var(--code-bg);color:var(--code-ink);padding:2px 6px;border-radius:5px">index.html</code> ที่แนบมาเป็นไฟล์เดียวจบ อัปขึ้น GitHub แล้วเปิดเป็นเว็บสาธารณะได้ฟรี</p>
+        <div class="dsteps">
+          <div class="dstep"><div><div class="dt">สร้าง Repository ใหม่</div><p>ที่ github.com กด <b>New</b> → ตั้งชื่อเช่น <code>ai-prompt-lab</code> → เลือก Public → Create</p></div></div>
+          <div class="dstep"><div><div class="dt">อัปโหลด index.html</div><p>ในหน้า repo กด <b>Add file → Upload files</b> แล้วลากไฟล์ <code>index.html</code> เข้าไป → Commit</p></div></div>
+          <div class="dstep"><div><div class="dt">เปิด GitHub Pages</div><p>ไปที่ <b>Settings → Pages</b> → ในหัวข้อ Branch เลือก <code>main</code> และโฟลเดอร์ <code>/ (root)</code> → Save</p></div></div>
+          <div class="dstep"><div><div class="dt">รอสักครู่แล้วเปิดลิงก์</div><p>ประมาณ 1–2 นาที GitHub จะให้ URL รูปแบบ <code>https://&lt;username&gt;.github.io/ai-prompt-lab/</code> — นำลิงก์นี้ไปส่งอาจารย์เพื่อรับคะแนนโบนัส</p></div></div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="fx">
+          <div>จัดทำโดย <b>G</b> · วิชา <b>GE931-1</b> · หัวข้อ <b>ปัญญาประดิษฐ์</b> · ปีการศึกษา 2569 เทอม 1</div>
+          <div>ห้องทดลองพรอมป์ AI — 6 แง่ × 5 ขั้น</div>
+        </div>
+      </footer>
+
+    </main>
+  </div>
+</div>
+
+<script>
+  window.MathJax = {
+    tex:{inlineMath:[['\\(','\\)']], displayMath:[['$$','$$']]},
+    svg:{fontCache:'global'},
+    startup:{typeset:true}
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- theme ---------- */
+  var root=document.documentElement;
+  function stored(){try{return localStorage.getItem('ptheme')}catch(e){return null}}
+  function save(v){try{localStorage.setItem('ptheme',v)}catch(e){}}
+  var init=stored();
+  if(init){root.setAttribute('data-theme',init);}
+  function current(){
+    var a=root.getAttribute('data-theme');
+    if(a) return a;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light';
+  }
+  var tbtn=document.getElementById('themeToggle');
+  if(tbtn){tbtn.addEventListener('click',function(){
+    var n=current()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',n);save(n);
+  });}
+
+  /* ---------- mermaid ---------- */
+  try{
+    if(window.mermaid){
+      mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',
+        flowchart:{curve:'basis',useMaxWidth:true},
+        fontFamily:"'IBM Plex Sans Thai',sans-serif"});
+    }
+  }catch(e){}
+
+  /* ---------- copy buttons ---------- */
+  document.querySelectorAll('.prompt .copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var box=btn.closest('.prompt'), code=box?box.querySelector('code'):null;
+      if(!code) return;
+      var txt=code.innerText;
+      var done=function(){var o=btn.textContent;btn.textContent='คัดลอกแล้ว ✓';
+        setTimeout(function(){btn.textContent=o;},1400);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(done);
+      }else{
+        try{var t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);
+          t.select();document.execCommand('copy');document.body.removeChild(t);done();}catch(e){}
+      }
+    });
+  });
+
+  /* ---------- activation-function plot ---------- */
+  (function(){
+    var host=document.getElementById('plot'); if(!host) return;
+    var W=720,H=380,pad={l:46,r:18,t:16,b:34};
+    var xmin=-6,xmax=6,ymin=-1.2,ymax=3;
+    function sx(x){return pad.l+(x-xmin)/(xmax-xmin)*(W-pad.l-pad.r);}
+    function sy(y){return H-pad.b-(y-ymin)/(ymax-ymin)*(H-pad.t-pad.b);}
+    function path(fn){var d='',n=260;for(var i=0;i<=n;i++){var x=xmin+(xmax-xmin)*i/n,y=fn(x);
+      if(y<ymin-2||y>ymax+2){d+=' M'+sx(x).toFixed(1)+' '+sy(Math.max(ymin,Math.min(ymax,y))).toFixed(1);continue;}
+      d+=(i?' L':'M')+sx(x).toFixed(1)+' '+sy(y).toFixed(1);}return d;}
+    var sig=function(x){return 1/(1+Math.exp(-x));};
+    var tanh=function(x){return Math.tanh(x);};
+    var relu=function(x){return Math.max(0,x);};
+    var g='';
+    for(var gx=xmin;gx<=xmax;gx++){g+='<line x1="'+sx(gx)+'" y1="'+pad.t+'" x2="'+sx(gx)+'" y2="'+(H-pad.b)+'" stroke="#ecebe4" stroke-width="1"/>';}
+    for(var gy=-1;gy<=3;gy++){g+='<line x1="'+pad.l+'" y1="'+sy(gy)+'" x2="'+(W-pad.r)+'" y2="'+sy(gy)+'" stroke="#ecebe4" stroke-width="1"/>';
+      g+='<text x="'+(pad.l-8)+'" y="'+(sy(gy)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" fill="#8a8d96">'+gy+'</text>';}
+    for(var tx=xmin;tx<=xmax;tx+=2){g+='<text x="'+sx(tx)+'" y="'+(H-pad.b+18)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#8a8d96">'+tx+'</text>';}
+    var axes='<line x1="'+pad.l+'" y1="'+sy(0)+'" x2="'+(W-pad.r)+'" y2="'+sy(0)+'" stroke="#b9b6ac" stroke-width="1.3"/>'+
+             '<line x1="'+sx(0)+'" y1="'+pad.t+'" x2="'+sx(0)+'" y2="'+(H-pad.b)+'" stroke="#b9b6ac" stroke-width="1.3"/>';
+    var curves=
+      '<path d="'+path(relu)+'" fill="none" stroke="#1e5566" stroke-width="2.6"/>'+
+      '<path d="'+path(tanh)+'" fill="none" stroke="#8a3ffc" stroke-width="2.6"/>'+
+      '<path d="'+path(sig)+'" fill="none" stroke="#d9480f" stroke-width="2.6"/>';
+    var leg='<g font-family="JetBrains Mono,monospace" font-size="12">'+
+      '<rect x="'+(W-pad.r-150)+'" y="24" width="140" height="66" rx="8" fill="#ffffff" stroke="#e6e4dc"/>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="40" x2="'+(W-pad.r-118)+'" y2="40" stroke="#d9480f" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="44" fill="#5d6069">Sigmoid</text>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="60" x2="'+(W-pad.r-118)+'" y2="60" stroke="#8a3ffc" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="64" fill="#5d6069">Tanh</text>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="80" x2="'+(W-pad.r-118)+'" y2="80" stroke="#1e5566" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="84" fill="#5d6069">ReLU</text></g>';
+    host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="กราฟเปรียบเทียบ sigmoid tanh relu">'+
+      g+axes+curves+leg+'</svg>';
+  })();
+
+  /* ---------- slide deck ---------- */
+  (function(){
+    var screen=document.getElementById('deckScreen'); if(!screen) return;
+    var slides=Array.prototype.slice.call(screen.querySelectorAll('.slide'));
+    var dotsWrap=document.getElementById('dots'), pos=document.getElementById('pos');
+    var i=0, n=slides.length;
+    slides.forEach(function(_,k){var b=document.createElement('button');
+      b.setAttribute('aria-label','ไปสไลด์ '+(k+1));
+      b.addEventListener('click',function(){go(k);});dotsWrap.appendChild(b);});
+    var dots=Array.prototype.slice.call(dotsWrap.children);
+    function go(k){i=(k+n)%n;slides.forEach(function(s,x){s.classList.toggle('on',x===i);});
+      dots.forEach(function(d,x){d.classList.toggle('on',x===i);});
+      if(pos)pos.textContent=(i+1)+' / '+n;}
+    document.getElementById('prev').addEventListener('click',function(){go(i-1);});
+    document.getElementById('next').addEventListener('click',function(){go(i+1);});
+    go(0);
+  })();
+
+  /* ---------- scroll spy ---------- */
+  (function(){
+    var links=Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+    var map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);
+      var el=document.getElementById(id);if(el)map[id]=a;});
+    var ids=Object.keys(map);
+    if(!('IntersectionObserver' in window)) return;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){
+        links.forEach(function(a){a.classList.remove('on');});
+        var a=map[e.target.id]; if(a)a.classList.add('on');
+      }});
+    },{rootMargin:'-20% 0px -70% 0px',threshold:0});
+    ids.forEach(function(id){io.observe(document.getElementById(id));});
+  })();
+})();
+</script>
+
+</body>
+</html>

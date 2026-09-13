@@ -1,0 +1,91 @@
+% ===================================================================
+%  บทความ: นิวรอนเทียมและการเรียนรู้ของเครื่อง
+%  วิชา GE931-1 · หัวข้อ ปัญญาประดิษฐ์
+%  วิธีคอมไพล์บน Overleaf: Menu -> Compiler -> XeLaTeX
+%  ถ้าฟอนต์ไทยไม่ขึ้น ให้เปลี่ยน \setmainfont เป็นฟอนต์ไทยที่มีในระบบ
+%  เช่น "Noto Sans Thai", "Sarabun", "Laksaman", "TH Sarabun New"
+% ===================================================================
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{thai}
+\setotherlanguage{english}
+% --- ฟอนต์ไทย (แก้ตรงนี้ได้ถ้าฟอนต์ไม่ขึ้น) ---
+\setmainfont{Laksaman}[Script=Thai]
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue}
+
+\title{\textbf{นิวรอนเทียมและการเรียนรู้ของเครื่อง}}
+\author{G \\ \small วิชา GE931-1 \quad หัวข้อ: ปัญญาประดิษฐ์}
+\date{ปีการศึกษา 2569 ภาคเรียนที่ 1}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+บทความนี้อธิบายแนวคิดพื้นฐานของ \textit{นิวรอนเทียม} (artificial neuron)
+ซึ่งเป็นหน่วยย่อยของโครงข่ายประสาทเทียม และกระบวนการ ``เรียนรู้'' ของเครื่อง
+ผ่านการปรับค่าน้ำหนักเพื่อลดค่าความสูญเสีย (loss) โดยยกตัวอย่างฟังก์ชันกระตุ้น
+แบบซิกมอยด์และฟังก์ชันสูญเสียแบบครอสเอนโทรปี เพื่อให้ผู้อ่านเห็นภาพว่า
+ปัญญาประดิษฐ์สมัยใหม่ ``เรียนจากข้อมูล'' ได้อย่างไร
+\end{abstract}
+
+\section{บทนำ}
+ปัญญาประดิษฐ์ (Artificial Intelligence) ในปัจจุบันส่วนใหญ่ขับเคลื่อนด้วย
+การเรียนรู้ของเครื่อง (Machine Learning) แทนที่จะเขียนกฎเกณฑ์ทุกข้อด้วยมือ
+เราป้อน \textbf{ข้อมูลตัวอย่าง} จำนวนมากให้ระบบ แล้วให้ระบบปรับตัวเองจนทำนายได้แม่นยำ
+หน่วยพื้นฐานที่ทำให้สิ่งนี้เกิดขึ้นได้คือ ``นิวรอนเทียม''
+
+\section{โมเดลของนิวรอน}
+นิวรอนเทียมรับค่าอินพุต $\mathbf{x}=(x_1,\dots,x_d)$ คูณด้วยน้ำหนัก
+$\mathbf{w}$ บวกค่าไบแอส $b$ แล้วส่งผ่านฟังก์ชันกระตุ้น $\sigma$
+ได้ผลลัพธ์ตามสมการที่~\eqref{eq:neuron}
+
+\begin{equation}
+\hat{y} \;=\; \sigma\!\left(\mathbf{w}^{\top}\mathbf{x}+b\right),
+\qquad
+\sigma(z)=\frac{1}{1+e^{-z}}
+\label{eq:neuron}
+\end{equation}
+
+ฟังก์ชันซิกมอยด์ $\sigma(z)$ จะบีบค่าให้อยู่ในช่วง $(0,1)$
+จึงตีความเป็น ``ความน่าจะเป็น'' ได้
+
+\section{การเรียนรู้}
+การเรียนรู้คือการหาน้ำหนัก $\mathbf{w},b$ ที่ทำให้ค่าความสูญเสียต่ำที่สุด
+สำหรับปัญหาจำแนกสองกลุ่ม นิยมใช้ฟังก์ชันสูญเสียแบบครอสเอนโทรปี
+ตามสมการที่~\eqref{eq:loss}
+
+\begin{equation}
+\mathcal{L} \;=\; -\frac{1}{N}\sum_{i=1}^{N}
+\Big[\,y_i\log \hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\,\Big]
+\label{eq:loss}
+\end{equation}
+
+จากนั้นใช้วิธี \textit{gradient descent} ปรับน้ำหนักไปในทิศที่ทำให้
+$\mathcal{L}$ ลดลงทีละน้อย จนกระทั่งโมเดลทำนายได้แม่นยำเพียงพอ
+
+\section{สรุป}
+นิวรอนเทียมเพียงหน่วยเดียวคือสมการเชิงเส้นที่ตามด้วยฟังก์ชันไม่เชิงเส้น
+แต่เมื่อนำมาต่อกันเป็นชั้น ๆ จำนวนมากก็กลายเป็นโครงข่ายประสาทเชิงลึก
+ที่สามารถเรียนรู้รูปแบบซับซ้อนจากข้อมูลได้ ซึ่งเป็นรากฐานของปัญญาประดิษฐ์ยุคใหม่
+
+\begin{thebibliography}{9}
+\bibitem{goodfellow}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\textit{Deep Learning}. MIT Press, 2016.
+
+\bibitem{nielsen}
+Michael Nielsen.
+\textit{Neural Networks and Deep Learning}.
+Determination Press, 2015.
+\end{thebibliography}
+
+\end{document}
