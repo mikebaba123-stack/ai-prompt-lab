@@ -379,6 +379,80 @@ footer b{font-weight:600}
   .rail{background:rgba(226,238,250,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
 }
 
+
+/* ═══════════ หุ่นยนต์ขยับประจำแต่ละหัวข้อ ═══════════ */
+.bot-slot{margin-left:auto;flex:0 0 auto;align-self:flex-start;line-height:0}
+.bot-slot-intro{display:flex;justify-content:flex-end;margin-top:-26px;margin-right:-6px}
+.bot{width:116px;height:116px;overflow:visible;transition:transform .3s ease}
+.bot-slot:hover .bot,.exp-head:hover .bot{transform:scale(1.07) translateY(-2px)}
+.bot-slot:hover .b-arm,.exp-head:hover .b-arm{animation-duration:1.15s}
+.bot-slot:hover .b-ant,.exp-head:hover .b-ant{animation-duration:.9s}
+.bot .b-body{animation:botBob 3.4s ease-in-out infinite}
+.bot .b-eyes{animation:botBlink 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.bot .b-ant{animation:botAntenna 1.9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.bot .b-arm{animation:botWave 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:top left}
+.bot .b-draw{stroke-dasharray:78;stroke-dashoffset:78;animation:botDraw 2.6s ease-in-out infinite}
+.bot .b-node{transform-box:fill-box;transform-origin:center;animation:botPulse 2.1s ease-in-out infinite}
+.bot .b-node:nth-of-type(2){animation-delay:.35s}
+.bot .b-node:nth-of-type(3){animation-delay:.7s}
+.bot .b-bar{transform-box:fill-box;transform-origin:bottom center;animation:botBars 1.8s ease-in-out infinite}
+.bot .b-bar:nth-of-type(2){animation-delay:.22s}
+.bot .b-bar:nth-of-type(3){animation-delay:.44s}
+.bot .b-caret{animation:botCaret 1.05s steps(1,end) infinite}
+.bot .b-type{transform-box:fill-box;transform-origin:left center;animation:botType 2.8s ease-in-out infinite}
+.bot .b-page{transform-box:fill-box;transform-origin:left center;animation:botFlip 3.6s ease-in-out infinite}
+.bot .b-spark{transform-box:fill-box;transform-origin:center;animation:botSpark 2.4s ease-in-out infinite}
+.bot .b-dot{animation:botTrace 2.6s ease-in-out infinite}
+
+@keyframes botBob{50%{transform:translateY(-4px)}}
+@keyframes botBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+@keyframes botAntenna{50%{opacity:.4;transform:scale(1.3)}}
+@keyframes botWave{0%,58%,100%{transform:rotate(0)}18%{transform:rotate(-27deg)}38%{transform:rotate(-7deg)}}
+@keyframes botDraw{0%{stroke-dashoffset:78}55%,100%{stroke-dashoffset:0}}
+@keyframes botPulse{0%,100%{opacity:.4;transform:scale(.86)}45%{opacity:1;transform:scale(1.08)}}
+@keyframes botBars{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+@keyframes botCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes botType{0%{transform:scaleX(0)}70%,100%{transform:scaleX(1)}}
+@keyframes botFlip{0%,100%{transform:skewY(0deg) scaleX(1)}50%{transform:skewY(-7deg) scaleX(.82)}}
+@keyframes botSpark{0%,100%{opacity:.3;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(35deg)}}
+@keyframes botTrace{0%{offset-distance:0%}100%{offset-distance:100%}}
+@keyframes botWalk{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
+
+/* หุ่นยนต์ผู้ช่วยลอยมุมจอ */
+.bot-buddy{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:flex-end;gap:9px;
+  opacity:0;transform:translateY(14px) scale(.9);
+  transition:opacity .5s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+.bot-buddy.ready{opacity:1;transform:none}
+.bb-bubble{max-width:174px;font-size:12.5px;line-height:1.45;color:var(--ink);
+  background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(233,241,250,.78));
+  border:1px solid var(--glass-line);border-radius:14px 14px 4px 14px;padding:8px 12px;
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 8px 22px rgba(20,45,70,.14);opacity:0;transform:translateY(6px) scale(.96);
+  transform-origin:bottom right;transition:opacity .28s ease,transform .28s ease;pointer-events:none}
+.bot-buddy.talk .bb-bubble{opacity:1;transform:none}
+.bb-bubble b{font-weight:600}
+.bb-btn{width:72px;height:72px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(233,241,250,.6));
+  border:1px solid var(--glass-line);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 10px 26px rgba(20,45,70,.16),inset 0 0 18px rgba(255,255,255,.4);
+  transition:transform .25s ease,box-shadow .25s ease}
+.bb-btn:hover{transform:translateY(-3px) scale(1.04)}
+.bb-btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.bb-btn .bot{width:52px;height:52px;animation:botWalk 2.8s ease-in-out infinite}
+@media (max-width:820px){
+  .bot-slot .bot{width:82px;height:82px}
+  .bot-buddy{right:12px;bottom:12px}
+  .bb-btn{width:58px;height:58px}
+  .bb-btn .bot{width:42px;height:42px}
+  .bb-bubble{max-width:140px;font-size:11.5px}
+}
+@media (max-width:520px){.bb-bubble{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .bot *,.bb-btn .bot{animation:none!important}
+  .bot .b-draw{stroke-dashoffset:0}
+}
+
 /* ---------- ส่วนที่เพิ่ม: แกลเลอรีภาพ AI + สะพานเชื่อมหน้า Nival ---------- */
 .aigrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
 .aigrid figure{margin:0}
@@ -1296,6 +1370,11 @@ AI is a technology. It is useful.
 
     </main>
   </div>
+
+  <div class="bot-buddy" id="botBuddy">
+    <div class="bb-bubble" id="bbBubble"></div>
+    <button class="bb-btn" id="bbBtn" type="button" aria-label="หุ่นยนต์ผู้ช่วย — กดเพื่อดูว่าหัวข้อนี้เกี่ยวกับอะไร"></button>
+  </div>
 </div>
 
 <script>
@@ -1441,6 +1520,133 @@ AI is a technology. It is useful.
     document.getElementById('prev').addEventListener('click',function(){go(i-1);});
     document.getElementById('next').addEventListener('click',function(){go(i+1);});
     go(0);
+  })();
+
+  /* ---------- หุ่นยนต์ขยับประจำหัวข้อ + ผู้ช่วยลอยมุมจอ ---------- */
+  (function(){
+    var NAVY='#06192F', ICE='#E9F1FA', BLUE='#1169DC', SKY='#5AA0F0', MIST='#B2CDE9';
+
+    /* อุปกรณ์ในมือหุ่นยนต์ เปลี่ยนตามหัวข้อ */
+    var PROPS={
+      image:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+            '<path d="M82 50 92 34 100 50Z" fill="'+MIST+'"/>'+
+            '<circle cx="106" cy="32" r="4" fill="'+SKY+'"/>'+
+            '<path class="b-spark" d="M112 20v7M108.5 23.5h7" stroke="'+BLUE+'" stroke-width="2" stroke-linecap="round"/>',
+      graph:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+            '<path class="b-draw" d="M82 48 90 40 98 44 106 30 112 34" fill="none" stroke="'+BLUE+'" stroke-width="2.4" stroke-linecap="round"/>'+
+            '<circle class="b-dot" r="2.6" fill="'+NAVY+'" style="offset-path:path(\'M82 48 90 40 98 44 106 30 112 34\')"/>',
+      diagram:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+            '<path d="M88 31v6M96 40h6" stroke="'+MIST+'" stroke-width="1.6"/>'+
+            '<rect class="b-node" x="82" y="25" width="13" height="7" rx="3" fill="'+BLUE+'"/>'+
+            '<rect class="b-node" x="84" y="36" width="13" height="7" rx="3" fill="'+BLUE+'"/>'+
+            '<rect class="b-node" x="99" y="44" width="13" height="7" rx="3" fill="'+BLUE+'"/>',
+      latex:'<g class="b-page"><rect x="78" y="22" width="38" height="32" rx="7" fill="#fff" stroke="'+MIST+'"/>'+
+            '<rect x="83" y="28" width="26" height="2.4" rx="1.2" fill="'+MIST+'"/>'+
+            '<rect x="83" y="34" width="20" height="2.4" rx="1.2" fill="'+MIST+'"/>'+
+            '<rect x="83" y="41" width="28" height="6" rx="3" fill="'+BLUE+'" opacity=".85"/>'+
+            '<rect x="83" y="50" width="16" height="2.4" rx="1.2" fill="'+MIST+'"/></g>',
+      slides:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+            '<rect x="83" y="26" width="18" height="2.6" rx="1.3" fill="'+MIST+'"/>'+
+            '<rect class="b-bar" x="84" y="34" width="6" height="14" rx="2" fill="'+BLUE+'"/>'+
+            '<rect class="b-bar" x="93" y="34" width="6" height="14" rx="2" fill="'+SKY+'"/>'+
+            '<rect class="b-bar" x="102" y="34" width="6" height="14" rx="2" fill="'+NAVY+'"/>',
+      web:'<rect x="78" y="22" width="38" height="32" rx="7" fill="#fff" stroke="'+MIST+'"/>'+
+            '<path d="M78 31h38" stroke="'+MIST+'" stroke-width="1.4"/>'+
+            '<circle cx="84" cy="26.5" r="1.7" fill="'+BLUE+'"/><circle cx="90" cy="26.5" r="1.7" fill="'+SKY+'"/><circle cx="96" cy="26.5" r="1.7" fill="'+MIST+'"/>'+
+            '<rect class="b-type" x="83" y="37" width="24" height="3" rx="1.5" fill="'+BLUE+'"/>'+
+            '<rect x="83" y="44" width="14" height="3" rx="1.5" fill="'+MIST+'"/>'+
+            '<rect class="b-caret" x="100" y="43" width="2.4" height="5" fill="'+NAVY+'"/>',
+      star:'<path class="b-spark" d="M97 24l3.2 7.4 7.8.7-5.9 5.2 1.7 7.7-6.8-4-6.8 4 1.7-7.7-5.9-5.2 7.8-.7z" fill="'+SKY+'"/>',
+      files:'<rect x="78" y="26" width="38" height="26" rx="6" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+            '<path class="b-draw" d="M97 30v12M91 37l6 6 6-6" fill="none" stroke="'+BLUE+'" stroke-width="2.4" stroke-linecap="round"/>'
+    };
+
+    function bot(kind,box){
+      return '<svg class="bot" viewBox="'+(box||'0 0 120 120')+'" aria-hidden="true" focusable="false">'+
+        '<ellipse cx="50" cy="112" rx="26" ry="4" fill="'+NAVY+'" opacity=".1"/>'+
+        '<g class="b-body">'+
+          '<path d="M44 30v-12" stroke="'+NAVY+'" stroke-width="3" stroke-linecap="round"/>'+
+          '<circle class="b-ant" cx="44" cy="15" r="4.4" fill="'+SKY+'"/>'+
+          '<rect x="16" y="70" width="9" height="23" rx="4.5" fill="'+NAVY+'"/>'+
+          '<rect class="b-arm" x="72" y="69" width="9" height="23" rx="4.5" fill="'+NAVY+'"/>'+
+          '<rect x="36" y="95" width="9" height="13" rx="4" fill="'+NAVY+'"/>'+
+          '<rect x="54" y="95" width="9" height="13" rx="4" fill="'+NAVY+'"/>'+
+          '<rect x="27" y="66" width="46" height="32" rx="12" fill="'+NAVY+'"/>'+
+          '<rect x="41" y="75" width="18" height="6" rx="3" fill="'+SKY+'" opacity=".9"/>'+
+          '<rect x="24" y="29" width="52" height="36" rx="13" fill="'+NAVY+'"/>'+
+          '<rect x="31" y="37" width="38" height="21" rx="9" fill="'+ICE+'"/>'+
+          '<g class="b-eyes"><circle cx="42" cy="46" r="3.5" fill="'+BLUE+'"/><circle cx="58" cy="46" r="3.5" fill="'+BLUE+'"/></g>'+
+          '<rect x="45" y="53" width="10" height="2.2" rx="1.1" fill="'+MIST+'"/>'+
+          (PROPS[kind]||'')+
+        '</g></svg>';
+    }
+
+    /* หัวข้อ → หุ่นยนต์ + คำพูด */
+    var TOPICS={
+      'intro':   {k:'star',   t:'<b>แนวคิดของงาน</b> — พรอมป์ที่ดี = ผลลัพธ์ที่ดี'},
+      'exp-01':  {k:'image',  t:'<b>แง่ที่ 1 · รูปจาก AI</b> — บอกประธาน สไตล์ โทนสี และสิ่งที่ไม่ต้องการ'},
+      'exp-02':  {k:'graph',  t:'<b>แง่ที่ 2 · Desmos</b> — เปลี่ยนแนวคิดให้เป็นสมการที่วาดได้'},
+      'exp-03':  {k:'diagram',t:'<b>แง่ที่ 3 · Mermaid</b> — บอกลำดับ เงื่อนไข และลูปให้ชัด'},
+      'exp-04':  {k:'latex',  t:'<b>แง่ที่ 4 · LaTeX</b> — ระบุโครงสร้างและ engine ที่จะคอมไพล์'},
+      'exp-05':  {k:'slides', t:'<b>แง่ที่ 5 · สไลด์</b> — ใครฟัง ยาวแค่ไหน แต่ละสไลด์มีอะไร'},
+      'exp-06':  {k:'web',    t:'<b>แง่ที่ 6 · เว็บไซต์</b> — เนื้อหา + โครง + ข้อจำกัด + ปลายทาง'},
+      'nival':   {k:'star',   t:'<b>Nival</b> — เลื่อนเมาส์บนแอนดรอยด์เพื่อดู spotlight reveal'},
+      'reflection':{k:'star', t:'<b>สรุป</b> — 5 หลักการที่ได้จากทั้ง 6 แง่'},
+      'files':   {k:'files',  t:'<b>ไฟล์ผลงาน</b> — ทุกแง่ดาวน์โหลดได้จากที่นี่'},
+      'deploy':  {k:'web',    t:'<b>Deploy</b> — นำขึ้น GitHub Pages แล้วส่งลิงก์'}
+    };
+
+    /* หุ่นยนต์ประจำหัวข้อในหัวเรื่องแต่ละแง่ */
+    Object.keys(TOPICS).forEach(function(id){
+      var sec=document.getElementById(id);
+      if(!sec) return;
+      var head=sec.querySelector('.exp-head');
+      var slot=document.createElement('div');
+      slot.className='bot-slot';
+      slot.innerHTML=bot(TOPICS[id].k);
+      if(head){ head.appendChild(slot); return; }
+      var panel=sec.querySelector('.panel');          /* กล่องแนวคิดของหัวข้อ 00 */
+      if(panel){ slot.classList.add('bot-slot-intro'); panel.appendChild(slot); }
+    });
+
+    /* ผู้ช่วยลอยมุมจอ */
+    var buddy=document.getElementById('botBuddy');
+    var btn=document.getElementById('bbBtn');
+    var bubble=document.getElementById('bbBubble');
+    if(!buddy||!btn||!bubble) return;
+
+    var cur='intro', hideTimer=null;
+    function show(){
+      buddy.classList.add('talk');
+      clearTimeout(hideTimer);
+      hideTimer=setTimeout(function(){buddy.classList.remove('talk');},4600);
+    }
+    function setTopic(id,speak){
+      var d=TOPICS[id]; if(!d||id===cur) return;
+      cur=id;
+      btn.innerHTML=bot(d.k,'12 4 108 114');
+      bubble.innerHTML=d.t;
+      btn.setAttribute('aria-label','หุ่นยนต์ผู้ช่วย — '+bubble.textContent);
+      if(speak) show();
+    }
+    btn.innerHTML=bot(TOPICS.intro.k,'12 4 108 114');
+    bubble.innerHTML=TOPICS.intro.t;
+    setTimeout(function(){buddy.classList.add('ready');},900);
+
+    btn.addEventListener('click',function(){
+      show();
+      var arm=btn.querySelector('.b-arm');   /* เริ่มโบกมือใหม่ */
+      if(arm){arm.style.animation='none';void arm.offsetWidth;arm.style.animation='';}
+    });
+
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting) setTopic(e.target.id,true); });
+      },{rootMargin:'-25% 0px -65% 0px',threshold:0});
+      Object.keys(TOPICS).forEach(function(id){
+        var el=document.getElementById(id); if(el) io.observe(el);
+      });
+    }
   })();
 
   /* ---------- scroll spy ---------- */

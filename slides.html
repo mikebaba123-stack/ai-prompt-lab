@@ -97,6 +97,44 @@ a.lnk{color:var(--petrol);font-weight:500}
 .sfoot{position:absolute;left:46px;right:46px;bottom:16px;display:flex;justify-content:space-between;
   align-items:center;font-family:var(--font-mono);font-size:11px;color:#9a9ca4;border-top:1px solid var(--line);padding-top:8px}
 
+
+/* ───────── หุ่นยนต์ประจำหัวข้อในสไลด์ ───────── */
+.bot-slot{margin-left:auto;flex:0 0 auto;line-height:0}
+.bot{width:clamp(48px,5.4vw,70px);height:clamp(48px,5.4vw,70px);overflow:visible}
+.shead .bot-slot{margin-right:-4px;margin-top:-8px}
+.cover-bot{position:absolute;right:42px;top:58px;line-height:0;pointer-events:none}
+.cover-bot .bot{width:clamp(88px,11vw,142px);height:clamp(88px,11vw,142px)}
+.bot .b-body{animation:botBob 3.4s ease-in-out infinite}
+.bot .b-eyes{animation:botBlink 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.bot .b-ant{animation:botAntenna 1.9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.bot .b-arm{animation:botWave 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:top left}
+.bot .b-draw{stroke-dasharray:78;stroke-dashoffset:78;animation:botDraw 2.6s ease-in-out infinite}
+.bot .b-node{transform-box:fill-box;transform-origin:center;animation:botPulse 2.1s ease-in-out infinite}
+.bot .b-node:nth-of-type(2){animation-delay:.35s}
+.bot .b-node:nth-of-type(3){animation-delay:.7s}
+.bot .b-bar{transform-box:fill-box;transform-origin:bottom center;animation:botBars 1.8s ease-in-out infinite}
+.bot .b-bar:nth-of-type(2){animation-delay:.22s}
+.bot .b-bar:nth-of-type(3){animation-delay:.44s}
+.bot .b-caret{animation:botCaret 1.05s steps(1,end) infinite}
+.bot .b-type{transform-box:fill-box;transform-origin:left center;animation:botType 2.8s ease-in-out infinite}
+.bot .b-page{transform-box:fill-box;transform-origin:left center;animation:botFlip 3.6s ease-in-out infinite}
+.bot .b-spark{transform-box:fill-box;transform-origin:center;animation:botSpark 2.4s ease-in-out infinite}
+.bot .b-dot{animation:botTrace 2.6s ease-in-out infinite}
+@keyframes botBob{50%{transform:translateY(-4px)}}
+@keyframes botBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+@keyframes botAntenna{50%{opacity:.4;transform:scale(1.3)}}
+@keyframes botWave{0%,58%,100%{transform:rotate(0)}18%{transform:rotate(-27deg)}38%{transform:rotate(-7deg)}}
+@keyframes botDraw{0%{stroke-dashoffset:78}55%,100%{stroke-dashoffset:0}}
+@keyframes botPulse{0%,100%{opacity:.4;transform:scale(.86)}45%{opacity:1;transform:scale(1.08)}}
+@keyframes botBars{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+@keyframes botCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes botType{0%{transform:scaleX(0)}70%,100%{transform:scaleX(1)}}
+@keyframes botFlip{0%,100%{transform:skewY(0deg) scaleX(1)}50%{transform:skewY(-7deg) scaleX(.82)}}
+@keyframes botSpark{0%,100%{opacity:.3;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(35deg)}}
+@keyframes botTrace{0%{offset-distance:0%}100%{offset-distance:100%}}
+@media (max-width:760px){.cover-bot{right:16px;top:auto;bottom:18px}}
+@media print{.bot *{animation:none!important}.bot .b-draw{stroke-dashoffset:0}}
+
 /* cover */
 .cover{background:radial-gradient(circle at 58% 14%,rgba(250,253,255,.95),transparent 32%),
   linear-gradient(160deg,#F3F9FF 0%,#E4EEF8 55%,#D6E6F5 100%)}
@@ -164,6 +202,66 @@ window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['$$','$$']]},svg:{
 <script>
 (function(){
 "use strict";
+
+
+/* ---------- หุ่นยนต์ประจำหัวข้อ (ชุดเดียวกับหน้าเว็บหลัก) ---------- */
+var NAVY='#06192F', ICE='#E9F1FA', BLUE='#1169DC', SKY='#5AA0F0', MIST='#B2CDE9';
+
+/* อุปกรณ์ในมือหุ่นยนต์ เปลี่ยนตามหัวข้อ */
+var PROPS={
+  image:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+        '<path d="M82 50 92 34 100 50Z" fill="'+MIST+'"/>'+
+        '<circle cx="106" cy="32" r="4" fill="'+SKY+'"/>'+
+        '<path class="b-spark" d="M112 20v7M108.5 23.5h7" stroke="'+BLUE+'" stroke-width="2" stroke-linecap="round"/>',
+  graph:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+        '<path class="b-draw" d="M82 48 90 40 98 44 106 30 112 34" fill="none" stroke="'+BLUE+'" stroke-width="2.4" stroke-linecap="round"/>'+
+        '<circle class="b-dot" r="2.6" fill="'+NAVY+'" style="offset-path:path(\'M82 48 90 40 98 44 106 30 112 34\')"/>',
+  diagram:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+        '<path d="M88 31v6M96 40h6" stroke="'+MIST+'" stroke-width="1.6"/>'+
+        '<rect class="b-node" x="82" y="25" width="13" height="7" rx="3" fill="'+BLUE+'"/>'+
+        '<rect class="b-node" x="84" y="36" width="13" height="7" rx="3" fill="'+BLUE+'"/>'+
+        '<rect class="b-node" x="99" y="44" width="13" height="7" rx="3" fill="'+BLUE+'"/>',
+  latex:'<g class="b-page"><rect x="78" y="22" width="38" height="32" rx="7" fill="#fff" stroke="'+MIST+'"/>'+
+        '<rect x="83" y="28" width="26" height="2.4" rx="1.2" fill="'+MIST+'"/>'+
+        '<rect x="83" y="34" width="20" height="2.4" rx="1.2" fill="'+MIST+'"/>'+
+        '<rect x="83" y="41" width="28" height="6" rx="3" fill="'+BLUE+'" opacity=".85"/>'+
+        '<rect x="83" y="50" width="16" height="2.4" rx="1.2" fill="'+MIST+'"/></g>',
+  slides:'<rect x="78" y="22" width="38" height="32" rx="7" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+        '<rect x="83" y="26" width="18" height="2.6" rx="1.3" fill="'+MIST+'"/>'+
+        '<rect class="b-bar" x="84" y="34" width="6" height="14" rx="2" fill="'+BLUE+'"/>'+
+        '<rect class="b-bar" x="93" y="34" width="6" height="14" rx="2" fill="'+SKY+'"/>'+
+        '<rect class="b-bar" x="102" y="34" width="6" height="14" rx="2" fill="'+NAVY+'"/>',
+  web:'<rect x="78" y="22" width="38" height="32" rx="7" fill="#fff" stroke="'+MIST+'"/>'+
+        '<path d="M78 31h38" stroke="'+MIST+'" stroke-width="1.4"/>'+
+        '<circle cx="84" cy="26.5" r="1.7" fill="'+BLUE+'"/><circle cx="90" cy="26.5" r="1.7" fill="'+SKY+'"/><circle cx="96" cy="26.5" r="1.7" fill="'+MIST+'"/>'+
+        '<rect class="b-type" x="83" y="37" width="24" height="3" rx="1.5" fill="'+BLUE+'"/>'+
+        '<rect x="83" y="44" width="14" height="3" rx="1.5" fill="'+MIST+'"/>'+
+        '<rect class="b-caret" x="100" y="43" width="2.4" height="5" fill="'+NAVY+'"/>',
+  star:'<path class="b-spark" d="M97 24l3.2 7.4 7.8.7-5.9 5.2 1.7 7.7-6.8-4-6.8 4 1.7-7.7-5.9-5.2 7.8-.7z" fill="'+SKY+'"/>',
+  files:'<rect x="78" y="26" width="38" height="26" rx="6" fill="'+ICE+'" stroke="'+MIST+'"/>'+
+        '<path class="b-draw" d="M97 30v12M91 37l6 6 6-6" fill="none" stroke="'+BLUE+'" stroke-width="2.4" stroke-linecap="round"/>'
+};
+
+function bot(kind,box){
+  return '<svg class="bot" viewBox="'+(box||'0 0 120 120')+'" aria-hidden="true" focusable="false">'+
+    '<ellipse cx="50" cy="112" rx="26" ry="4" fill="'+NAVY+'" opacity=".1"/>'+
+    '<g class="b-body">'+
+      '<path d="M44 30v-12" stroke="'+NAVY+'" stroke-width="3" stroke-linecap="round"/>'+
+      '<circle class="b-ant" cx="44" cy="15" r="4.4" fill="'+SKY+'"/>'+
+      '<rect x="16" y="70" width="9" height="23" rx="4.5" fill="'+NAVY+'"/>'+
+      '<rect class="b-arm" x="72" y="69" width="9" height="23" rx="4.5" fill="'+NAVY+'"/>'+
+      '<rect x="36" y="95" width="9" height="13" rx="4" fill="'+NAVY+'"/>'+
+      '<rect x="54" y="95" width="9" height="13" rx="4" fill="'+NAVY+'"/>'+
+      '<rect x="27" y="66" width="46" height="32" rx="12" fill="'+NAVY+'"/>'+
+      '<rect x="41" y="75" width="18" height="6" rx="3" fill="'+SKY+'" opacity=".9"/>'+
+      '<rect x="24" y="29" width="52" height="36" rx="13" fill="'+NAVY+'"/>'+
+      '<rect x="31" y="37" width="38" height="21" rx="9" fill="'+ICE+'"/>'+
+      '<g class="b-eyes"><circle cx="42" cy="46" r="3.5" fill="'+BLUE+'"/><circle cx="58" cy="46" r="3.5" fill="'+BLUE+'"/></g>'+
+      '<rect x="45" y="53" width="10" height="2.2" rx="1.1" fill="'+MIST+'"/>'+
+      (PROPS[kind]||'')+
+    '</g></svg>';
+}
+var BOT_KIND={1:'image',2:'graph',3:'diagram',4:'latex',5:'slides',6:'web'};
 
 var ASPECTS=[
  {n:1,tag:"แง่ที่ 1 · Text-to-Image",name:"สร้างรูปด้วย AI",tool:"Canva / เครื่องมือสร้างภาพ AI"},
@@ -376,7 +474,9 @@ list.push(el('<section class="slide cover"><div class="inner">'+
   '<div class="g5"><div class="n">ขั้น 3</div><div class="l">พรอมป์ใหม่<br>few-shot</div></div>'+
   '<div class="g5"><div class="n">ขั้น 4</div><div class="l">ผลลัพธ์<br>ครั้งที่ 2</div></div>'+
   '<div class="g5"><div class="n">ขั้น 5</div><div class="l">บทสะท้อน<br>การเรียนรู้</div></div>'+
-  '</div></div></section>'));
+  '</div>'+
+  '<div class="cover-bot">'+bot('star')+'</div>'+
+  '</div></section>'));
 
 var pageNo=0;
 ASPECTS.forEach(function(a){
@@ -385,7 +485,8 @@ ASPECTS.forEach(function(a){
     var st=STEP[si];
     var sec=el('<section class="slide"><div class="inner">'+
       '<div class="shead"><span class="asp">'+a.tag+' · '+a.name+'</span>'+
-      '<span class="stepchip '+st.k+'">'+st.l+'</span></div>'+
+      '<span class="stepchip '+st.k+'">'+st.l+'</span>'+
+      '<div class="bot-slot">'+bot(BOT_KIND[a.n])+'</div></div>'+
       '<h2 class="st">'+s.h+'</h2>'+
       (s.sub?'<p class="sub">'+s.sub+'</p>':'')+
       '<div class="body'+(s.body.indexOf('class="two"')>=0||s.body.indexOf('class="grow"')>=0||s.body.indexOf('body col')>=0?' col':'')+'">'+s.body+'</div>'+
@@ -411,6 +512,7 @@ list.push(el('<section class="slide"><div class="inner">'+
   '<div class="note"><b>ข้อสรุป:</b> เขียนพรอมป์เหมือนสั่งงานเพื่อนร่วมทีม — ยิ่งสื่อสารชัด ผลลัพธ์ยิ่งใกล้สิ่งที่คิดไว้ และประหยัดรอบการแก้</div>'+
   '<div class="note p"><b>ผลงานต่อยอด:</b> หน้า <b>Nival — Cyberspace Identity</b> นำภาพ AI จากแง่ที่ 1 มาทำเป็นเว็บไซต์จริงตามแง่ที่ 6 (spotlight reveal ตามเคอร์เซอร์) → <span style="font-family:var(--font-mono);font-size:12px">/ai-prompt-lab/nival/</span></div></div>'+
   '<div class="sfoot"><span>ห้องทดลองพรอมป์ AI · GE931-1</span><span>สรุป</span></div>'+
+  '<div class="cover-bot">'+bot('star')+'</div>'+
   '</div></section>'));
 
 list.forEach(function(s){stage.appendChild(s);});
