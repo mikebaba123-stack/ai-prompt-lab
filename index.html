@@ -16,40 +16,51 @@ img{max-width:100%}
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
 <style>
 :root{
-  --bg:#F1F0EB; --panel:#FBFAF7; --panel-2:#FFFFFF;
-  --ink:#191B21; --muted:#61646E; --faint:#8B8E97;
-  --line:#DEDCD4; --line-strong:#CBC8BE;
-  --accent:#D9480F; --accent-ink:#B23A0C; --accent-soft:#F8E4D8;
-  --petrol:#1E5566; --petrol-soft:#DBE9EE;
-  --code-bg:#14161D; --code-ink:#E9E9EC; --code-dim:#8A8FA0; --code-line:#272A34;
-  --out-bg:#FDFDFB; --out-ink:#1A1C22; --out-muted:#5D6069; --out-line:#E6E4DC;
-  --shadow:0 1px 2px rgba(20,20,25,.04), 0 8px 28px -14px rgba(20,20,25,.22);
-  --radius:14px;
-  --font-display:'Chakra Petch','IBM Plex Sans Thai',system-ui,sans-serif;
-  --font-body:'IBM Plex Sans Thai','Chakra Petch',system-ui,sans-serif;
+  /* ธีม Nival — ice / glass */
+  --bg:#D6E6F5; --panel:rgba(255,255,255,.58); --panel-2:rgba(255,255,255,.44);
+  --ink:#06192F; --muted:#47596E; --faint:#77899C;
+  --line:rgba(6,25,47,.10); --line-strong:rgba(6,25,47,.18);
+  --accent:#1169DC; --accent-ink:#0B4DA8; --accent-soft:#E3EEFB;
+  --petrol:#0B3A63; --petrol-soft:#DCE9F8;
+  --code-bg:#06192F; --code-ink:#E7F0F8; --code-dim:#8AA3BD; --code-line:rgba(255,255,255,.13);
+  --out-bg:rgba(255,255,255,.62); --out-ink:#06192F; --out-muted:#4D6076; --out-line:rgba(255,255,255,.6);
+  --glass:linear-gradient(135deg,rgba(255,255,255,.62),rgba(239,247,253,.44));
+  --glass-line:rgba(255,255,255,.55);
+  --shadow:inset 0 0 22px rgba(255,255,255,.32), 0 7px 26px rgba(65,94,123,.075);
+  --radius:24px;
+  --font-display:'Inter','IBM Plex Sans Thai',system-ui,sans-serif;
+  --font-body:'Inter','IBM Plex Sans Thai',system-ui,sans-serif;
   --font-mono:'JetBrains Mono','IBM Plex Sans Thai',ui-monospace,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0F1117; --panel:#161A23; --panel-2:#1B2029;
-    --ink:#ECEDF0; --muted:#9EA2AE; --faint:#71757F;
-    --line:#262B35; --line-strong:#353B48;
-    --accent:#FF6B35; --accent-ink:#FF8355; --accent-soft:#39241A;
-    --petrol:#83C0D2; --petrol-soft:#123039;
-    --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 34px -16px rgba(0,0,0,.7);
+    --bg:#04101F; --panel:rgba(255,255,255,.065); --panel-2:rgba(255,255,255,.045);
+    --ink:#E7F0F8; --muted:#A8BDD2; --faint:#7D93AA;
+    --line:rgba(255,255,255,.12); --line-strong:rgba(255,255,255,.22);
+    --accent:#4D9BFF; --accent-ink:#8CC0FF; --accent-soft:rgba(77,155,255,.15);
+    --petrol:#8FC4EE; --petrol-soft:rgba(143,196,238,.15);
+    --code-bg:#02090F; --code-ink:#E7F0F8; --code-dim:#7F97B1; --code-line:rgba(255,255,255,.12);
+    --out-bg:rgba(255,255,255,.055); --out-ink:#E7F0F8; --out-muted:#A8BDD2; --out-line:rgba(255,255,255,.13);
+    --glass:linear-gradient(135deg,rgba(255,255,255,.075),rgba(140,180,220,.05));
+    --glass-line:rgba(255,255,255,.14);
+    --shadow:inset 0 0 22px rgba(255,255,255,.05), 0 12px 34px -16px rgba(0,0,0,.75);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0F1117; --panel:#161A23; --panel-2:#1B2029;
-  --ink:#ECEDF0; --muted:#9EA2AE; --faint:#71757F;
-  --line:#262B35; --line-strong:#353B48;
-  --accent:#FF6B35; --accent-ink:#FF8355; --accent-soft:#39241A;
-  --petrol:#83C0D2; --petrol-soft:#123039;
-  --shadow:0 1px 2px rgba(0,0,0,.3), 0 12px 34px -16px rgba(0,0,0,.7);
+    --bg:#04101F; --panel:rgba(255,255,255,.065); --panel-2:rgba(255,255,255,.045);
+    --ink:#E7F0F8; --muted:#A8BDD2; --faint:#7D93AA;
+    --line:rgba(255,255,255,.12); --line-strong:rgba(255,255,255,.22);
+    --accent:#4D9BFF; --accent-ink:#8CC0FF; --accent-soft:rgba(77,155,255,.15);
+    --petrol:#8FC4EE; --petrol-soft:rgba(143,196,238,.15);
+    --code-bg:#02090F; --code-ink:#E7F0F8; --code-dim:#7F97B1; --code-line:rgba(255,255,255,.12);
+    --out-bg:rgba(255,255,255,.055); --out-ink:#E7F0F8; --out-muted:#A8BDD2; --out-line:rgba(255,255,255,.13);
+    --glass:linear-gradient(135deg,rgba(255,255,255,.075),rgba(140,180,220,.05));
+    --glass-line:rgba(255,255,255,.14);
+    --shadow:inset 0 0 22px rgba(255,255,255,.05), 0 12px 34px -16px rgba(0,0,0,.75);
 }
 
 *{box-sizing:border-box}
@@ -287,6 +298,128 @@ footer b{color:var(--muted);font-family:var(--font-display)}
   .steps{padding-left:24px}
   .step > .badge{left:-36px}
 }
+
+/* ═══════════ ธีม Nival — พื้นฟ้าน้ำแข็ง + การ์ดแก้ว (glassmorphism) ═══════════ */
+body{
+  background:
+    radial-gradient(circle at 44% 14%,#E8F3FB 0 6%,#D9E9F6 28%,#D6E6F5 64%,#D4E5F4 100%) fixed,
+    #D6E6F5;
+}
+:root[data-theme="dark"] body,
+body.is-dark{background:radial-gradient(circle at 46% 12%,#0B2745 0 8%,#071B32 42%,#04101F 100%) fixed,#04101F}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) body{
+    background:radial-gradient(circle at 46% 12%,#0B2745 0 8%,#071B32 42%,#04101F 100%) fixed,#04101F}
+}
+/* เกรนละเอียดแบบเดียวกับหน้า Nival */
+body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.13;
+  mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+  background-size:180px 180px}
+.page{position:relative;z-index:1}
+
+/* พื้นผิวแก้วทั้งหมด */
+.panel,.output,.reflect,.pcard,.def,.fcard,.dstep,.deck,.exprs{
+  background:var(--glass);
+  border-color:var(--glass-line);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:var(--shadow)}
+.panel,.output,.reflect,.deck{border-radius:20px}
+.pcard,.def,.fcard,.dstep{border-radius:18px}
+.output .obody{background:transparent}
+
+/* ชิป / ปุ่ม แบบ glass pill ของ Nival */
+.chip,.tbtn,.toollink,.btn,.nav{
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.chip,.tbtn{background:rgba(245,249,255,.46);border-color:rgba(255,255,255,.62);
+  box-shadow:0 0 12px rgba(255,255,255,.5),inset 0 0 12px rgba(255,255,255,.4)}
+:root[data-theme="dark"] .chip,:root[data-theme="dark"] .tbtn{background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.16);box-shadow:none}
+.chip.kwchip{background:linear-gradient(135deg,#0B2B50,#06192F);border-color:transparent;
+  color:#EDF6FD;box-shadow:0 5px 14px rgba(8,26,46,.16)}
+.chip.kwchip b{color:#fff}
+.btn{border-radius:12px}
+.btn.pri{background:linear-gradient(135deg,#0B2B50,#06192F);border-color:transparent;color:#fff;
+  box-shadow:0 5px 14px rgba(8,26,46,.14)}
+.btn.pri:hover{color:#fff;filter:brightness(1.12)}
+.toollink{border-radius:22px;padding:6px 14px;background:rgba(245,249,255,.4);
+  border-color:rgba(255,255,255,.6);color:var(--petrol)}
+
+/* ตัวอักษรแบบ Nival: Inter น้ำหนักปกติ ระยะตัวอักษรชิด */
+.hero h1{font-weight:400;letter-spacing:-.022em;line-height:1.04}
+.hero h1 .kw{color:var(--accent)}
+.brand{font-weight:600;letter-spacing:-.01em}
+.brand .dot{border-radius:4px;background:var(--ink);box-shadow:0 0 0 4px rgba(255,255,255,.55)}
+.eyebrow{font-weight:500;letter-spacing:.2em}
+.exp-head h2,.prose h2{font-weight:600;letter-spacing:-.018em}
+.exp-num{font-weight:600;letter-spacing:-.03em}
+.step .slabel,.def .t,.reflect .col .ch,.dstep .dt,.pcard .pt,.fcard .ft{font-weight:600}
+footer b{font-weight:600}
+
+/* วงกลม/ป้ายเน้น → กรมท่า */
+.mk{background:var(--ink);color:#EDF6FD}
+.mk.a{background:var(--accent)}
+.mk.p{background:var(--petrol)}
+.step > .badge{background:var(--ink);color:#EDF6FD;box-shadow:0 0 0 4px var(--bg)}
+.step.z > .badge{background:var(--accent)}
+.step.f > .badge{background:var(--petrol)}
+.flag{border-color:rgba(17,105,220,.18)}
+.exprs{border-style:dashed}
+
+/* เด็คสไลด์ในหน้า (แง่ที่ 5) */
+.deck .screen{background:linear-gradient(135deg,#fff,#E8F2FB)}
+.slide h4,.slide .cover .big{color:#06192F;font-weight:600}
+.slide ul{color:#3B5068}
+.slide .note{color:#6D8299;border-top-color:rgba(6,25,47,.14)}
+.deckbar .dots button{background:#B9CFE4}
+.output .otab .src{color:#8BA0B6}
+
+/* แถบสารบัญบนมือถือ */
+@media (max-width:820px){
+  .rail{background:rgba(226,238,250,.86);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+}
+
+/* ---------- ส่วนที่เพิ่ม: แกลเลอรีภาพ AI + สะพานเชื่อมหน้า Nival ---------- */
+.aigrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.aigrid figure{margin:0}
+.aigrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;
+  border:1px solid var(--out-line);background:#e9f1f8}
+.aigrid figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);
+  margin-top:5px;text-align:center}
+@media (max-width:660px){.aigrid{grid-template-columns:repeat(3,1fr)}}
+.nival{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;
+  padding:26px 28px;border-radius:var(--radius);border:1px solid rgba(30,85,102,.24);
+  background:linear-gradient(135deg,#ecf4fb,#dbe9f6 58%,#e6eff8);color:#06192f}
+.nival h3{font-family:var(--font-display);font-weight:700;font-size:1.32rem;margin:.15em 0 .35em}
+.nival p{margin:0 0 .7em;font-size:15px;line-height:1.62;color:#33465b}
+.nival .ky{color:#1e5566}
+.nival ul{margin:.2em 0 0;padding-left:1.1em;font-size:14.5px;line-height:1.7;color:#33465b}
+.nival ul b{color:#06192f}
+.nival-shot{border-radius:16px;overflow:hidden;border:1px solid rgba(6,25,47,.14);
+  background:#d6e6f5;box-shadow:0 10px 30px rgba(20,45,70,.14)}
+.nival-shot img{width:100%;display:block}
+.nival .btn{border-color:rgba(6,25,47,.22);background:rgba(255,255,255,.72);color:#06192f}
+.nival .btn:hover{border-color:#1169dc;color:#0b4da8}
+.nival .btn.pri{background:#06192f;border-color:#06192f;color:#fff}
+@media (max-width:820px){.nival{grid-template-columns:1fr}}
+/* ---------- ส่วนที่เพิ่ม: ปุ่มไฟล์ / สื่อฝัง / รายการไฟล์ ---------- */
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;
+  padding:7px 11px;border-radius:9px;border:1px solid var(--line-strong);background:var(--panel-2);
+  color:var(--ink);cursor:pointer;text-decoration:none;line-height:1.4}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink);text-decoration:none}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{color:#fff;filter:brightness(1.07)}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:13px;margin-top:22px}
+.fcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
+.fcard .fh{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--petrol)}
+.fcard .ft{font-family:var(--font-display);font-weight:600;margin-top:4px}
+.fcard ul{margin:8px 0 0;padding-left:1.05em;font-size:14px;color:var(--muted)}
+.fcard li{margin:.3em 0}
+.fcard a{font-family:var(--font-mono);font-size:12.5px;word-break:break-all}
+#desmosBox{width:100%;height:430px;margin-top:14px;border:1px solid var(--out-line);border-radius:10px;overflow:hidden;background:#fff}
+.embnote{font-size:12.5px;color:var(--faint);margin-top:9px}
+@media (max-width:640px){#desmosBox{height:340px}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 html{scroll-behavior:smooth}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
@@ -312,6 +445,8 @@ html{scroll-behavior:smooth}
       <span class="chip">ผู้จัดทำ <b>G</b></span>
       <span class="chip">รูปแบบ <b>เว็บไซต์ + ฝัง GitHub Pages</b></span>
       <span class="chip">โครงสร้าง <b>6 แง่ × 5 ขั้น</b></span>
+      <a class="chip" href="slides.html" style="text-decoration:none">เปิดเด็คสไลด์ <b>30 หน้า →</b></a>
+      <a class="chip" href="nival/" style="text-decoration:none">ผลงานต่อยอด <b>Nival →</b></a>
     </div>
   </header>
 
@@ -327,6 +462,8 @@ html{scroll-behavior:smooth}
         <li><a href="#exp-05"><span class="n">05</span> สไลด์ NotebookLM</a></li>
         <li><a href="#exp-06"><span class="n">06</span> เว็บไซต์บน GitHub</a></li>
         <li><a href="#reflection"><span class="n">✦</span> สรุปภาพรวม</a></li>
+        <li><a href="#nival"><span class="n">★</span> ผลงานต่อยอด · Nival</a></li>
+        <li><a href="#files"><span class="n">⬇</span> ไฟล์ผลงานทั้งหมด</a></li>
         <li><a href="#deploy"><span class="n">↑</span> วิธี Deploy</a></li>
       </ol>
     </aside>
@@ -390,18 +527,18 @@ html{scroll-behavior:smooth}
             <div class="badge">2</div>
             <div class="slabel">ผลลัพธ์ครั้งที่ 1</div>
             <div class="output">
-              <div class="otab"><span>ผลลัพธ์ · ภาพจำลอง</span><span class="src">generated preview</span></div>
+              <div class="otab"><span>ผลลัพธ์ · ภาพที่ AI สร้าง (SVG)</span><span class="src">zero-shot</span></div>
               <div class="obody">
                 <figure>
                   <svg viewBox="0 0 640 300" width="100%" role="img" aria-label="ภาพหุ่นยนต์ทั่วไปแบบคาดเดาไม่ได้">
-                    <rect width="640" height="300" fill="#eceae3"/>
-                    <circle cx="320" cy="150" r="70" fill="#c9c6bc"/>
-                    <rect x="292" y="120" width="56" height="46" rx="8" fill="#a7a49a"/>
-                    <circle cx="308" cy="142" r="7" fill="#eceae3"/><circle cx="332" cy="142" r="7" fill="#eceae3"/>
-                    <line x1="320" y1="80" x2="320" y2="62" stroke="#a7a49a" stroke-width="4"/><circle cx="320" cy="58" r="6" fill="#a7a49a"/>
-                    <text x="320" y="250" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a877e">หุ่นยนต์ลอย ๆ · ไม่มีคอนเซ็ปต์ชัด</text>
+                    <rect width="640" height="300" fill="#E9F1FA"/>
+                    <circle cx="320" cy="150" r="70" fill="#C3D4E4"/>
+                    <rect x="292" y="120" width="56" height="46" rx="8" fill="#9FB4C9"/>
+                    <circle cx="308" cy="142" r="7" fill="#E9F1FA"/><circle cx="332" cy="142" r="7" fill="#E9F1FA"/>
+                    <line x1="320" y1="80" x2="320" y2="62" stroke="#9FB4C9" stroke-width="4"/><circle cx="320" cy="58" r="6" fill="#9FB4C9"/>
+                    <text x="320" y="250" text-anchor="middle" font-family="monospace" font-size="13" fill="#7C93AB">หุ่นยนต์ลอย ๆ · ไม่มีคอนเซ็ปต์ชัด</text>
                   </svg>
-                  <figcaption>ได้ “หุ่นยนต์” แบบทั่วไป องค์ประกอบ/สี/อารมณ์แล้วแต่ระบบจะเดา</figcaption>
+                  <figcaption>ได้ “หุ่นยนต์” แบบทั่วไป องค์ประกอบ/สี/อารมณ์แล้วแต่ระบบจะเดา · ไฟล์ assets/img/01-image-zero-shot.svg</figcaption>
                 </figure>
                 <div class="flag"><span class="p">ปัญหา</span><span>พรอมป์กว้างเกินไป ไม่ได้บอกสไตล์ องค์ประกอบ โทนสี หรือสัดส่วน ทำให้ภาพคาดเดาไม่ได้และมักไม่ตรงสิ่งที่ต้องการสื่อ</span></div>
               </div>
@@ -433,58 +570,90 @@ html{scroll-behavior:smooth}
             <div class="badge">4</div>
             <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
             <div class="output">
-              <div class="otab"><span>ผลลัพธ์ · ภาพจำลอง (refined)</span><span class="src">generated preview</span></div>
+              <div class="otab"><span>ผลลัพธ์ · ภาพที่ AI สร้าง (SVG)</span><span class="src">few-shot refined</span></div>
               <div class="obody">
                 <figure>
                   <svg viewBox="0 0 640 320" width="100%" role="img" aria-label="ภาพ isometric นักศึกษาทำงานกับผู้ช่วย AI">
                     <defs>
                       <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#fbf4ec"/><stop offset="1" stop-color="#f3e7db"/>
+                        <stop offset="0" stop-color="#F6FAFF"/><stop offset="1" stop-color="#E4EEF8"/>
                       </linearGradient>
                       <linearGradient id="brain" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0" stop-color="#ff8355"/><stop offset="1" stop-color="#d9480f"/>
+                        <stop offset="0" stop-color="#5AA0F0"/><stop offset="1" stop-color="#1169DC"/>
                       </linearGradient>
                     </defs>
                     <rect width="640" height="320" fill="url(#sky)"/>
                     <!-- ground platform (iso) -->
-                    <polygon points="320,120 560,235 320,300 80,235" fill="#dbe9ee"/>
-                    <polygon points="80,235 320,300 320,320 80,255" fill="#c3dbe3"/>
-                    <polygon points="560,235 320,300 320,320 560,255" fill="#b3d0da"/>
+                    <polygon points="320,120 560,235 320,300 80,235" fill="#DCE9F8"/>
+                    <polygon points="80,235 320,300 320,320 80,255" fill="#C5DCF2"/>
+                    <polygon points="560,235 320,300 320,320 560,255" fill="#B2CDE9"/>
                     <!-- network nodes -->
-                    <g stroke="#1e5566" stroke-width="1.6" opacity=".55">
+                    <g stroke="#06192F" stroke-width="1.6" opacity=".55">
                       <line x1="430" y1="90" x2="500" y2="140"/><line x1="500" y1="140" x2="470" y2="200"/>
                       <line x1="430" y1="90" x2="470" y2="200"/><line x1="500" y1="140" x2="545" y2="110"/>
                       <line x1="150" y1="120" x2="120" y2="185"/><line x1="150" y1="120" x2="205" y2="150"/>
                     </g>
-                    <g fill="#1e5566">
+                    <g fill="#06192F">
                       <circle cx="430" cy="90" r="6"/><circle cx="500" cy="140" r="7"/><circle cx="470" cy="200" r="5"/>
                       <circle cx="545" cy="110" r="5"/><circle cx="150" cy="120" r="6"/><circle cx="120" cy="185" r="5"/><circle cx="205" cy="150" r="4"/>
                     </g>
                     <!-- glowing brain -->
-                    <circle cx="380" cy="150" r="52" fill="#d9480f" opacity=".16"/>
+                    <circle cx="380" cy="150" r="52" fill="#1169DC" opacity=".16"/>
                     <path d="M356 150 q-16 -30 16 -34 q10 -16 30 -8 q22 -4 22 20 q16 8 4 28 q4 22 -22 20 q-14 14 -30 2 q-24 4 -20 -22 q-8 -10 0 -24 z" fill="url(#brain)"/>
                     <g stroke="#fff" stroke-width="1.4" opacity=".8" fill="none">
                       <path d="M380 120 v58 M366 134 q14 8 28 0 M366 166 q14 -8 28 0"/>
                     </g>
                     <!-- student -->
                     <g>
-                      <rect x="205" y="175" width="70" height="44" rx="6" fill="#1e5566"/>
+                      <rect x="205" y="175" width="70" height="44" rx="6" fill="#06192F"/>
                       <rect x="212" y="150" width="30" height="30" rx="6" fill="#e8b58a"/>
-                      <circle cx="227" cy="140" r="15" fill="#3a2a22"/>
-                      <rect x="250" y="205" width="120" height="8" rx="4" fill="#a7754f"/>
+                      <circle cx="227" cy="140" r="15" fill="#26313D"/>
+                      <rect x="250" y="205" width="120" height="8" rx="4" fill="#7E8FA3"/>
                     </g>
                     <!-- floating icons -->
                     <g>
-                      <rect x="470" y="60" width="30" height="24" rx="4" fill="#fff" stroke="#d9480f" stroke-width="2"/>
-                      <line x1="476" y1="70" x2="494" y2="70" stroke="#d9480f" stroke-width="2"/><line x1="476" y1="76" x2="490" y2="76" stroke="#d9480f" stroke-width="2"/>
-                      <g transform="translate(120,70)"><rect width="34" height="26" rx="4" fill="#fff" stroke="#1e5566" stroke-width="2"/>
-                        <polyline points="5,20 13,12 20,17 29,6" fill="none" stroke="#1e5566" stroke-width="2"/></g>
+                      <rect x="470" y="60" width="30" height="24" rx="4" fill="#fff" stroke="#1169DC" stroke-width="2"/>
+                      <line x1="476" y1="70" x2="494" y2="70" stroke="#1169DC" stroke-width="2"/><line x1="476" y1="76" x2="490" y2="76" stroke="#1169DC" stroke-width="2"/>
+                      <g transform="translate(120,70)"><rect width="34" height="26" rx="4" fill="#fff" stroke="#06192F" stroke-width="2"/>
+                        <polyline points="5,20 13,12 20,17 29,6" fill="none" stroke="#06192F" stroke-width="2"/></g>
                     </g>
-                    <text x="320" y="34" text-anchor="middle" font-family="'Chakra Petch',sans-serif" font-size="21" font-weight="700" fill="#1a1c22">AI ช่วยมนุษย์เรียนรู้</text>
+                    <text x="320" y="34" text-anchor="middle" font-family="'Chakra Petch',sans-serif" font-size="21" font-weight="700" fill="#06192F">AI ช่วยมนุษย์เรียนรู้</text>
                   </svg>
                   <figcaption>ได้ภาพตรงคอนเซ็ปต์: มีประธาน โทนสีตามกำหนด องค์ประกอบครบ และเว้นที่ใส่หัวข้อ</figcaption>
                 </figure>
-                <p style="margin-top:12px;font-size:13px">*ภาพข้างต้นเป็นภาพจำลอง (vector) เพื่อสาธิตความต่างของผลลัพธ์ — พรอมป์ทั้งสองด้านบนคือพรอมป์จริงที่นำไปวางใน Canva / เครื่องมือสร้างภาพ AI ได้ทันที</p>
+                <p style="margin-top:12px;font-size:13px">*ภาพทั้งสองเป็นภาพเวกเตอร์ (SVG) ที่ AI สร้างขึ้นจากพรอมป์ด้านบน เพื่อเทียบให้เห็นความต่างของผลลัพธ์ —
+                  พรอมป์ชุดเดียวกันนำไปวางใน Canva Magic Media หรือเครื่องมือสร้างภาพ AI อื่นได้ทันที</p>
+                <div class="btnrow">
+                  <a class="btn" href="assets/img/01-image-few-shot.svg" download>⬇ ภาพ few-shot (SVG)</a>
+                  <a class="btn" href="assets/img/01-image-zero-shot.svg" download>⬇ ภาพ zero-shot (SVG)</a>
+                  <a class="btn pri" href="https://www.canva.com/d/hqMpaPK-Mu1HtV1" target="_blank" rel="noopener">↗ ดีไซน์เดียวกันบน Canva</a>
+                  <a class="btn" href="assets/prompts/prompts-all.md" download>⬇ คลังพรอมป์ทั้ง 12 อัน</a>
+                </div>
+                <figure style="margin-top:14px">
+                  <img id="canvaShot" src="assets/img/ai-poster-canva.png"
+                       alt="โปสเตอร์ที่สร้างด้วย Canva จากพรอมป์ few-shot"
+                       onerror="this.parentNode.hidden=true;var h=document.getElementById('canvaHint');if(h)h.hidden=false">
+                  <figcaption>โปสเตอร์ที่ได้จาก Canva Magic Design ด้วยพรอมป์ few-shot ชุดเดียวกัน</figcaption>
+                </figure>
+                <div class="aigrid" aria-label="ชุดภาพที่สร้างด้วย AI สำหรับ keyword ปัญญาประดิษฐ์">
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 1"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/caf08036-c63c-4d0c-9b81-43c5a7a49343.png"><figcaption>AI 01</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 2"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/599a5a28-c9f1-44f9-b01b-adb8b22e8c12.png"><figcaption>AI 02</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 3"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/fc804805-b23c-40ba-97b0-9ab2ba3efb5d.png"><figcaption>AI 03</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 4"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0cb0c1f0-f84a-47bb-bfa1-43b6c7f1575d.png"><figcaption>AI 04</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 5"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/64e651b1-a8ba-44e8-8fbe-e85fcd6e5cf0.png"><figcaption>AI 05</figcaption></figure>
+                </div>
+                <p class="embnote">ชุดภาพ 5 ภาพนี้คือผลลัพธ์จริงจากพรอมป์ตระกูลเดียวกัน (ประธาน + สไตล์ + โทนสี + negative)
+                  ซึ่งถูกนำไปใช้เป็นแกลเลอรีตัวตนในหน้า <a href="nival/"><b>Nival — Cyberspace Identity</b></a> ของแง่ที่ 6
+                  ทำให้ keyword “ปัญญาประดิษฐ์” เดินเป็นเรื่องเดียวกันตั้งแต่ภาพจนถึงเว็บไซต์</p>
+                <p class="embnote" id="canvaHint" hidden>ดีไซน์ Canva ที่สร้างจากพรอมป์นี้เปิดได้จากปุ่ม
+                  “↗ ดีไซน์เดียวกันบน Canva” ด้านบน (ถ้าจะให้คนอื่นเปิดได้ ต้องกด Share → Anyone with the link ก่อน)
+                  — ถ้าดาวน์โหลดไฟล์ PNG จาก Canva มาวางไว้ที่ <code style="font-family:var(--font-mono);font-size:12px">assets/img/ai-poster-canva.png</code>
+                  รูปจะขึ้นในหน้านี้อัตโนมัติ</p>
               </div>
             </div>
           </div>
@@ -566,6 +735,14 @@ html{scroll-behavior:smooth}
                   <div>h(x) = \max(0,\,x)</div>
                   <div><span class="k">-6 &lt; x &lt; 6   (ตั้งช่วงแกน)</span></div>
                 </div>
+                <div class="btnrow">
+                  <button class="btn pri" id="desmosBtn" type="button">▶ เปิดกราฟ Desmos แบบโต้ตอบ</button>
+                  <a class="btn" href="https://www.desmos.com/calculator?lang=th" target="_blank" rel="noopener">↗ desmos.com/calculator</a>
+                  <a class="btn" href="assets/desmos/activation-functions.txt" download>⬇ ไฟล์นิพจน์ (.txt)</a>
+                  <a class="btn" href="assets/img/02-activation-graph.svg" download>⬇ กราฟ (SVG)</a>
+                </div>
+                <div id="desmosBox" hidden></div>
+                <p class="embnote" id="desmosNote" hidden></p>
               </div></div>
           </div>
 
@@ -649,6 +826,13 @@ flowchart TD
   G --> H["ติดตามผล &amp; เก็บ feedback"]
   H --> A
 </pre>
+                <div class="btnrow">
+                  <a class="btn pri" href="https://mermaid.live/edit#pako:eNp1k99rGkEQx_-VZSFFIdb3o6Qkmh8P7VN96_Zho2vuqN7JujaICDUJnAl9KobUWAQjIrQEGlPp3H8zf0qZuRPSQuA45nb3-53P7Mz1ZDWqGenJrS2B8B1hwc8DwhThGyZfEIYIK4QBr8wR7hFmCBPaSs4RftJnMhS5ujkttP3I5T2BsESIWTln5YqDKft-RRjTSnLGys8II4SFeKurfhAa8cZoGwbhiQqJiLYnCL_pUDIgr-QSkwuEM36P6BNuENaE4DvXanvFYtPYpg5qLxvBJyNEjmlWBEQpL1gyYog1u51zfIXJkIuLRSmqmbwK643otOpr60SlrEIhdt8ryUADTGKEW65p-SSYMdbl5ooShIWSH0ShsCP2SEugj0SQAc0QfiD84vMrhJF4kRZ8zYZrhLvnPAlnj41LDDUgCuKPqRAAMqtYHYSiKCqm7TJJiSXlTR03nGf8Xyeys2U-u98j7ifElGrGqcbM9_jq2BZ3uLf3PAxzhD8c33G349dK9slvXxQKgsyyde5f6kRaJTnfAd_ThG0eEG6F320Z29JWN40zlpMV01ua0liQ_PkrOkjr_Sc9g1IVC9Yss8SHnHhMDSKwCY_FFR-JufSxyJVNqxF185n5IeuOWHedjSgFaWPpT9r0M5sXUTemdqyrHzODIzbYVaHcltnISk_2aEtJ55umUdITSoam46xuKKnCvtyWuuOid92wKj1nO2Zbdlo17Uw50CdWN9PF_l-4xR2Y" target="_blank" rel="noopener">↗ เปิดไดอะแกรมนี้ใน mermaid.live</a>
+                  <a class="btn" href="assets/mermaid/03-few-shot.mmd" download>⬇ โค้ด few-shot (.mmd)</a>
+                  <a class="btn" href="assets/mermaid/03-zero-shot.mmd" download>⬇ โค้ด zero-shot (.mmd)</a>
+                  <a class="btn" href="https://mermaid.live/edit#pako:eNpNkE1KA0EQha9SFAQUkgvMQoi6CbjSZTqLJmlNIDMjYw-iIWBQzAi6E8wfQhLEhQTyY6D6NnUU6RolQlPQ33td9bo6WI8bBgMsFIBpwvQhZ8X0zjRg98yUMa2ZekLmTAumKdPYS64npAd7tyaJS1fN2O4HoJDpjWkD5-34ut7UiQV2d9Jhyy5jmjF9ynXFNIJyBdjdM32xe_KVhmJaMM0UqkhyjcX7IvI6AHYPTK_in4jSl9D-CbB7zPWptJn6oZTnXDKNZPRQyFpgJvWbqQ8ibOTxWLoNRBiJdSZkKep8N-AviYp2vz05VRFAuVqu1KBUOoDDqvfQtiZY0FH1X8ZfDYsYmiTUrQYG2PFehbZpQqPQLzUyqU102--ki0XUqY3PbqI6BjZJTRHTy4a25rilLxId5rD7A2pVEI8" target="_blank" rel="noopener">↗ เทียบผัง zero-shot</a>
+                </div>
+                <p class="embnote">ไดอะแกรมด้านบนเรนเดอร์สด ๆ จากโค้ด Mermaid ในหน้านี้ — แก้โค้ดในไฟล์ .mmd แล้ววางใน mermaid.live เพื่อแก้ต่อได้ทันที</p>
               </div></div>
           </div>
 
@@ -728,7 +912,15 @@ AI is a technology. It is useful.
                   <div class="mrow"><div class="cap">ฟังก์ชันสูญเสีย Cross-Entropy (สมการ 2)</div>
                     $$\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}\Big[y_i\log\hat{y}_i + (1-y_i)\log(1-\hat{y}_i)\Big]$$</div>
                 </div>
-                <p style="margin-top:12px;font-size:13.5px">ไฟล์ <b>ai_article.tex</b> ฉบับเต็ม (ดาวน์โหลดแนบมาให้) — เปิด Overleaf → New Project → Upload → ตั้ง Compiler เป็น <b>XeLaTeX</b></p>
+                <p style="margin-top:12px;font-size:13.5px">ไฟล์ <b>ai_article.tex</b> ฉบับเต็มอยู่ในโปรเจกต์นี้ — เปิด Overleaf → New Project → Upload → ตั้ง Compiler เป็น <b>XeLaTeX</b>
+                  (หรือกดปุ่ม “เปิดใน Overleaf” ด้านล่าง ซึ่งจะสร้างโปรเจกต์จากไฟล์ในรีโปให้อัตโนมัติ)</p>
+                <div class="btnrow">
+                  <a class="btn pri" href="https://www.overleaf.com/docs?snip_uri=https%3A%2F%2Fraw.githubusercontent.com%2Fmikebaba123-stack%2Fai-prompt-lab%2Fmain%2Fai_article.tex&snip_name=ai_article.tex&engine=xelatex" target="_blank" rel="noopener">↗ เปิดใน Overleaf ทันที</a>
+                  <a class="btn" href="ai_article.tex" download>⬇ ดาวน์โหลด ai_article.tex</a>
+                  <a class="btn" href="https://www.overleaf.com" target="_blank" rel="noopener">↗ overleaf.com</a>
+                </div>
+                <p class="embnote">ถ้าฟอนต์ไทยไม่ขึ้นบน Overleaf ให้แก้บรรทัด <code style="font-family:var(--font-mono);font-size:12px">\setmainfont{Laksaman}</code>
+                  เป็นฟอนต์ไทยที่มีในระบบ เช่น Noto Sans Thai หรือ Sarabun</p>
               </div></div>
           </div>
 
@@ -857,6 +1049,14 @@ AI is a technology. It is useful.
                     </div>
                   </div>
                 </div>
+                <div class="btnrow" style="padding:0 2px 2px">
+                  <a class="btn pri" href="slides.html">▶ เปิดเด็คสไลด์ 30 หน้า (ทุกแง่)</a>
+                  <a class="btn" href="assets/notebooklm/source-ai-intro.md" download>⬇ เอกสารต้นทางสำหรับ NotebookLM (.md)</a>
+                  <a class="btn" href="assets/notebooklm/slide-outline.md" download>⬇ โครง 6 สไลด์ + โน้ตผู้พูด (.md)</a>
+                  <a class="btn" href="https://notebooklm.google.com/" target="_blank" rel="noopener">↗ notebooklm.google.com</a>
+                </div>
+                <p class="embnote" style="padding:0 2px 4px">ขั้นตอนที่ใช้: อัปโหลด <b>source-ai-intro.md</b> เป็น source ใน NotebookLM → วางพรอมป์ few-shot ด้านบน →
+                  ได้โครงสไลด์ตามตาราง (บันทึกไว้ในไฟล์ slide-outline.md) → นำมาจัดเป็นเด็คในหน้านี้และในไฟล์ <b>slides.html</b></p>
               </div></div>
           </div>
 
@@ -926,7 +1126,18 @@ AI is a technology. It is useful.
             <div class="slabel">ผลลัพธ์ครั้งที่ 2</div>
             <div class="output"><div class="otab"><span>ผลลัพธ์ · เว็บไซต์นี้</span><span class="src">index.html</span></div>
               <div class="obody">
-                <p style="color:var(--out-ink)"><b>คือหน้าที่คุณกำลังดูอยู่นี่เอง</b> — รวมผลงานทั้ง 6 แง่ไว้ต่อเนื่องกัน ฝัง Mermaid และสมการที่เรนเดอร์จริง สลับธีมได้ และเป็นไฟล์ <code style="font-family:var(--font-mono);background:#eee;padding:1px 5px;border-radius:4px">index.html</code> ไฟล์เดียวที่อัปขึ้น GitHub Pages ได้เลย (ดูวิธีด้านล่าง)</p>
+                <p style="color:var(--out-ink)"><b>คือหน้าที่คุณกำลังดูอยู่นี่เอง</b> — รวมผลงานทั้ง 6 แง่ไว้ต่อเนื่องกัน ฝัง Mermaid และสมการที่เรนเดอร์จริง สลับธีมได้ และเป็นไฟล์ <code style="font-family:var(--font-mono);background:#eee;padding:1px 5px;border-radius:4px">index.html</code> ไฟล์หลักที่อัปขึ้น GitHub Pages ได้เลย (ดูวิธีด้านล่าง)</p>
+                <div class="btnrow">
+                  <a class="btn pri" href="https://mikebaba123-stack.github.io/ai-prompt-lab/" target="_blank" rel="noopener">↗ เปิดเว็บไซต์จริงบน GitHub Pages</a>
+                  <a class="btn" href="https://github.com/mikebaba123-stack/ai-prompt-lab" target="_blank" rel="noopener">↗ ซอร์สโค้ดบน GitHub</a>
+                  <a class="btn" href="slides.html">▶ เด็คสไลด์ 30 หน้า</a>
+                  <a class="btn" href="nival/">★ หน้า Nival — Cyberspace Identity</a>
+                </div>
+                <p class="embnote">โครงไฟล์ในรีโป: <code style="font-family:var(--font-mono);font-size:12px">index.html</code> (เว็บหลัก) ·
+                  <code style="font-family:var(--font-mono);font-size:12px">slides.html</code> (เด็ค 30 หน้า) ·
+                  <code style="font-family:var(--font-mono);font-size:12px">assets/</code> (ไฟล์ผลงานแยกชิ้น) ·
+                  <code style="font-family:var(--font-mono);font-size:12px">ai_article.tex</code> (บทความ LaTeX) ·
+                  <code style="font-family:var(--font-mono);font-size:12px">.github/workflows/pages.yml</code> (deploy อัตโนมัติ)</p>
               </div></div>
           </div>
 
@@ -942,6 +1153,45 @@ AI is a technology. It is useful.
               </div>
               <div class="lesson"><b>บทเรียน:</b> ยิ่งงานปลายทางซับซ้อน (เว็บที่ deploy จริง) พรอมป์ยิ่งต้องระบุ “เนื้อหา + โครงสร้าง + ข้อจำกัดทางเทคนิค + ปลายทาง” ครบ ผลลัพธ์จึงใช้งานได้ทันที</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== NIVAL (ผลงานต่อยอด) ===== -->
+      <section id="nival" class="exp">
+        <div class="exp-head">
+          <div class="exp-num" style="color:#1e5566">★</div>
+          <div class="htxt">
+            <div class="ky">ผลงานต่อยอด · keyword เดียวกัน</div>
+            <h2>Nival — Cyberspace Identity</h2>
+            <p class="sub">นำ “ภาพ AI” จากแง่ที่ 1 และทักษะ “เขียนเว็บ + deploy” จากแง่ที่ 6 มารวมเป็นหน้า Landing จริงหนึ่งหน้า
+              เพื่อให้ทุกชิ้นงานในวิชานี้เดินเรื่องเดียวกันภายใต้ keyword <b>ปัญญาประดิษฐ์</b></p>
+            <a class="toollink" href="nival/">↗ เปิดหน้า Nival (หน้าเดียวจบ ไม่มี framework)</a>
+          </div>
+        </div>
+
+        <div class="nival">
+          <div>
+            <div class="ky" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase">ความสอดคล้องของงาน</div>
+            <h3>keyword “AI” → ภาพ → เว็บไซต์</h3>
+            <p>หน้านี้ใช้ภาพแอนดรอยด์ที่สร้างด้วย AI ชุดเดียวกับแง่ที่ 1 ทั้งหมด —
+              ภาพหลัก 2 ภาพ (รุ่นขาว-เงิน / รุ่นเกราะดำ) และแกลเลอรีตัวตน 5 ภาพ จึงเป็นการต่อยอดโดยตรง ไม่ใช่งานแยกเรื่อง</p>
+            <ul>
+              <li><b>จากแง่ที่ 1:</b> ภาพที่ได้จากพรอมป์ few-shot (ประธาน + สไตล์ + โทนสี + negative) มาเป็นพระเอกของหน้า</li>
+              <li><b>จากแง่ที่ 6:</b> เขียน HTML/CSS/JS ไฟล์เดียว แล้ว deploy บน GitHub Pages เหมือนหน้านี้</li>
+              <li><b>กลไกหลัก:</b> <em>spotlight reveal</em> — เลื่อนเมาส์บนตัวแอนดรอยด์ วงกลมนุ่ม ๆ จะเผยร่างเกราะดำผ่าน radial mask
+                (ภาพ 2 ชั้น + canvas สร้าง mask แบบ alpha ตามเคอร์เซอร์)</li>
+              <li><b>สื่อความหมาย:</b> “ตัวตนในไซเบอร์สเปซ” คือคำตอบเชิงภาพของคำถามว่า AI เปลี่ยนภาพแทนตัวของมนุษย์อย่างไร</li>
+            </ul>
+            <div class="btnrow">
+              <a class="btn pri" href="nival/">★ เปิดหน้า Nival</a>
+              <a class="btn" href="nival/index.html" download>⬇ ดาวน์โหลดไฟล์ HTML</a>
+              <a class="btn" href="#exp-01">↑ กลับไปดูภาพต้นทาง (แง่ที่ 1)</a>
+            </div>
+          </div>
+          <div class="nival-shot">
+            <img loading="lazy" alt="ตัวอย่างหน้า Nival — แอนดรอยด์สีขาวเงินบนพื้นฟ้าน้ำแข็ง"
+              src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/658f62c6-fdb2-41b9-aa0f-10837f9e72cb.png">
           </div>
         </div>
       </section>
@@ -970,16 +1220,70 @@ AI is a technology. It is useful.
         </div>
       </section>
 
+      <!-- ===== FILES ===== -->
+      <section id="files" class="exp">
+        <div class="exp-head">
+          <div class="exp-num" style="color:var(--petrol)">⬇</div>
+          <div class="htxt">
+            <div class="ky">ผลลัพธ์ทุกชิ้นในรูปไฟล์</div>
+            <h2>ไฟล์ผลงานทั้งหมด</h2>
+            <p class="sub">ทุกแง่มีไฟล์ผลลัพธ์จริงให้เปิด/ดาวน์โหลด ไม่ใช่แค่ภาพประกอบในหน้าเว็บ —
+              อาจารย์กดเปิดได้ตรงจากลิงก์ด้านล่าง หรือดูใน repo โฟลเดอร์ <code style="font-family:var(--font-mono);font-size:12.5px">assets/</code></p>
+          </div>
+        </div>
+        <div class="files">
+          <div class="fcard"><div class="fh">แง่ที่ 1 · image</div><div class="ft">รูปที่สร้างด้วย AI</div>
+            <ul>
+              <li><a href="assets/img/01-image-few-shot.svg">assets/img/01-image-few-shot.svg</a></li>
+              <li><a href="assets/img/01-image-zero-shot.svg">assets/img/01-image-zero-shot.svg</a></li>
+              <li><a href="https://www.canva.com/d/hqMpaPK-Mu1HtV1" target="_blank" rel="noopener">ดีไซน์บน Canva ↗</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">แง่ที่ 2 · desmos</div><div class="ft">กราฟฟังก์ชันกระตุ้น</div>
+            <ul>
+              <li><a href="assets/desmos/activation-functions.txt">assets/desmos/activation-functions.txt</a></li>
+              <li><a href="assets/img/02-activation-graph.svg">assets/img/02-activation-graph.svg</a></li>
+              <li><a href="#exp-02">กราฟโต้ตอบในหน้านี้ ↓</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">แง่ที่ 3 · mermaid</div><div class="ft">ไดอะแกรมวงจร ML</div>
+            <ul>
+              <li><a href="assets/mermaid/03-few-shot.mmd">assets/mermaid/03-few-shot.mmd</a></li>
+              <li><a href="assets/mermaid/03-zero-shot.mmd">assets/mermaid/03-zero-shot.mmd</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">แง่ที่ 4 · latex</div><div class="ft">บทความวิชาการ</div>
+            <ul>
+              <li><a href="ai_article.tex">ai_article.tex</a></li>
+              <li><a href="#exp-04">ปุ่ม “เปิดใน Overleaf” ↓</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">แง่ที่ 5 · slides</div><div class="ft">สไลด์สรุป</div>
+            <ul>
+              <li><a href="slides.html">slides.html — เด็ค 30 หน้า</a></li>
+              <li><a href="assets/notebooklm/source-ai-intro.md">assets/notebooklm/source-ai-intro.md</a></li>
+              <li><a href="assets/notebooklm/slide-outline.md">assets/notebooklm/slide-outline.md</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">ต่อยอด · nival</div><div class="ft">หน้า Landing จากภาพ AI</div>
+            <ul>
+              <li><a href="nival/">nival/ — Nival Cyberspace Identity</a></li>
+              <li><a href="nival/index.html">nival/index.html (ไฟล์เดียวจบ)</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">แง่ที่ 6 · web</div><div class="ft">เว็บไซต์ + คลังพรอมป์</div>
+            <ul>
+              <li><a href="https://mikebaba123-stack.github.io/ai-prompt-lab/" target="_blank" rel="noopener">เว็บไซต์บน GitHub Pages ↗</a></li>
+              <li><a href="assets/prompts/prompts-all.md">assets/prompts/prompts-all.md</a></li>
+              <li><a href="https://github.com/mikebaba123-stack/ai-prompt-lab" target="_blank" rel="noopener">repo บน GitHub ↗</a></li>
+            </ul></div>
+        </div>
+      </section>
+
       <!-- ===== DEPLOY ===== -->
       <section id="deploy" class="deploy">
         <div class="eyebrow" style="color:var(--petrol)">โบนัส</div>
         <h2 style="font-family:var(--font-display);font-weight:700;font-size:1.6rem;margin:.3em 0 .2em">นำเว็บนี้ขึ้น GitHub Pages</h2>
         <p style="color:var(--muted);max-width:65ch;margin:0">ไฟล์ <code style="font-family:var(--font-mono);background:var(--code-bg);color:var(--code-ink);padding:2px 6px;border-radius:5px">index.html</code> ที่แนบมาเป็นไฟล์เดียวจบ อัปขึ้น GitHub แล้วเปิดเป็นเว็บสาธารณะได้ฟรี</p>
         <div class="dsteps">
-          <div class="dstep"><div><div class="dt">สร้าง Repository ใหม่</div><p>ที่ github.com กด <b>New</b> → ตั้งชื่อเช่น <code>ai-prompt-lab</code> → เลือก Public → Create</p></div></div>
-          <div class="dstep"><div><div class="dt">อัปโหลด index.html</div><p>ในหน้า repo กด <b>Add file → Upload files</b> แล้วลากไฟล์ <code>index.html</code> เข้าไป → Commit</p></div></div>
-          <div class="dstep"><div><div class="dt">เปิด GitHub Pages</div><p>ไปที่ <b>Settings → Pages</b> → ในหัวข้อ Branch เลือก <code>main</code> และโฟลเดอร์ <code>/ (root)</code> → Save</p></div></div>
-          <div class="dstep"><div><div class="dt">รอสักครู่แล้วเปิดลิงก์</div><p>ประมาณ 1–2 นาที GitHub จะให้ URL รูปแบบ <code>https://&lt;username&gt;.github.io/ai-prompt-lab/</code> — นำลิงก์นี้ไปส่งอาจารย์เพื่อรับคะแนนโบนัส</p></div></div>
+          <div class="dstep"><div><div class="dt">โปรเจกต์อยู่ใน repository แล้ว</div><p>ไฟล์ทั้งหมด (<code>index.html</code>, <code>slides.html</code>, <code>assets/</code>, <code>ai_article.tex</code>) อยู่ใน <code>github.com/mikebaba123-stack/ai-prompt-lab</code></p></div></div>
+          <div class="dstep"><div><div class="dt">เปิด GitHub Pages ครั้งเดียว</div><p>ไปที่ <b>Settings → Pages</b> → หัวข้อ <b>Build and deployment</b> → Source เลือก <b>GitHub Actions</b> (ไฟล์ <code>.github/workflows/pages.yml</code> ในรีโปจะ deploy ให้อัตโนมัติทุกครั้งที่ push)</p></div></div>
+          <div class="dstep"><div><div class="dt">หรือเลือกแบบง่าย: Deploy from a branch</div><p>Source เลือก <b>Deploy from a branch</b> → Branch <code>main</code> → โฟลเดอร์ <code>/ (root)</code> → Save (ต้อง merge งานเข้า <code>main</code> ก่อน)</p></div></div>
+          <div class="dstep"><div><div class="dt">รอ 1–2 นาทีแล้วส่งลิงก์นี้</div><p><a href="https://mikebaba123-stack.github.io/ai-prompt-lab/" target="_blank" rel="noopener"><code>https://mikebaba123-stack.github.io/ai-prompt-lab/</code></a> — เปิดได้จากมือถือ มีผลงานแง่ที่ 1–5 ฝังอยู่ครบและต่อเนื่องกัน (ตามเงื่อนไขคะแนนโบนัส)</p></div></div>
         </div>
       </section>
 
@@ -1027,9 +1331,11 @@ AI is a technology. It is useful.
   /* ---------- mermaid ---------- */
   try{
     if(window.mermaid){
-      mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',
+      mermaid.initialize({startOnLoad:true,theme:'base',securityLevel:'loose',
+        themeVariables:{primaryColor:'#E3EEFB',primaryBorderColor:'#1169DC',primaryTextColor:'#06192F',
+          lineColor:'#47596E',secondaryColor:'#DCE9F8',tertiaryColor:'#F3F9FF',fontSize:'14px'},
         flowchart:{curve:'basis',useMaxWidth:true},
-        fontFamily:"'IBM Plex Sans Thai',sans-serif"});
+        fontFamily:"'Inter','IBM Plex Sans Thai',sans-serif"});
     }
   }catch(e){}
 
@@ -1064,23 +1370,59 @@ AI is a technology. It is useful.
     var tanh=function(x){return Math.tanh(x);};
     var relu=function(x){return Math.max(0,x);};
     var g='';
-    for(var gx=xmin;gx<=xmax;gx++){g+='<line x1="'+sx(gx)+'" y1="'+pad.t+'" x2="'+sx(gx)+'" y2="'+(H-pad.b)+'" stroke="#ecebe4" stroke-width="1"/>';}
-    for(var gy=-1;gy<=3;gy++){g+='<line x1="'+pad.l+'" y1="'+sy(gy)+'" x2="'+(W-pad.r)+'" y2="'+sy(gy)+'" stroke="#ecebe4" stroke-width="1"/>';
-      g+='<text x="'+(pad.l-8)+'" y="'+(sy(gy)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" fill="#8a8d96">'+gy+'</text>';}
-    for(var tx=xmin;tx<=xmax;tx+=2){g+='<text x="'+sx(tx)+'" y="'+(H-pad.b+18)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#8a8d96">'+tx+'</text>';}
-    var axes='<line x1="'+pad.l+'" y1="'+sy(0)+'" x2="'+(W-pad.r)+'" y2="'+sy(0)+'" stroke="#b9b6ac" stroke-width="1.3"/>'+
-             '<line x1="'+sx(0)+'" y1="'+pad.t+'" x2="'+sx(0)+'" y2="'+(H-pad.b)+'" stroke="#b9b6ac" stroke-width="1.3"/>';
+    for(var gx=xmin;gx<=xmax;gx++){g+='<line x1="'+sx(gx)+'" y1="'+pad.t+'" x2="'+sx(gx)+'" y2="'+(H-pad.b)+'" stroke="#DDE9F5" stroke-width="1"/>';}
+    for(var gy=-1;gy<=3;gy++){g+='<line x1="'+pad.l+'" y1="'+sy(gy)+'" x2="'+(W-pad.r)+'" y2="'+sy(gy)+'" stroke="#DDE9F5" stroke-width="1"/>';
+      g+='<text x="'+(pad.l-8)+'" y="'+(sy(gy)+4)+'" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="11" fill="#7C93AB">'+gy+'</text>';}
+    for(var tx=xmin;tx<=xmax;tx+=2){g+='<text x="'+sx(tx)+'" y="'+(H-pad.b+18)+'" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#7C93AB">'+tx+'</text>';}
+    var axes='<line x1="'+pad.l+'" y1="'+sy(0)+'" x2="'+(W-pad.r)+'" y2="'+sy(0)+'" stroke="#A9BED2" stroke-width="1.3"/>'+
+             '<line x1="'+sx(0)+'" y1="'+pad.t+'" x2="'+sx(0)+'" y2="'+(H-pad.b)+'" stroke="#A9BED2" stroke-width="1.3"/>';
     var curves=
-      '<path d="'+path(relu)+'" fill="none" stroke="#1e5566" stroke-width="2.6"/>'+
-      '<path d="'+path(tanh)+'" fill="none" stroke="#8a3ffc" stroke-width="2.6"/>'+
-      '<path d="'+path(sig)+'" fill="none" stroke="#d9480f" stroke-width="2.6"/>';
+      '<path d="'+path(relu)+'" fill="none" stroke="#06192F" stroke-width="2.6"/>'+
+      '<path d="'+path(tanh)+'" fill="none" stroke="#6F4FF2" stroke-width="2.6"/>'+
+      '<path d="'+path(sig)+'" fill="none" stroke="#1169DC" stroke-width="2.6"/>';
     var leg='<g font-family="JetBrains Mono,monospace" font-size="12">'+
-      '<rect x="'+(W-pad.r-150)+'" y="24" width="140" height="66" rx="8" fill="#ffffff" stroke="#e6e4dc"/>'+
-      '<line x1="'+(W-pad.r-140)+'" y1="40" x2="'+(W-pad.r-118)+'" y2="40" stroke="#d9480f" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="44" fill="#5d6069">Sigmoid</text>'+
-      '<line x1="'+(W-pad.r-140)+'" y1="60" x2="'+(W-pad.r-118)+'" y2="60" stroke="#8a3ffc" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="64" fill="#5d6069">Tanh</text>'+
-      '<line x1="'+(W-pad.r-140)+'" y1="80" x2="'+(W-pad.r-118)+'" y2="80" stroke="#1e5566" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="84" fill="#5d6069">ReLU</text></g>';
+      '<rect x="'+(W-pad.r-150)+'" y="24" width="140" height="66" rx="10" fill="rgba(255,255,255,.86)" stroke="#CFE0EF"/>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="40" x2="'+(W-pad.r-118)+'" y2="40" stroke="#1169DC" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="44" fill="#4D6076">Sigmoid</text>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="60" x2="'+(W-pad.r-118)+'" y2="60" stroke="#6F4FF2" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="64" fill="#4D6076">Tanh</text>'+
+      '<line x1="'+(W-pad.r-140)+'" y1="80" x2="'+(W-pad.r-118)+'" y2="80" stroke="#06192F" stroke-width="3"/><text x="'+(W-pad.r-112)+'" y="84" fill="#4D6076">ReLU</text></g>';
     host.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="กราฟเปรียบเทียบ sigmoid tanh relu">'+
       g+axes+curves+leg+'</svg>';
+  })();
+
+  /* ---------- Desmos สด (โหลดเมื่อกดปุ่มเท่านั้น) ---------- */
+  (function(){
+    var btn=document.getElementById('desmosBtn');
+    var box=document.getElementById('desmosBox');
+    var note=document.getElementById('desmosNote');
+    if(!btn||!box||!note) return;
+    function fail(){
+      box.hidden=true; note.hidden=false;
+      note.textContent='โหลด Desmos ไม่สำเร็จ (อาจไม่มีอินเทอร์เน็ตหรือถูกบล็อก) — กดปุ่ม “↗ desmos.com/calculator” แล้ววางนิพจน์จากไฟล์ .txt ได้เหมือนกัน';
+      btn.disabled=false; btn.textContent='▶ ลองเปิดกราฟ Desmos อีกครั้ง';
+    }
+    function boot(){
+      if(!window.Desmos){ fail(); return; }
+      try{
+        var calc=Desmos.GraphingCalculator(box,{keypad:false,border:false,expressionsCollapsed:false,language:'th'});
+        calc.setMathBounds({left:-6,right:6,bottom:-1.2,top:3});
+        calc.setExpression({id:'f',latex:'f(x)=\\frac{1}{1+e^{-x}}',color:'#D9480F'});
+        calc.setExpression({id:'g',latex:'g(x)=\\tanh(x)',color:'#8A3FFC'});
+        calc.setExpression({id:'h',latex:'h(x)=\\max(0,x)',color:'#1E5566'});
+        box.hidden=false; note.hidden=false;
+        note.textContent='นี่คือ Desmos ตัวจริงที่ฝังในหน้านี้ — ลากเลื่อน ซูม แก้สมการ หรือกดซ่อน/แสดงแต่ละเส้นได้';
+        btn.textContent='✓ เปิดกราฟแล้ว';
+      }catch(e){ fail(); }
+    }
+    btn.addEventListener('click',function(){
+      if(btn.textContent.indexOf('เปิดกราฟแล้ว')>=0) return;
+      btn.disabled=true; btn.textContent='กำลังโหลด Desmos…';
+      if(window.Desmos){ btn.disabled=false; boot(); return; }
+      var sc=document.createElement('script');
+      sc.src='https://www.desmos.com/api/v1.11/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6';
+      sc.onload=function(){ btn.disabled=false; boot(); };
+      sc.onerror=fail;
+      document.head.appendChild(sc);
+    });
   })();
 
   /* ---------- slide deck ---------- */
