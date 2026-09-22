@@ -383,7 +383,10 @@ footer b{font-weight:600}
 /* ═══════════ หุ่นยนต์ขยับประจำแต่ละหัวข้อ ═══════════ */
 .bot-slot{margin-left:auto;flex:0 0 auto;align-self:flex-start;line-height:0}
 .bot-slot-intro{display:flex;justify-content:flex-end;margin-top:-26px;margin-right:-6px}
-.bot{width:104px;height:104px;overflow:visible}
+.bot{width:116px;height:116px;overflow:visible;transition:transform .3s ease}
+.bot-slot:hover .bot,.exp-head:hover .bot{transform:scale(1.07) translateY(-2px)}
+.bot-slot:hover .b-arm,.exp-head:hover .b-arm{animation-duration:1.15s}
+.bot-slot:hover .b-ant,.exp-head:hover .b-ant{animation-duration:.9s}
 .bot .b-body{animation:botBob 3.4s ease-in-out infinite}
 .bot .b-eyes{animation:botBlink 4.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .bot .b-ant{animation:botAntenna 1.9s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
@@ -416,7 +419,10 @@ footer b{font-weight:600}
 @keyframes botWalk{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
 
 /* หุ่นยนต์ผู้ช่วยลอยมุมจอ */
-.bot-buddy{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:flex-end;gap:9px}
+.bot-buddy{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:flex-end;gap:9px;
+  opacity:0;transform:translateY(14px) scale(.9);
+  transition:opacity .5s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+.bot-buddy.ready{opacity:1;transform:none}
 .bb-bubble{max-width:174px;font-size:12.5px;line-height:1.45;color:var(--ink);
   background:linear-gradient(135deg,rgba(255,255,255,.88),rgba(233,241,250,.78));
   border:1px solid var(--glass-line);border-radius:14px 14px 4px 14px;padding:8px 12px;
@@ -1613,7 +1619,7 @@ AI is a technology. It is useful.
     function show(){
       buddy.classList.add('talk');
       clearTimeout(hideTimer);
-      hideTimer=setTimeout(function(){buddy.classList.remove('talk');},3200);
+      hideTimer=setTimeout(function(){buddy.classList.remove('talk');},4600);
     }
     function setTopic(id,speak){
       var d=TOPICS[id]; if(!d||id===cur) return;
@@ -1625,6 +1631,7 @@ AI is a technology. It is useful.
     }
     btn.innerHTML=bot(TOPICS.intro.k,'12 4 108 114');
     bubble.innerHTML=TOPICS.intro.t;
+    setTimeout(function(){buddy.classList.add('ready');},900);
 
     btn.addEventListener('click',function(){
       show();
