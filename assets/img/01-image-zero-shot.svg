@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img" aria-label="ภาพหุ่นยนต์ทั่วไปแบบคาดเดาไม่ได้">
 <title>ผลลัพธ์ภาพจากพรอมป์ zero-shot</title>
 <desc>ภาพหุ่นยนต์ทั่วไป ไม่มีการกำหนดสไตล์ โทนสี หรือองค์ประกอบ — ผลจากพรอมป์ "สร้างรูปเกี่ยวกับปัญญาประดิษฐ์"</desc>
-                    <rect width="640" height="300" fill="#eceae3"/>
-                    <circle cx="320" cy="150" r="70" fill="#c9c6bc"/>
-                    <rect x="292" y="120" width="56" height="46" rx="8" fill="#a7a49a"/>
-                    <circle cx="308" cy="142" r="7" fill="#eceae3"/><circle cx="332" cy="142" r="7" fill="#eceae3"/>
-                    <line x1="320" y1="80" x2="320" y2="62" stroke="#a7a49a" stroke-width="4"/><circle cx="320" cy="58" r="6" fill="#a7a49a"/>
-                    <text x="320" y="250" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a877e">หุ่นยนต์ลอย ๆ · ไม่มีคอนเซ็ปต์ชัด</text>
+                    <rect width="640" height="300" fill="#E9F1FA"/>
+                    <circle cx="320" cy="150" r="70" fill="#C3D4E4"/>
+                    <rect x="292" y="120" width="56" height="46" rx="8" fill="#9FB4C9"/>
+                    <circle cx="308" cy="142" r="7" fill="#E9F1FA"/><circle cx="332" cy="142" r="7" fill="#E9F1FA"/>
+                    <line x1="320" y1="80" x2="320" y2="62" stroke="#9FB4C9" stroke-width="4"/><circle cx="320" cy="58" r="6" fill="#9FB4C9"/>
+                    <text x="320" y="250" text-anchor="middle" font-family="monospace" font-size="13" fill="#7C93AB">หุ่นยนต์ลอย ๆ · ไม่มีคอนเซ็ปต์ชัด</text>
                   </svg>
