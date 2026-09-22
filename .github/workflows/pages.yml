@@ -1,0 +1,36 @@
+# Deploy เว็บไซต์ (index.html + slides.html + assets/) ขึ้น GitHub Pages
+#
+# วิธีใช้ครั้งแรก:
+#   1) Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#   2) แท็บ Actions → เลือก workflow นี้ → กด "Run workflow" (เลือก branch ที่ต้องการเผยแพร่)
+#
+# ตั้งเป็น workflow_dispatch (สั่งรันเอง) เพื่อไม่ให้ run ล้มเหลวหาก Pages ยังไม่ถูกเปิดใช้งาน
+name: Deploy site to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

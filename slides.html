@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>สไลด์สรุป 30 หน้า · ห้องทดลองพรอมป์ AI</title>
+<meta name="description" content="สไลด์สรุปการฝึกเขียน Prompt 6 แง่ × 5 ขั้น หัวข้อปัญญาประดิษฐ์ วิชา GE931-1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f7f3ea; --ink:#1a1c22; --muted:#5d6069; --line:#e6e4dc;
+  --accent:#d9480f; --accent-soft:#fdeee6; --petrol:#1e5566; --petrol-soft:#e7f0f2;
+  --purple:#8a3ffc; --card:#fffdf8; --code-bg:#1f2229; --code-ink:#f2efe6;
+  --font-display:'Chakra Petch',sans-serif; --font-body:'IBM Plex Sans Thai',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#2b2d33;font-family:var(--font-body);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+.bar{position:fixed;inset:0 0 auto 0;height:52px;display:flex;align-items:center;gap:14px;
+  padding:0 16px;background:rgba(26,28,34,.92);color:#f3f1ea;z-index:50;font-size:14px}
+.bar .t{font-family:var(--font-display);font-weight:700;letter-spacing:.2px}
+.bar .t small{display:block;font-family:var(--font-body);font-weight:400;font-size:11px;opacity:.6;letter-spacing:.06em}
+.bar .sp{flex:1}
+.bar button,.bar a.btn{font:inherit;font-size:13px;color:#f3f1ea;background:#3b3e46;border:1px solid #4d5057;
+  border-radius:8px;padding:6px 11px;cursor:pointer;text-decoration:none}
+.bar button:hover,.bar a.btn:hover{background:#4b4e57}
+.bar .pos{font-family:var(--font-mono);font-size:13px;opacity:.85;min-width:74px;text-align:center}
+
+.stage{padding:76px 16px 92px;display:flex;justify-content:center}
+.slide{display:none;width:min(1120px,100%);aspect-ratio:16/9;background:var(--cream);
+  border-radius:16px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative}
+.slide.on{display:block}
+.inner{position:absolute;inset:0;padding:38px 46px 46px;display:flex;flex-direction:column}
+
+.shead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.asp{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--petrol);background:var(--petrol-soft);padding:4px 9px;border-radius:999px}
+.stepchip{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;padding:4px 9px;border-radius:999px;
+  background:#eceae3;color:var(--muted)}
+.stepchip.z{background:#efeee8;color:#6b6e78}
+.stepchip.f{background:var(--accent-soft);color:#9c3407}
+.stepchip.r{background:var(--petrol-soft);color:var(--petrol)}
+h2.st{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2.5vw,34px);margin:0 0 6px;line-height:1.18}
+p.sub{margin:0 0 14px;color:var(--muted);font-size:clamp(13px,1.25vw,16px);line-height:1.6;max-width:70ch}
+.body{flex:1;min-height:0;display:flex;gap:22px}
+.body.col{flex-direction:column}
+.grow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-start;gap:0}
+
+pre.code{margin:0;background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:16px 18px;
+  font-family:var(--font-mono);font-size:clamp(11px,1.15vw,14.5px);line-height:1.62;overflow:auto;white-space:pre-wrap;
+  max-height:100%}
+pre.code .cm{color:#8c9ba8}
+pre.code .hl{color:#ffb38a}
+
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:10px;padding:12px 15px;font-size:clamp(12px,1.15vw,15px);line-height:1.62;color:#3c3f47}
+.note b{color:var(--accent)}
+.note.p{border-left-color:var(--petrol)}
+.note.p b{color:var(--petrol)}
+
+ul.pts{margin:0;padding-left:1.15em;font-size:clamp(12.5px,1.2vw,16px);line-height:1.75;color:#3c3f47}
+ul.pts li{margin:.18em 0}
+ul.pts li b{color:var(--ink)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-height:0;overflow:auto}
+.card .ch{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;margin-bottom:8px;color:var(--muted)}
+.card.before{background:#f4f2ec}.card.before .ch{color:#8b6a3c}
+.card.after{background:var(--accent-soft);border-color:#f6d9c8}.card.after .ch{color:#9c3407}
+.card ul{margin:0;padding-left:1.1em;font-size:clamp(12px,1.12vw,14.5px);line-height:1.7}
+
+figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;flex:1}
+figure img,figure svg{max-width:100%;max-height:100%;border-radius:10px;border:1px solid var(--line);background:#fff}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
+.mermaid{display:flex;justify-content:center;align-items:center;min-height:0;flex:1}
+.mermaid svg{max-height:100%;height:auto}
+.math{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;text-align:center;
+  font-size:clamp(11px,1.05vw,14px)}
+.math .cap{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.09em;color:var(--muted);margin-bottom:2px}
+a.lnk{color:var(--petrol);font-weight:500}
+.sfoot{position:absolute;left:46px;right:46px;bottom:16px;display:flex;justify-content:space-between;
+  align-items:center;font-family:var(--font-mono);font-size:11px;color:#9a9ca4;border-top:1px solid var(--line);padding-top:8px}
+
+/* cover */
+.cover{background:linear-gradient(160deg,#fdf6ee 0%,#f7f3ea 55%,#eef3f4 100%)}
+.cover .inner{justify-content:center}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.cover h1{font-family:var(--font-display);font-weight:700;font-size:clamp(30px,4.2vw,58px);line-height:1.1;margin:.28em 0 .2em}
+.cover h1 em{font-style:normal;color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12.5px;color:var(--muted)}
+.chip b{color:var(--ink)}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:20px}
+.g5{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 11px}
+.g5 .n{font-family:var(--font-mono);font-size:10.5px;color:var(--accent);letter-spacing:.1em}
+.g5 .l{font-size:12.5px;margin-top:3px;line-height:1.45}
+
+.dots{position:fixed;left:0;right:0;bottom:0;background:rgba(26,28,34,.92);padding:10px 16px;z-index:50;
+  display:flex;gap:5px;align-items:center;justify-content:center;flex-wrap:wrap}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;background:#565a63;cursor:pointer;padding:0}
+.dots button.on{background:var(--accent);transform:scale(1.35)}
+.hint{position:fixed;right:14px;bottom:52px;color:#9a9ca4;font-family:var(--font-mono);font-size:11px;z-index:40}
+
+@media (max-width:760px){
+  .inner{padding:22px 20px 34px}
+  .body{flex-direction:column;gap:12px}
+  .two{grid-template-columns:1fr}
+  .slide{aspect-ratio:auto;min-height:74vh}
+  .sfoot{left:20px;right:20px}
+}
+
+@media print{
+  @page{size:A4 landscape;margin:8mm}
+  body{background:#fff}
+  .bar,.dots,.hint{display:none!important}
+  .stage{padding:0;display:block}
+  .slide{display:block!important;width:100%;aspect-ratio:16/9;box-shadow:none;border-radius:0;
+    break-after:page;page-break-after:always;border:0;margin:0 0 4mm}
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  pre.code{background:#f3f1ea;color:#23262d;border:1px solid var(--line)}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="t">สไลด์สรุป · ห้องทดลองพรอมป์ AI<small>GE931-1 · 6 แง่ × 5 ขั้น = 30 หน้า</small></div>
+  <div class="sp"></div>
+  <a class="btn" href="index.html">← กลับหน้าเว็บหลัก</a>
+  <button id="btnPrint">พิมพ์ / บันทึก PDF</button>
+  <button id="btnPrev">←</button>
+  <div class="pos" id="pos">0 / 0</div>
+  <button id="btnNext">→</button>
+</div>
+
+<div class="stage" id="stage"></div>
+<div class="dots" id="dots"></div>
+<div class="hint">ใช้ปุ่ม ← → หรือคลิกจุดด้านล่าง · กด P เพื่อบันทึก PDF</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async></script>
+<script>
+(function(){
+"use strict";
+
+var ASPECTS=[
+ {n:1,tag:"แง่ที่ 1 · Text-to-Image",name:"สร้างรูปด้วย AI",tool:"Canva / เครื่องมือสร้างภาพ AI"},
+ {n:2,tag:"แง่ที่ 2 · Math Visualization",name:"กราฟความสัมพันธ์ทางคณิตศาสตร์",tool:"Desmos"},
+ {n:3,tag:"แง่ที่ 3 · Diagram-as-Code",name:"ไดอะแกรมจาก Mermaid",tool:"Mermaid"},
+ {n:4,tag:"แง่ที่ 4 · Academic Writing",name:"บทความจาก LaTeX",tool:"Overleaf"},
+ {n:5,tag:"แง่ที่ 5 · Summary Slides",name:"สไลด์สรุปด้วย NotebookLM",tool:"NotebookLM"},
+ {n:6,tag:"แง่ที่ 6 · Web + Deploy",name:"เว็บไซต์บน GitHub",tool:"GitHub Pages"}
+];
+var STEP=[
+ {k:"z",l:"ขั้น 1 · พรอมป์แรก (zero-shot)"},
+ {k:"",l:"ขั้น 2 · ผลลัพธ์ครั้งที่ 1"},
+ {k:"f",l:"ขั้น 3 · พรอมป์ใหม่ (few-shot)"},
+ {k:"",l:"ขั้น 4 · ผลลัพธ์ครั้งที่ 2"},
+ {k:"r",l:"ขั้น 5 · บทสะท้อนการเรียนรู้"}
+];
+
+/* ---- เนื้อหา 6 แง่ × 5 ขั้น ---- */
+var C=[];
+
+/* ===== แง่ที่ 1 ===== */
+C[1]=[
+ {h:"“สร้างรูปเกี่ยวกับปัญญาประดิษฐ์”",
+  sub:"พรอมป์สั้นที่สุดเท่าที่จะสั้นได้ — ไม่บอกสไตล์ องค์ประกอบ โทนสี หรือสัดส่วน",
+  body:'<div class="grow"><pre class="code">สร้างรูปเกี่ยวกับปัญญาประดิษฐ์</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>สิ่งที่คาดว่าจะเกิด:</b> ระบบต้องเดาทุกอย่างแทนเรา — ได้ภาพ “หุ่นยนต์” แบบที่พบบ่อยที่สุดในข้อมูลฝึก</div></div>'},
+ {h:"ได้หุ่นยนต์ทั่วไป ไม่ตรงสิ่งที่ต้องการสื่อ",
+  sub:"องค์ประกอบ โทนสี และอารมณ์ของภาพแล้วแต่ระบบจะเดา ต้องสุ่มใหม่หลายครั้ง",
+  body:'<figure><img src="assets/img/01-image-zero-shot.svg" alt="ผลลัพธ์ภาพจากพรอมป์ zero-shot">'+
+       '<figcaption>ไฟล์: assets/img/01-image-zero-shot.svg</figcaption></figure>'+
+       '<div class="note" style="flex:0 0 34%"><b>ปัญหา:</b> พรอมป์กว้างเกินไป ไม่มีประธานของภาพ ไม่มีสไตล์ ไม่มีโทนสี และไม่มีสัดส่วน จึงคุมผลลัพธ์ไม่ได้เลย</div>'},
+ {h:"บรรยายภาพเหมือนสั่งงานช่างภาพ",
+  sub:"เติม 6 ส่วน: ประธาน · องค์ประกอบ · โทนสี · แสง/อารมณ์ · สัดส่วน · สิ่งที่ไม่ต้องการ",
+  body:'<div class="grow"><pre class="code">สร้างภาพประกอบสไตล์ isometric 3D สะอาดตา หัวข้อ "AI ช่วยมนุษย์เรียนรู้"\n<span class="cm"># ประธานของภาพ</span>\nนักศึกษานั่งทำงานคู่กับผู้ช่วย AI ที่เป็นสมองดิจิทัลเรืองแสง\n<span class="cm"># องค์ประกอบ</span>\nโหนดโครงข่ายประสาทเชื่อมกันด้วยเส้นข้อมูล, ไอคอนหนังสือและกราฟลอยรอบตัว\n<span class="cm"># โทนสี</span>\nส้มเบิร์นต์ (#D9480F) ตัดกับน้ำเงินปิโตรล (#1E5566) บนพื้นครีม\n<span class="cm"># แสงและอารมณ์</span>\nแสงนุ่ม มีเงาบาง ๆ ให้ดูมีมิติ — โทนทันสมัย เป็นมิตร น่าเชื่อถือ\n<span class="cm"># สัดส่วน</span>\n16:9 เว้นที่ว่างด้านบนสำหรับใส่หัวข้อ\n<span class="cm"># ไม่เอา (negative)</span>\nตัวอักษรมั่ว, ลายน้ำ, ใบหน้าบิดเบี้ยว, สีฉูดฉาดเกินจริง</pre></div>'},
+ {h:"ได้ภาพตรงคอนเซ็ปต์ คุมสีและองค์ประกอบได้",
+  sub:"มีประธานชัด โทนสีตามที่กำหนด องค์ประกอบครบ และเว้นที่ว่างสำหรับหัวข้อ",
+  body:'<figure><img src="assets/img/01-image-few-shot.svg" alt="ผลลัพธ์ภาพจากพรอมป์ few-shot">'+
+       '<figcaption>ไฟล์: assets/img/01-image-few-shot.svg · พรอมป์เดียวกันนำไปใช้กับ Canva Magic Media ได้ทันที</figcaption></figure>'+
+       '<div class="note" style="flex:0 0 34%"><b>ต่างจากครั้งแรก:</b> ควบคุมได้ 4 อย่าง — ประธานของภาพ, โทนสี (hex), องค์ประกอบรอบตัว และพื้นที่ว่างสำหรับหัวข้อ ไม่ต้องสุ่มซ้ำหลายรอบ</div>'},
+ {h:"ภาพที่ดีเริ่มจากการบรรยายที่ดี",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>ได้ “หุ่นยนต์” ทั่วไป</li><li>ไม่คุมสไตล์ / สี / องค์ประกอบ</li><li>ต้องสุ่มใหม่หลายครั้ง</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>ตรงคอนเซ็ปต์ที่ต้องการสื่อ</li><li>โทนสีและสัดส่วนคุมได้</li><li>มี negative prompt กันข้อผิดพลาด</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> ภาพที่ดีเริ่มจาก “การบรรยายเหมือนสั่งช่างภาพ” — ระบุประธาน สไตล์ แสง สี สัดส่วน และสิ่งที่ไม่ต้องการ ยิ่งชัดยิ่งคุมผลลัพธ์ได้</div>'}
+];
+
+/* ===== แง่ที่ 2 ===== */
+C[2]=[
+ {h:"“วาดกราฟของ AI ใน Desmos”",
+  sub:"สั่งด้วยคำนามลอย ๆ ที่ไม่ใช่ความสัมพันธ์ทางคณิตศาสตร์",
+  body:'<div class="grow"><pre class="code">วาดกราฟของ AI ใน Desmos</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>ข้อสังเกต:</b> Desmos วาดได้เฉพาะ “ความสัมพันธ์ระหว่างตัวแปร” — คำว่า AI ไม่ใช่สมการ จึงไม่มีอะไรให้พล็อต</div></div>'},
+ {h:"ไม่มีอะไรให้วาด",
+  sub:"ผลที่ได้คือเส้นตรงมั่ว ๆ หรือคำถามกลับว่า “ต้องการกราฟอะไร”",
+  body:'<div class="grow"><ul class="pts">'+
+       '<li>ไม่มี <b>ฟังก์ชัน</b> ที่ต้องการพล็อต</li>'+
+       '<li>ไม่มี <b>ช่วงแกน</b> x และ y</li>'+
+       '<li>ไม่มี <b>จุดประสงค์</b> ว่าจะใช้กราฟอธิบายอะไร</li></ul>'+
+       '<div class="note" style="margin-top:14px"><b>ปัญหา:</b> ยังไม่ได้แปลงแนวคิดนามธรรม (“AI”) ให้เป็นความสัมพันธ์ที่วาดได้</div></div>'},
+ {h:"เปลี่ยน “AI” เป็นฟังก์ชันกระตุ้น 3 แบบ",
+  sub:"ระบุสมการ ช่วงแกน สี label และสิ่งที่ต้องการให้กราฟสื่อ",
+  body:'<div class="grow"><pre class="code">ฉันต้องการอธิบาย "ฟังก์ชันกระตุ้น (activation function)"\nในโครงข่ายประสาทเทียม ช่วยให้สมการและการตั้งค่าเพื่อพล็อต\nเปรียบเทียบ 3 ฟังก์ชันในกราฟเดียว:\n<span class="cm">1) Sigmoid : f(x) = 1 / (1 + e^(-x))</span>\n<span class="cm">2) Tanh    : g(x) = (e^x - e^(-x)) / (e^x + e^(-x))</span>\n<span class="cm">3) ReLU    : h(x) = max(0, x)</span>\n- ตั้งช่วงแกน x: -6 ถึง 6 , แกน y: -1.2 ถึง 3\n- ใส่สีต่างกันและ label กำกับแต่ละเส้น\n- อธิบายสั้น ๆ ว่าทำไม sigmoid/tanh "อิ่มตัว" ส่วน ReLU เป็นเส้นตรงครึ่งซีก</pre></div>'},
+ {h:"กราฟเดียวเห็นพฤติกรรมต่างกันทันที",
+  sub:"Sigmoid & Tanh อิ่มตัวที่ปลายทั้งสองข้าง · ReLU ตัดที่ 0 แล้วเป็นเส้นตรง",
+  body:'<figure><img src="assets/img/02-activation-graph.svg" alt="กราฟเปรียบเทียบ sigmoid tanh relu">'+
+       '<figcaption>นิพจน์ที่วางใน Desmos: <span style="font-family:var(--font-mono)">f(x)=1/(1+e^{-x}) · g(x)=tanh(x) · h(x)=max(0,x)</span></figcaption></figure>'+
+       '<div class="note" style="flex:0 0 33%"><b>อ่านกราฟ:</b> sigmoid อยู่ในช่วง (0,1) ใช้แทนความน่าจะเป็น · tanh อยู่ในช่วง (−1,1) สมมาตร · ReLU ความชันคงที่ในด้านบวก จึงเทรนโมเดลลึกได้เร็วกว่า<br><span style="font-size:11.5px">ไฟล์นิพจน์: assets/desmos/activation-functions.txt</span></div>'},
+ {h:"คณิตศาสตร์ต้องการ “ตัวแปร” ไม่ใช่ “หัวข้อ”",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>ไม่มีสมการให้วาด</li><li>ระบบไม่เข้าใจว่า “AI” วาดยังไง</li><li>ไม่มีช่วงแกน</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>ได้ 3 สมการชัดเจน พร้อมช่วงแกน</li><li>กราฟเทียบเห็นความต่างทันที</li><li>มีคำอธิบายเชิงความหมายแนบ</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> ต้องแปลงแนวคิดนามธรรมให้เป็น “ความสัมพันธ์ที่วาดได้” ก่อน — ระบุฟังก์ชัน ตัวแปร และช่วงแกน แล้วเครื่องมือจึงช่วยสื่อสารได้</div>'}
+];
+
+/* ===== แง่ที่ 3 ===== */
+C[3]=[
+ {h:"“ทำ flowchart เกี่ยวกับ AI ให้หน่อย”",
+  sub:"ไม่บอกว่าจะอธิบายกระบวนการอะไร มีขั้นตอนอะไร เงื่อนไขไหน",
+  body:'<div class="grow"><pre class="code">ทำ flowchart เกี่ยวกับ AI ให้หน่อย</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>ข้อสังเกต:</b> flowchart คือการเล่า “ลำดับ” — ถ้าไม่มีลำดับให้เล่า ผังก็ว่างเปล่า</div></div>'},
+ {h:"ได้ผัง 3 node ที่ใช้อธิบายอะไรไม่ได้",
+  sub:"",
+  body:'<div class="grow"><pre class="code">flowchart LR\n  A[AI] --&gt; B[ดี]\n  A --&gt; C[ไม่ดี]</pre>'+
+       '<div class="note" style="margin-top:14px"><b>ปัญหา:</b> ไม่มีขั้นตอนจริง ไม่มีจุดตัดสินใจ ไม่มีการวนกลับ — เอาไปใช้ในรายงานไม่ได้</div></div>'},
+ {h:"สั่งเป็น “กระบวนการ” พร้อมเงื่อนไขและลูป",
+  sub:"ระบุขั้นตอน ทิศทาง จุดตัดสินใจ และภาษาที่ใช้ใน node",
+  body:'<div class="grow"><pre class="code">เขียนโค้ด Mermaid เป็น flowchart แนวตั้ง อธิบาย\n"วงจรการพัฒนาโมเดล Machine Learning" ให้มีขั้นตอน:\nเก็บข้อมูล → ทำความสะอาด → แบ่ง Train/Test → เทรนโมเดล\n→ มีจุดตัดสินใจ "ความแม่นยำพอหรือยัง?"\n   - ถ้าไม่พอ ให้วนกลับไปปรับ hyperparameter/เพิ่มข้อมูล\n   - ถ้าพอ ให้ไป Deploy แล้วเก็บ feedback วนกลับมาต้นทาง\nใช้ภาษาไทยในทุก node และจัดให้อ่านง่าย</pre></div>'},
+ {h:"ได้วงจรการพัฒนาโมเดลที่ใช้สอนได้จริง",
+  sub:"มีจุดตัดสินใจและลูปวนปรับปรุง 2 ชั้น — โค้ดอยู่ที่ assets/mermaid/03-few-shot.mmd",
+  body:'<div class="mermaid">flowchart TD\n  A["เก็บรวบรวมข้อมูล"] --> B["ทำความสะอาด &amp; เตรียมข้อมูล"]\n  B --> C["แบ่งชุด Train / Test"]\n  C --> D["เทรนโมเดล"]\n  D --> E{"ความแม่นยำ<br/>พอหรือยัง?"}\n  E -- "ยังไม่พอ" --> F["ปรับ hyperparameter<br/>/ เพิ่มข้อมูล"]\n  F --> D\n  E -- "พอแล้ว" --> G["นำไปใช้งาน (Deploy)"]\n  G --> H["ติดตามผล &amp; เก็บ feedback"]\n  H --> A</div>'},
+ {h:"Diagram-as-code ต้องการโครงในหัวก่อน",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>3 node ไม่มีความหมาย</li><li>ไม่มีลำดับ / เงื่อนไข</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>เล่า “กระบวนการจริง” เป็นขั้น ๆ</li><li>มีจุดตัดสินใจและลูปวนปรับปรุง</li><li>ระบุทิศทางและภาษาไทยครบ</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> บอก “ลำดับ + ความสัมพันธ์ + เงื่อนไข” ให้ชัดเหมือนร่างผังในหัวก่อน แล้วปล่อยให้เครื่องมือจัดวางให้สวย</div>'}
+];
+
+/* ===== แง่ที่ 4 ===== */
+C[4]=[
+ {h:"“เขียนบทความ LaTeX เรื่อง AI”",
+  sub:"ไม่ระบุโครงสร้าง ภาษา สมการ การอ้างอิง หรือ engine ที่จะคอมไพล์",
+  body:'<div class="grow"><pre class="code">เขียนบทความ LaTeX เรื่อง AI</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>ข้อสังเกต:</b> งานเอกสารวิชาการมีองค์ประกอบบังคับหลายอย่าง ถ้าไม่ระบุ ระบบจะให้แค่โครงว่าง</div></div>'},
+ {h:"ได้โครงเปล่า 3 บรรทัด",
+  sub:"",
+  body:'<div class="grow"><pre class="code">\\documentclass{article}\n\\begin{document}\nAI is a technology. It is useful.\n\\end{document}</pre>'+
+       '<div class="note" style="margin-top:14px"><b>ปัญหา:</b> ไม่มีบทคัดย่อ หัวข้อ สมการ หรือบรรณานุกรม และไม่รองรับภาษาไทย (คอมไพล์แล้วตัวอักษรหาย)</div></div>'},
+ {h:"ระบุโครงสร้าง + สมการ + สภาพแวดล้อมที่จะคอมไพล์",
+  sub:"บอกให้ชัดว่าใช้ XeLaTeX และต้องตั้งฟอนต์ไทยด้วย fontspec",
+  body:'<div class="grow"><pre class="code">เขียนบทความวิชาการภาษาไทยด้วย LaTeX (คอมไพล์ด้วย XeLaTeX)\nหัวข้อ "นิวรอนเทียมและการเรียนรู้ของเครื่อง" ให้มี:\n- title, author, บทคัดย่อ (abstract)\n- 3 หัวข้อ: บทนำ / โมเดลนิวรอน / การเรียนรู้\n- สมการผลลัพธ์ของนิวรอน (sigmoid) และสมการ loss (cross-entropy)\n  แบบ numbered equation\n- ตั้งค่าฟอนต์ไทยด้วย fontspec และรายการอ้างอิง 2 รายการ\nส่งเป็นไฟล์ .tex ที่พร้อมวางใน Overleaf</pre></div>'},
+ {h:"ได้ไฟล์ .tex ที่คอมไพล์บน Overleaf ได้ทันที",
+  sub:"ไฟล์ ai_article.tex · เปิด Overleaf → New Project → Upload → ตั้ง Compiler เป็น XeLaTeX",
+  body:'<div class="body col" style="gap:12px">'+
+       '<div class="math"><div class="cap">สมการ (1) ผลลัพธ์ของนิวรอน</div>$$\\hat{y} = \\sigma(\\mathbf{w}^{\\top}\\mathbf{x}+b),\\qquad \\sigma(z)=\\frac{1}{1+e^{-z}}$$</div>'+
+       '<div class="math"><div class="cap">สมการ (2) ฟังก์ชันสูญเสีย Cross-Entropy</div>$$\\mathcal{L} = -\\frac{1}{N}\\sum_{i=1}^{N}\\Big[y_i\\log\\hat{y}_i + (1-y_i)\\log(1-\\hat{y}_i)\\Big]$$</div>'+
+       '<div class="note" style="margin-top:2px"><b>องค์ประกอบที่ได้ครบ:</b> title / author / abstract · 3 หัวข้อ · สมการเลขที่ 2 สมการ · บรรณานุกรม 2 รายการ · ตั้งฟอนต์ไทยด้วย fontspec + polyglossia</div></div>'},
+ {h:"เอกสารวิชาการต้องบอก “สภาพแวดล้อม” ด้วย",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>โครงเปล่า 3 บรรทัด</li><li>ไม่มีสมการ / อ้างอิง</li><li>ภาษาไทยพัง</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>มี abstract, หัวข้อ, สมการเลขที่</li><li>ตั้งฟอนต์ไทย + บรรณานุกรม</li><li>คอมไพล์บน Overleaf ได้ทันที</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> ต้องระบุ “โครงสร้าง + องค์ประกอบ + สภาพแวดล้อมที่จะใช้” (ที่นี่คือ XeLaTeX + ฟอนต์ไทย) ไม่งั้นได้ผลลัพธ์ที่คอมไพล์ไม่ผ่าน</div>'}
+];
+
+/* ===== แง่ที่ 5 ===== */
+C[5]=[
+ {h:"“สรุปเรื่อง AI เป็นสไลด์”",
+  sub:"ไม่บอกผู้ฟัง จำนวนสไลด์ ความยาว หรือรูปแบบต่อสไลด์",
+  body:'<div class="grow"><pre class="code">สรุปเรื่อง AI เป็นสไลด์</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>ข้อสังเกต:</b> สไลด์ต้องออกแบบรอบ “ผู้ฟังและเวลา” ถ้าไม่บอก ระบบจะเทเนื้อหาลงมาเท่าที่มี</div></div>'},
+ {h:"ได้ bullet กองรวมกัน ไม่รู้จะพูดให้ใครฟัง",
+  sub:"",
+  body:'<div class="grow"><ul class="pts">'+
+       '<li>bullet ยาวเกินอ่านบนจอ กองรวมในไม่กี่สไลด์</li>'+
+       '<li>ระดับความลึกไม่แน่นอน — ศัพท์เทคนิคปนกับคำทั่วไป</li>'+
+       '<li>ไม่มีโน้ตผู้พูด ไม่รู้ว่าจะเล่ายังไงในเวลาที่มี</li></ul>'+
+       '<div class="note" style="margin-top:14px"><b>ปัญหา:</b> ไม่ได้ระบุกลุ่มผู้ฟัง จำนวนสไลด์ ระดับความลึก หรือรูปแบบต่อสไลด์</div></div>'},
+ {h:"กำหนดผู้ฟัง เวลา จำนวน และโครงต่อสไลด์",
+  sub:"เติม “ใครฟัง + ยาวแค่ไหน + แต่ละสไลด์มีอะไร + ลำดับเรื่อง”",
+  body:'<div class="grow"><pre class="code">สร้างสไลด์สรุปเรื่อง "ปัญญาประดิษฐ์เบื้องต้น"\n- ผู้ฟัง: เพื่อนร่วมชั้นวิชา GE931 (ไม่ใช่สายเทคนิค)\n- จำนวน: 6 สไลด์ พอดีนำเสนอ 5 นาที\n- แต่ละสไลด์ให้มี: หัวข้อ + 3 bullet สั้น + 1 โน้ตผู้พูด\n- ลำดับ: AI คืออะไร → ประเภท → ML ทำงานยังไง\n  → ใช้จริงที่ไหน → ข้อควรระวัง/จริยธรรม → สรุป+อนาคต\n- ใช้ภาษาเข้าใจง่าย มีตัวอย่างใกล้ตัว</pre>'+
+       '<div class="note p" style="margin-top:12px"><b>เอกสารต้นทาง:</b> อัปโหลด assets/notebooklm/source-ai-intro.md เป็น source ใน NotebookLM ก่อน แล้วจึงวางพรอมป์นี้</div></div>'},
+ {h:"ได้เด็ค 6 สไลด์ที่เล่าเรื่องได้ + โน้ตผู้พูด",
+  sub:"ลำดับชัด ภาษาเหมาะกับผู้ฟังไม่เทคนิค และคุมเวลาได้ 5 นาที",
+  body:'<div class="grow"><ul class="pts">'+
+       '<li><b>1 · AI คืออะไร</b> — เรียนจากข้อมูลแทนกฎ · เลียนแบบงานที่ใช้ความฉลาด · ตัวอย่างใกล้ตัว<br><span style="font-size:12px;color:var(--muted)">โน้ต: ย้ำว่า AI = เรียนจากตัวอย่าง ไม่ใช่เวทมนตร์</span></li>'+
+       '<li><b>2 · ประเภทของ AI</b> — Narrow / General · ML · Deep Learning</li>'+
+       '<li><b>3 · ML ทำงานอย่างไร</b> — ป้อนตัวอย่าง → เทรน → ทำนายข้อมูลใหม่</li>'+
+       '<li><b>4 · AI ในชีวิตประจำวัน</b> — สื่อ · สุขภาพ · การเดินทาง</li>'+
+       '<li><b>5 · ข้อควรระวัง & จริยธรรม</b> — bias · deepfake · ต้องมีมนุษย์ตรวจ</li>'+
+       '<li><b>6 · สรุป & อนาคต</b> — AI คือผู้ช่วย · ทักษะคือการตั้งคำถาม</li></ul>'+
+       '<div class="note" style="margin-top:10px"><b>ไฟล์ผลลัพธ์:</b> assets/notebooklm/slide-outline.md (โครง 6 สไลด์ + โน้ตผู้พูดเต็ม)</div></div>'},
+ {h:"สไลด์ออกแบบรอบผู้ฟัง ไม่ใช่รอบเนื้อหา",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>bullet กองรวม ไม่มีโครง</li><li>ไม่รู้กลุ่มผู้ฟัง / ความยาว</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>6 สไลด์ ลำดับชัด เล่าเรื่องได้</li><li>ปรับภาษาให้ผู้ฟังไม่เทคนิค</li><li>มีโน้ตผู้พูดช่วยนำเสนอ</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> เริ่มจาก “ใครฟัง + ยาวแค่ไหน + โครงต่อสไลด์” การกำหนดกรอบเหล่านี้ทำให้ AI จัดเนื้อหาให้เหมาะกับการนำเสนอจริง</div>'}
+];
+
+/* ===== แง่ที่ 6 ===== */
+C[6]=[
+ {h:"“ทำเว็บเกี่ยวกับ AI”",
+  sub:"ไม่ระบุเนื้อหา โครงหน้า สไตล์ การรองรับมือถือ หรือปลายทางที่จะ deploy",
+  body:'<div class="grow"><pre class="code">ทำเว็บเกี่ยวกับ AI</pre>'+
+       '<div class="note p" style="margin-top:14px"><b>ข้อสังเกต:</b> ยิ่งงานปลายทางซับซ้อน พรอมป์ยิ่งต้องบอกข้อจำกัดทางเทคนิคและปลายทางให้ครบ</div></div>'},
+ {h:"ได้หน้า HTML ขาว ๆ ที่ deploy ไม่ได้",
+  sub:"",
+  body:'<div class="grow"><pre class="code">&lt;h1&gt;AI&lt;/h1&gt;\n&lt;p&gt;AI is the future.&lt;/p&gt;</pre>'+
+       '<div class="note" style="margin-top:14px"><b>ปัญหา:</b> ไม่มีโครงสร้าง ไม่มีผลงานของเราอยู่ในนั้น ไม่รองรับมือถือ และไม่มีคำสั่งว่าจะนำขึ้น GitHub Pages อย่างไร</div></div>'},
+ {h:"สั่งให้รวมผลงาน 1–5 ไว้ในหน้าเดียว พร้อม deploy",
+  sub:"ระบุเนื้อหา โครง 5 ขั้นต่อแง่ ธีม การฝังสื่อ responsive และปลายทาง",
+  body:'<div class="grow"><pre class="code">สร้างเว็บไซต์หน้าเดียว (index.html) ภาษาไทย หัวข้อ "ปัญญาประดิษฐ์"\nเพื่อ deploy บน GitHub Pages โดย:\n- รวมผลงาน 6 แง่ (รูป AI, กราฟ Desmos, ไดอะแกรม Mermaid,\n  บทความ LaTeX, สไลด์สรุป, ตัวเว็บเอง) ให้ต่อเนื่องเป็นเรื่องเดียว\n- แต่ละแง่แสดง 5 ขั้น: พรอมป์แรก → ผล → พรอมป์ใหม่ → ผล → บทสะท้อน\n- ดีไซน์ธีม "สมุดบันทึกการทดลอง" มีสารบัญ, สลับโหมดสว่าง/มืด\n- ฝัง Mermaid และสมการ (MathJax) ให้เรนเดอร์ในหน้าได้จริง\n- responsive รองรับมือถือ และเป็นไฟล์เดียวจบ ไม่พึ่งไฟล์ภายนอก</pre></div>'},
+ {h:"ได้เว็บไซต์จริงบน GitHub Pages",
+  sub:"หน้าเดียวรวมผลงานแง่ที่ 1–5 ต่อเนื่องกัน + เด็คสไลด์ 30 หน้านี้",
+  body:'<div class="grow"><ul class="pts">'+
+       '<li><b>index.html</b> — เว็บหลัก 6 แง่ × 5 ขั้น ฝัง Mermaid / MathJax / กราฟ สลับธีมได้</li>'+
+       '<li><b>slides.html</b> — เด็คสไลด์ 30 หน้า (หน้านี้) พิมพ์เป็น PDF ได้</li>'+
+       '<li><b>assets/</b> — ไฟล์ผลงานแยกชิ้น: รูป SVG, นิพจน์ Desmos, โค้ด Mermaid, เอกสารต้นทาง NotebookLM, คลังพรอมป์</li>'+
+       '<li><b>ai_article.tex</b> — บทความ LaTeX พร้อมคอมไพล์บน Overleaf</li>'+
+       '<li><b>.github/workflows/pages.yml</b> — deploy อัตโนมัติทุกครั้งที่ push</li></ul>'+
+       '<div class="note" style="margin-top:12px"><b>ลิงก์:</b> github.com/mikebaba123-stack/ai-prompt-lab → Settings → Pages → ได้ URL <span style="font-family:var(--font-mono);font-size:12px">https://mikebaba123-stack.github.io/ai-prompt-lab/</span></div>'},
+ {h:"งานปลายทางซับซ้อน = พรอมป์ต้องครบ 4 ด้าน",
+  sub:"",
+  body:'<div class="two">'+
+       '<div class="card before"><div class="ch">● ZERO-SHOT</div><ul><li>หน้าเปล่า ไม่มีเนื้อหา</li><li>ไม่มีดีไซน์ / มือถือ</li><li>deploy ไม่ได้</li></ul></div>'+
+       '<div class="card after"><div class="ch">● FEW-SHOT</div><ul><li>รวมผลงาน 6 แง่เป็นเรื่องเดียว</li><li>มีธีม สารบัญ ฝังสื่อจริง</li><li>พร้อมขึ้น GitHub Pages</li></ul></div></div>'+
+       '<div class="note" style="margin-top:14px"><b>บทเรียน:</b> ระบุ “เนื้อหา + โครงสร้าง + ข้อจำกัดทางเทคนิค + ปลายทาง” ให้ครบ ผลลัพธ์จึงใช้งานได้ทันทีโดยไม่ต้องแก้ซ้ำ</div>'}
+];
+
+/* ---------- build slides ---------- */
+var stage=document.getElementById('stage');
+var list=[];
+
+function el(html){var d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild;}
+
+/* cover */
+list.push(el('<section class="slide cover"><div class="inner">'+
+  '<div class="eyebrow">GE931-1 · ปีการศึกษา 2569 ภาคเรียนที่ 1</div>'+
+  '<h1>ฝึกใช้ <em>Prompt</em> ใน 6 เครื่องมือ<br>ผ่านหัวข้อ <em>ปัญญาประดิษฐ์</em></h1>'+
+  '<p class="sub">เปรียบเทียบผลลัพธ์จากพรอมป์แบบ Zero-shot (สั่งลอย ๆ) กับ Few-shot (ใส่บริบท ตัวอย่าง และข้อกำหนด) — 6 แง่ × 5 ขั้น = 30 หน้า</p>'+
+  '<div class="chips"><span class="chip">Keyword <b>ปัญญาประดิษฐ์ (AI)</b></span>'+
+  '<span class="chip">ผู้จัดทำ <b>G</b></span>'+
+  '<span class="chip">เว็บไซต์ <b>mikebaba123-stack.github.io/ai-prompt-lab</b></span></div>'+
+  '<div class="grid5">'+
+  '<div class="g5"><div class="n">ขั้น 1</div><div class="l">พรอมป์แรก<br>zero-shot</div></div>'+
+  '<div class="g5"><div class="n">ขั้น 2</div><div class="l">ผลลัพธ์<br>ครั้งที่ 1</div></div>'+
+  '<div class="g5"><div class="n">ขั้น 3</div><div class="l">พรอมป์ใหม่<br>few-shot</div></div>'+
+  '<div class="g5"><div class="n">ขั้น 4</div><div class="l">ผลลัพธ์<br>ครั้งที่ 2</div></div>'+
+  '<div class="g5"><div class="n">ขั้น 5</div><div class="l">บทสะท้อน<br>การเรียนรู้</div></div>'+
+  '</div></div></section>'));
+
+var pageNo=0;
+ASPECTS.forEach(function(a){
+  C[a.n].forEach(function(s,si){
+    pageNo++;
+    var st=STEP[si];
+    var sec=el('<section class="slide"><div class="inner">'+
+      '<div class="shead"><span class="asp">'+a.tag+' · '+a.name+'</span>'+
+      '<span class="stepchip '+st.k+'">'+st.l+'</span></div>'+
+      '<h2 class="st">'+s.h+'</h2>'+
+      (s.sub?'<p class="sub">'+s.sub+'</p>':'')+
+      '<div class="body'+(s.body.indexOf('class="two"')>=0||s.body.indexOf('class="grow"')>=0||s.body.indexOf('body col')>=0?' col':'')+'">'+s.body+'</div>'+
+      '<div class="sfoot"><span>'+a.tool+'</span><span>หน้า '+pageNo+' / 30</span></div>'+
+      '</div></section>');
+    list.push(sec);
+  });
+});
+
+/* closing */
+list.push(el('<section class="slide"><div class="inner">'+
+  '<div class="shead"><span class="asp">สรุปภาพรวม</span><span class="stepchip r">5 หลักการที่ได้จากทั้ง 6 แง่</span></div>'+
+  '<h2 class="st">อะไรทำให้ Zero-shot กับ Few-shot ต่างกัน</h2>'+
+  '<p class="sub">ทั้ง 6 การทดลองชี้ตรงกันว่า ผลลัพธ์ไม่ได้ขึ้นกับ “เครื่องมือ” อย่างเดียว แต่ขึ้นกับ “คุณภาพของพรอมป์” มากกว่า</p>'+
+  '<div class="body col" style="gap:10px">'+
+  '<ul class="pts">'+
+  '<li><b>1 · ให้บริบท (Context)</b> — บอกว่าใครใช้ ใช้ทำอะไร ในสถานการณ์ไหน</li>'+
+  '<li><b>2 · เจาะจง (Specificity)</b> — ระบุประธาน ตัวแปร สไตล์ ขั้นตอน แทนคำกว้าง ๆ อย่าง “เกี่ยวกับ AI”</li>'+
+  '<li><b>3 · กำหนดรูปแบบผลลัพธ์ (Format)</b> — 6 สไลด์, flowchart แนวตั้ง, สมการเลขที่, ไฟล์ .tex</li>'+
+  '<li><b>4 · ยกตัวอย่าง + ข้อจำกัด</b> — ใส่ตัวอย่างและ “สิ่งที่ไม่ต้องการ” (negative prompt)</li>'+
+  '<li><b>5 · ทำซ้ำและปรับ (Iterate)</b> — พรอมป์แรกคือจุดเริ่ม few-shot คือผลของการวนปรับ</li>'+
+  '</ul>'+
+  '<div class="note"><b>ข้อสรุป:</b> เขียนพรอมป์เหมือนสั่งงานเพื่อนร่วมทีม — ยิ่งสื่อสารชัด ผลลัพธ์ยิ่งใกล้สิ่งที่คิดไว้ และประหยัดรอบการแก้</div></div>'+
+  '<div class="sfoot"><span>ห้องทดลองพรอมป์ AI · GE931-1</span><span>สรุป</span></div>'+
+  '</div></section>'));
+
+list.forEach(function(s){stage.appendChild(s);});
+
+/* ---------- navigation ---------- */
+var i=0,n=list.length;
+var pos=document.getElementById('pos'), dots=document.getElementById('dots');
+list.forEach(function(_,k){
+  var b=document.createElement('button');
+  b.setAttribute('aria-label','ไปหน้า '+(k+1));
+  b.addEventListener('click',function(){go(k);});
+  dots.appendChild(b);
+});
+var dotEls=Array.prototype.slice.call(dots.children);
+function go(k){
+  i=(k+n)%n;
+  list.forEach(function(s,x){s.classList.toggle('on',x===i);});
+  dotEls.forEach(function(d,x){d.classList.toggle('on',x===i);});
+  pos.textContent=(i+1)+' / '+n;
+  try{location.hash='p'+(i+1);}catch(e){}
+}
+document.getElementById('btnPrev').addEventListener('click',function(){go(i-1);});
+document.getElementById('btnNext').addEventListener('click',function(){go(i+1);});
+document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){go(i+1);e.preventDefault();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(i-1);e.preventDefault();}
+  else if(e.key==='Home'){go(0);}
+  else if(e.key==='End'){go(n-1);}
+  else if(e.key==='p'||e.key==='P'){window.print();}
+});
+var m=/^#p(\d+)$/.exec(location.hash||'');
+go(m?parseInt(m[1],10)-1:0);
+
+/* mermaid */
+try{
+  if(window.mermaid){
+    mermaid.initialize({startOnLoad:true,theme:'neutral',securityLevel:'loose',
+      flowchart:{curve:'basis',useMaxWidth:true},fontFamily:"'IBM Plex Sans Thai',sans-serif"});
+  }
+}catch(e){}
+
+/* แสดงทุกหน้าเมื่อสั่งพิมพ์ (CSS จัดการอยู่แล้ว แต่ต้องคืนสถานะหลังพิมพ์) */
+window.addEventListener('afterprint',function(){go(i);});
+})();
+</script>
+</body>
+</html>
