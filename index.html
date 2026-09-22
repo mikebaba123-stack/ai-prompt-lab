@@ -287,6 +287,29 @@ footer b{color:var(--muted);font-family:var(--font-display)}
   .steps{padding-left:24px}
   .step > .badge{left:-36px}
 }
+/* ---------- ส่วนที่เพิ่ม: แกลเลอรีภาพ AI + สะพานเชื่อมหน้า Nival ---------- */
+.aigrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.aigrid figure{margin:0}
+.aigrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;
+  border:1px solid var(--out-line);background:#e9f1f8}
+.aigrid figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--faint);
+  margin-top:5px;text-align:center}
+@media (max-width:660px){.aigrid{grid-template-columns:repeat(3,1fr)}}
+.nival{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;
+  padding:26px 28px;border-radius:var(--radius);border:1px solid rgba(30,85,102,.24);
+  background:linear-gradient(135deg,#ecf4fb,#dbe9f6 58%,#e6eff8);color:#06192f}
+.nival h3{font-family:var(--font-display);font-weight:700;font-size:1.32rem;margin:.15em 0 .35em}
+.nival p{margin:0 0 .7em;font-size:15px;line-height:1.62;color:#33465b}
+.nival .ky{color:#1e5566}
+.nival ul{margin:.2em 0 0;padding-left:1.1em;font-size:14.5px;line-height:1.7;color:#33465b}
+.nival ul b{color:#06192f}
+.nival-shot{border-radius:16px;overflow:hidden;border:1px solid rgba(6,25,47,.14);
+  background:#d6e6f5;box-shadow:0 10px 30px rgba(20,45,70,.14)}
+.nival-shot img{width:100%;display:block}
+.nival .btn{border-color:rgba(6,25,47,.22);background:rgba(255,255,255,.72);color:#06192f}
+.nival .btn:hover{border-color:#1169dc;color:#0b4da8}
+.nival .btn.pri{background:#06192f;border-color:#06192f;color:#fff}
+@media (max-width:820px){.nival{grid-template-columns:1fr}}
 /* ---------- ส่วนที่เพิ่ม: ปุ่มไฟล์ / สื่อฝัง / รายการไฟล์ ---------- */
 .btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:12px;
@@ -331,6 +354,7 @@ html{scroll-behavior:smooth}
       <span class="chip">รูปแบบ <b>เว็บไซต์ + ฝัง GitHub Pages</b></span>
       <span class="chip">โครงสร้าง <b>6 แง่ × 5 ขั้น</b></span>
       <a class="chip" href="slides.html" style="text-decoration:none">เปิดเด็คสไลด์ <b>30 หน้า →</b></a>
+      <a class="chip" href="nival/" style="text-decoration:none">ผลงานต่อยอด <b>Nival →</b></a>
     </div>
   </header>
 
@@ -346,6 +370,7 @@ html{scroll-behavior:smooth}
         <li><a href="#exp-05"><span class="n">05</span> สไลด์ NotebookLM</a></li>
         <li><a href="#exp-06"><span class="n">06</span> เว็บไซต์บน GitHub</a></li>
         <li><a href="#reflection"><span class="n">✦</span> สรุปภาพรวม</a></li>
+        <li><a href="#nival"><span class="n">★</span> ผลงานต่อยอด · Nival</a></li>
         <li><a href="#files"><span class="n">⬇</span> ไฟล์ผลงานทั้งหมด</a></li>
         <li><a href="#deploy"><span class="n">↑</span> วิธี Deploy</a></li>
       </ol>
@@ -518,6 +543,21 @@ html{scroll-behavior:smooth}
                        onerror="this.parentNode.hidden=true;var h=document.getElementById('canvaHint');if(h)h.hidden=false">
                   <figcaption>โปสเตอร์ที่ได้จาก Canva Magic Design ด้วยพรอมป์ few-shot ชุดเดียวกัน</figcaption>
                 </figure>
+                <div class="aigrid" aria-label="ชุดภาพที่สร้างด้วย AI สำหรับ keyword ปัญญาประดิษฐ์">
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 1"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/caf08036-c63c-4d0c-9b81-43c5a7a49343.png"><figcaption>AI 01</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 2"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/599a5a28-c9f1-44f9-b01b-adb8b22e8c12.png"><figcaption>AI 02</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 3"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/fc804805-b23c-40ba-97b0-9ab2ba3efb5d.png"><figcaption>AI 03</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 4"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/0cb0c1f0-f84a-47bb-bfa1-43b6c7f1575d.png"><figcaption>AI 04</figcaption></figure>
+                  <figure><img loading="lazy" alt="ภาพแอนดรอยด์ที่สร้างด้วย AI แบบที่ 5"
+                    src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/64e651b1-a8ba-44e8-8fbe-e85fcd6e5cf0.png"><figcaption>AI 05</figcaption></figure>
+                </div>
+                <p class="embnote">ชุดภาพ 5 ภาพนี้คือผลลัพธ์จริงจากพรอมป์ตระกูลเดียวกัน (ประธาน + สไตล์ + โทนสี + negative)
+                  ซึ่งถูกนำไปใช้เป็นแกลเลอรีตัวตนในหน้า <a href="nival/"><b>Nival — Cyberspace Identity</b></a> ของแง่ที่ 6
+                  ทำให้ keyword “ปัญญาประดิษฐ์” เดินเป็นเรื่องเดียวกันตั้งแต่ภาพจนถึงเว็บไซต์</p>
                 <p class="embnote" id="canvaHint" hidden>ดีไซน์ Canva ที่สร้างจากพรอมป์นี้เปิดได้จากปุ่ม
                   “↗ ดีไซน์เดียวกันบน Canva” ด้านบน (ถ้าจะให้คนอื่นเปิดได้ ต้องกด Share → Anyone with the link ก่อน)
                   — ถ้าดาวน์โหลดไฟล์ PNG จาก Canva มาวางไว้ที่ <code style="font-family:var(--font-mono);font-size:12px">assets/img/ai-poster-canva.png</code>
@@ -999,6 +1039,7 @@ AI is a technology. It is useful.
                   <a class="btn pri" href="https://mikebaba123-stack.github.io/ai-prompt-lab/" target="_blank" rel="noopener">↗ เปิดเว็บไซต์จริงบน GitHub Pages</a>
                   <a class="btn" href="https://github.com/mikebaba123-stack/ai-prompt-lab" target="_blank" rel="noopener">↗ ซอร์สโค้ดบน GitHub</a>
                   <a class="btn" href="slides.html">▶ เด็คสไลด์ 30 หน้า</a>
+                  <a class="btn" href="nival/">★ หน้า Nival — Cyberspace Identity</a>
                 </div>
                 <p class="embnote">โครงไฟล์ในรีโป: <code style="font-family:var(--font-mono);font-size:12px">index.html</code> (เว็บหลัก) ·
                   <code style="font-family:var(--font-mono);font-size:12px">slides.html</code> (เด็ค 30 หน้า) ·
@@ -1020,6 +1061,45 @@ AI is a technology. It is useful.
               </div>
               <div class="lesson"><b>บทเรียน:</b> ยิ่งงานปลายทางซับซ้อน (เว็บที่ deploy จริง) พรอมป์ยิ่งต้องระบุ “เนื้อหา + โครงสร้าง + ข้อจำกัดทางเทคนิค + ปลายทาง” ครบ ผลลัพธ์จึงใช้งานได้ทันที</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== NIVAL (ผลงานต่อยอด) ===== -->
+      <section id="nival" class="exp">
+        <div class="exp-head">
+          <div class="exp-num" style="color:#1e5566">★</div>
+          <div class="htxt">
+            <div class="ky">ผลงานต่อยอด · keyword เดียวกัน</div>
+            <h2>Nival — Cyberspace Identity</h2>
+            <p class="sub">นำ “ภาพ AI” จากแง่ที่ 1 และทักษะ “เขียนเว็บ + deploy” จากแง่ที่ 6 มารวมเป็นหน้า Landing จริงหนึ่งหน้า
+              เพื่อให้ทุกชิ้นงานในวิชานี้เดินเรื่องเดียวกันภายใต้ keyword <b>ปัญญาประดิษฐ์</b></p>
+            <a class="toollink" href="nival/">↗ เปิดหน้า Nival (หน้าเดียวจบ ไม่มี framework)</a>
+          </div>
+        </div>
+
+        <div class="nival">
+          <div>
+            <div class="ky" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase">ความสอดคล้องของงาน</div>
+            <h3>keyword “AI” → ภาพ → เว็บไซต์</h3>
+            <p>หน้านี้ใช้ภาพแอนดรอยด์ที่สร้างด้วย AI ชุดเดียวกับแง่ที่ 1 ทั้งหมด —
+              ภาพหลัก 2 ภาพ (รุ่นขาว-เงิน / รุ่นเกราะดำ) และแกลเลอรีตัวตน 5 ภาพ จึงเป็นการต่อยอดโดยตรง ไม่ใช่งานแยกเรื่อง</p>
+            <ul>
+              <li><b>จากแง่ที่ 1:</b> ภาพที่ได้จากพรอมป์ few-shot (ประธาน + สไตล์ + โทนสี + negative) มาเป็นพระเอกของหน้า</li>
+              <li><b>จากแง่ที่ 6:</b> เขียน HTML/CSS/JS ไฟล์เดียว แล้ว deploy บน GitHub Pages เหมือนหน้านี้</li>
+              <li><b>กลไกหลัก:</b> <em>spotlight reveal</em> — เลื่อนเมาส์บนตัวแอนดรอยด์ วงกลมนุ่ม ๆ จะเผยร่างเกราะดำผ่าน radial mask
+                (ภาพ 2 ชั้น + canvas สร้าง mask แบบ alpha ตามเคอร์เซอร์)</li>
+              <li><b>สื่อความหมาย:</b> “ตัวตนในไซเบอร์สเปซ” คือคำตอบเชิงภาพของคำถามว่า AI เปลี่ยนภาพแทนตัวของมนุษย์อย่างไร</li>
+            </ul>
+            <div class="btnrow">
+              <a class="btn pri" href="nival/">★ เปิดหน้า Nival</a>
+              <a class="btn" href="nival/index.html" download>⬇ ดาวน์โหลดไฟล์ HTML</a>
+              <a class="btn" href="#exp-01">↑ กลับไปดูภาพต้นทาง (แง่ที่ 1)</a>
+            </div>
+          </div>
+          <div class="nival-shot">
+            <img loading="lazy" alt="ตัวอย่างหน้า Nival — แอนดรอยด์สีขาวเงินบนพื้นฟ้าน้ำแข็ง"
+              src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/658f62c6-fdb2-41b9-aa0f-10837f9e72cb.png">
           </div>
         </div>
       </section>
@@ -1087,6 +1167,11 @@ AI is a technology. It is useful.
               <li><a href="slides.html">slides.html — เด็ค 30 หน้า</a></li>
               <li><a href="assets/notebooklm/source-ai-intro.md">assets/notebooklm/source-ai-intro.md</a></li>
               <li><a href="assets/notebooklm/slide-outline.md">assets/notebooklm/slide-outline.md</a></li>
+            </ul></div>
+          <div class="fcard"><div class="fh">ต่อยอด · nival</div><div class="ft">หน้า Landing จากภาพ AI</div>
+            <ul>
+              <li><a href="nival/">nival/ — Nival Cyberspace Identity</a></li>
+              <li><a href="nival/index.html">nival/index.html (ไฟล์เดียวจบ)</a></li>
             </ul></div>
           <div class="fcard"><div class="fh">แง่ที่ 6 · web</div><div class="ft">เว็บไซต์ + คลังพรอมป์</div>
             <ul>
