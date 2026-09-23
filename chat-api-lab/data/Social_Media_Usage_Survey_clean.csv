@@ -1,0 +1,151 @@
+Age,Age_Group,Gender,Education_Level,Facebook_Time,Instagram_Time,TikTok_Time,YouTube_Time,Total_Time_Hours,Usage_Period,Emotion,Sleep_Quality,Age_was_missing,Time_values_missing
+53,45-54,Female,High School,2.6,2.1,1.2,1.4,7.3,Evening,Happy,Good,False,1
+43,35-44,Female,High School,2.7,2.5,4.4,2.2,11.8,Late Night,Happy,Poor,False,0
+29,25-34,Female,Bachelor,4.8,0.4,2.5,5.5,13.2,Evening,Anxious,Good,False,0
+57,55+,Male,Bachelor,3.7,3.3,5.9,2.2,15.1,Morning,Anxious,Good,False,1
+22,13-24,Female,Bachelor,4.7,2.4,4.4,0.9,12.4,Unknown,Sad,Good,False,0
+35,35-44,Female,Master,2.6,2.8,5.6,2.7,13.7,Evening,Neutral,Fair,False,0
+53,45-54,Male,Doctorate,1.9,2.3,4.9,1.4,10.5,Late Night,Unknown,Good,False,0
+33,25-34,Male,High School,4.5,2.9,4.4,4.0,15.8,Evening,Unknown,Fair,False,0
+37,35-44,Female,High School,2.5,0.4,4.9,1.1,8.9,Afternoon,Unknown,Poor,False,0
+25,25-34,Female,Bachelor,1.9,3.9,3.0,5.2,14.0,Morning,Sad,Fair,False,0
+25,25-34,Female,Bachelor,3.5,2.0,0.4,3.4,9.3,Afternoon,Anxious,Fair,False,0
+38,35-44,Female,High School,3.9,3.3,1.0,2.8,11.0,Afternoon,Sad,Unknown,False,0
+50,45-54,Male,High School,3.5,1.8,1.0,6.0,12.3,Late Night,Unknown,Good,False,0
+54,45-54,Male,Bachelor,4.2,3.1,3.0,3.4,13.7,Morning,Neutral,Good,False,1
+38,35-44,Female,Master,2.9,1.2,1.0,1.3,6.4,Morning,Happy,Poor,False,0
+17,13-24,Male,High School,2.6,2.8,3.0,4.3,12.7,Morning,Anxious,Poor,False,1
+36,35-44,Female,Master,2.7,0.2,1.7,3.6,8.2,Morning,Anxious,Good,False,0
+16,13-24,Female,Bachelor,1.9,2.1,1.7,2.2,7.9,Morning,Sad,Unknown,False,0
+38,35-44,Male,High School,2.5,3.2,1.5,2.2,9.4,Late Night,Anxious,Good,False,1
+58,55+,Male,Bachelor,3.5,1.2,3.5,2.2,10.4,Evening,Unknown,Unknown,False,0
+44,35-44,Male,High School,2.4,0.7,3.0,1.2,7.3,Afternoon,Unknown,Poor,False,1
+52,45-54,Male,Bachelor,0.3,2.1,0.9,6.0,9.3,Morning,Sad,Good,False,0
+16,13-24,Male,High School,4.2,2.4,4.0,2.4,13.0,Evening,Unknown,Poor,False,0
+35,35-44,Female,High School,0.7,1.2,5.9,4.0,11.8,Evening,Neutral,Poor,False,0
+47,45-54,Male,Bachelor,0.3,1.6,4.9,4.5,11.3,Afternoon,Sad,Fair,False,0
+26,25-34,Male,High School,1.2,2.9,4.4,0.1,8.6,Late Night,Neutral,Fair,False,0
+36,35-44,Male,High School,4.5,1.6,4.4,5.8,16.3,Late Night,Happy,Fair,False,0
+58,55+,Male,Bachelor,4.3,1.8,5.6,0.1,11.8,Late Night,Neutral,Fair,False,0
+39,35-44,Female,High School,4.5,1.6,1.0,0.9,8.0,Evening,Happy,Unknown,False,0
+41,35-44,Female,Master,1.8,3.5,5.8,0.2,11.3,Unknown,Happy,Good,False,0
+56,55+,Female,High School,0.6,3.9,0.8,1.2,6.5,Unknown,Neutral,Good,False,0
+42,35-44,Male,Bachelor,3.0,1.2,4.4,1.3,9.9,Afternoon,Sad,Poor,False,0
+30,25-34,Male,Bachelor,0.6,1.4,1.2,4.0,7.2,Late Night,Unknown,Unknown,False,0
+29,25-34,Male,Bachelor,3.4,2.0,4.4,1.3,11.1,Evening,Unknown,Good,False,0
+20,13-24,Male,Bachelor,4.5,3.2,4.8,5.7,18.2,Late Night,Happy,Unknown,False,0
+58,55+,Female,High School,2.0,2.1,5.8,3.1,13.0,Late Night,Happy,Unknown,False,0
+17,13-24,Female,Unknown,1.1,2.5,4.4,4.5,12.5,Evening,Sad,Poor,False,0
+51,45-54,Male,Master,4.7,3.6,0.7,2.5,11.5,Evening,Anxious,Good,False,0
+21,13-24,Male,Master,3.9,1.6,2.8,3.0,11.3,Morning,Neutral,Fair,False,0
+35,35-44,Male,High School,1.1,2.9,3.0,1.4,8.4,Late Night,Happy,Good,False,0
+23,13-24,Female,High School,1.8,3.2,3.2,3.5,11.7,Morning,Unknown,Poor,False,0
+53,45-54,Female,Bachelor,2.9,1.2,3.7,5.4,13.2,Afternoon,Sad,Poor,False,0
+32,25-34,Male,Bachelor,2.4,2.8,3.2,0.9,9.3,Morning,Neutral,Poor,False,0
+18,13-24,Unknown,Bachelor,0.4,2.2,4.4,0.9,7.9,Morning,Sad,Good,False,0
+39,35-44,Male,Master,0.5,3.2,1.2,2.5,7.4,Late Night,Neutral,Good,False,0
+28,25-34,Unknown,High School,4.2,1.8,0.8,5.5,12.3,Unknown,Neutral,Good,False,0
+23,13-24,Female,Unknown,2.7,1.9,1.1,0.2,5.9,Evening,Happy,Unknown,False,0
+40,35-44,Male,Bachelor,1.9,0.7,4.9,2.5,10.0,Late Night,Sad,Unknown,False,0
+16,13-24,Male,Master,3.0,1.2,0.8,5.4,10.4,Morning,Sad,Unknown,False,0
+34,25-34,Female,High School,4.9,3.2,5.3,3.5,16.9,Late Night,Unknown,Poor,False,0
+42,35-44,Female,Bachelor,3.4,2.1,2.1,2.2,9.8,Unknown,Unknown,Good,False,1
+20,13-24,Female,Bachelor,2.4,0.4,5.9,1.6,10.3,Unknown,Happy,Poor,False,0
+21,13-24,Female,High School,4.8,3.3,4.4,2.6,15.1,Morning,Happy,Good,False,0
+58,55+,Female,High School,4.3,1.6,0.9,1.1,7.9,Afternoon,Anxious,Unknown,False,0
+22,13-24,Female,Unknown,3.0,2.2,3.7,1.1,10.0,Morning,Unknown,Poor,False,0
+20,13-24,Male,Master,4.2,2.8,4.4,4.0,15.4,Late Night,Neutral,Poor,False,0
+49,45-54,Male,High School,0.7,1.6,4.9,5.2,12.4,Evening,Sad,Good,False,0
+28,25-34,Male,Bachelor,2.4,1.6,0.7,2.2,6.9,Afternoon,Happy,Fair,False,1
+31,25-34,Female,Bachelor,5.0,0.7,2.0,1.1,8.8,Morning,Sad,Good,False,0
+50,45-54,Female,Master,3.5,2.4,5.3,4.0,15.2,Late Night,Sad,Fair,False,0
+54,45-54,Unknown,High School,4.2,2.3,3.0,2.8,12.3,Afternoon,Anxious,Unknown,False,0
+18,13-24,Male,High School,3.5,2.5,5.8,0.4,12.2,Afternoon,Unknown,Poor,False,0
+16,13-24,Female,High School,2.0,2.1,1.1,5.8,11.0,Morning,Happy,Good,False,1
+20,13-24,Female,Bachelor,3.7,3.6,3.0,2.6,12.9,Afternoon,Sad,Good,False,1
+56,55+,Male,Bachelor,4.2,3.6,3.0,1.3,12.1,Late Night,Happy,Good,False,1
+18,13-24,Female,High School,1.9,0.8,0.8,0.2,3.7,Unknown,Neutral,Fair,False,0
+43,35-44,Female,Doctorate,3.5,2.8,0.8,3.4,10.5,Afternoon,Anxious,Good,False,0
+32,25-34,Female,Bachelor,3.5,1.9,5.0,0.4,10.8,Unknown,Neutral,Poor,False,0
+40,35-44,Male,High School,4.5,1.4,3.1,0.6,9.6,Late Night,Happy,Good,False,0
+58,55+,Male,High School,2.9,3.9,5.8,2.2,14.8,Morning,Happy,Good,False,1
+48,45-54,Female,High School,2.0,1.4,3.7,0.4,7.5,Evening,Unknown,Good,False,0
+24,13-24,Female,Doctorate,2.7,2.9,4.6,6.0,16.2,Afternoon,Sad,Unknown,False,0
+50,45-54,Male,Bachelor,2.8,1.2,0.3,1.1,5.4,Evening,Sad,Unknown,False,0
+28,25-34,Male,Bachelor,1.8,2.8,3.2,2.5,10.3,Late Night,Neutral,Poor,False,0
+45,45-54,Male,Bachelor,4.2,3.6,1.0,2.5,11.3,Afternoon,Anxious,Fair,False,0
+37,35-44,Male,Bachelor,3.9,3.9,1.2,0.2,9.2,Unknown,Sad,Good,True,0
+29,25-34,Female,Master,2.5,2.6,1.7,3.4,10.2,Late Night,Unknown,Poor,False,0
+22,13-24,Female,High School,3.5,2.2,0.9,3.9,10.5,Evening,Neutral,Unknown,False,0
+28,25-34,Female,Bachelor,3.5,3.6,2.5,1.1,10.7,Afternoon,Neutral,Good,False,0
+37,35-44,Female,High School,4.8,1.2,4.9,1.1,12.0,Evening,Unknown,Unknown,False,0
+54,45-54,Male,High School,2.5,1.9,5.0,4.3,13.7,Afternoon,Anxious,Good,False,0
+35,35-44,Female,Bachelor,3.0,3.3,2.4,1.3,10.0,Morning,Unknown,Fair,False,0
+30,25-34,Female,High School,1.1,1.8,3.1,2.2,8.2,Unknown,Anxious,Poor,False,0
+59,55+,Male,High School,0.3,0.7,2.0,0.4,3.4,Evening,Unknown,Good,False,0
+32,25-34,Male,Bachelor,1.1,2.4,5.0,3.1,11.6,Late Night,Unknown,Good,False,0
+20,13-24,Unknown,Unknown,2.7,1.6,0.8,0.2,5.3,Late Night,Happy,Good,False,1
+38,35-44,Female,High School,0.5,1.4,1.0,1.1,4.0,Late Night,Neutral,Good,False,0
+40,35-44,Male,High School,1.8,1.6,1.5,0.2,5.1,Afternoon,Unknown,Good,False,0
+39,35-44,Unknown,Master,0.3,2.9,5.6,2.2,11.0,Evening,Unknown,Good,False,0
+59,55+,Unknown,Master,2.5,0.2,4.4,0.9,8.0,Late Night,Sad,Good,False,0
+55,55+,Female,Bachelor,4.8,1.6,4.9,3.8,15.1,Evening,Neutral,Good,False,0
+43,35-44,Female,Bachelor,3.4,3.2,1.0,4.5,12.1,Afternoon,Sad,Good,False,0
+29,25-34,Male,Bachelor,1.9,2.1,3.1,1.2,8.3,Late Night,Neutral,Unknown,False,0
+59,55+,Male,High School,4.5,2.1,2.0,0.9,9.5,Morning,Sad,Unknown,False,0
+15,13-24,Female,Doctorate,0.5,2.8,2.2,5.7,11.2,Late Night,Unknown,Fair,False,0
+39,35-44,Female,Master,4.2,2.5,0.8,0.2,7.7,Late Night,Unknown,Poor,False,0
+21,13-24,Female,High School,2.7,2.3,2.6,1.6,9.2,Unknown,Happy,Unknown,False,0
+23,13-24,Female,High School,1.1,1.8,0.7,1.1,4.7,Morning,Sad,Good,False,0
+38,35-44,Female,Doctorate,4.3,0.8,3.7,0.4,9.2,Late Night,Anxious,Unknown,False,0
+15,13-24,Female,Bachelor,1.8,3.9,4.8,2.2,12.7,Afternoon,Happy,Fair,False,0
+58,55+,Male,Bachelor,2.4,1.2,0.9,3.4,7.9,Morning,Sad,Fair,False,0
+22,13-24,Female,Bachelor,3.4,0.2,4.0,1.6,9.2,Late Night,Sad,Poor,False,0
+38,35-44,Female,Bachelor,0.6,0.7,2.3,2.5,6.1,Afternoon,Happy,Unknown,False,0
+25,25-34,Female,Doctorate,3.7,3.9,0.7,0.2,8.5,Late Night,Unknown,Good,False,0
+31,25-34,Male,Doctorate,0.3,0.8,1.1,0.9,3.1,Unknown,Sad,Good,False,0
+22,13-24,Male,Master,4.7,0.3,2.9,1.1,9.0,Afternoon,Unknown,Good,False,0
+49,45-54,Unknown,Bachelor,2.7,2.9,3.0,1.2,9.8,Evening,Happy,Good,False,1
+49,45-54,Male,Master,2.4,0.4,4.4,4.7,11.9,Afternoon,Unknown,Poor,False,0
+47,45-54,Male,Bachelor,2.5,3.9,0.4,2.4,9.2,Afternoon,Neutral,Poor,False,0
+19,13-24,Female,Bachelor,4.2,3.9,1.0,3.8,12.9,Unknown,Anxious,Good,False,0
+56,55+,Female,High School,2.1,3.5,4.9,4.7,15.2,Evening,Sad,Good,False,0
+53,45-54,Unknown,Master,2.9,1.2,2.8,2.5,9.4,Late Night,Anxious,Good,False,0
+55,55+,Male,Master,1.1,1.8,0.3,1.1,4.3,Late Night,Unknown,Good,False,0
+42,35-44,Male,Bachelor,2.7,1.7,2.5,2.5,9.4,Afternoon,Sad,Good,False,0
+21,13-24,Female,Master,0.6,1.8,2.6,0.2,5.2,Evening,Unknown,Good,False,0
+23,13-24,Male,Bachelor,3.5,3.4,2.4,0.1,9.4,Evening,Neutral,Good,False,0
+22,13-24,Male,High School,0.3,1.8,4.8,5.8,12.7,Unknown,Happy,Fair,False,0
+26,25-34,Female,High School,3.5,2.4,3.6,0.2,9.7,Late Night,Sad,Fair,False,0
+48,45-54,Female,High School,2.8,3.3,5.0,0.4,11.5,Late Night,Neutral,Good,False,0
+47,45-54,Male,Bachelor,0.5,2.1,2.4,0.4,5.4,Unknown,Neutral,Good,False,1
+37,35-44,Female,High School,4.2,3.4,0.8,1.2,9.6,Morning,Sad,Fair,True,0
+37,35-44,Female,Bachelor,0.5,2.1,2.5,2.7,7.8,Late Night,Unknown,Good,False,0
+38,35-44,Female,Bachelor,0.7,0.8,2.6,1.3,5.4,Unknown,Neutral,Good,False,0
+51,45-54,Male,Bachelor,1.9,1.4,3.0,2.5,8.8,Late Night,Anxious,Good,False,1
+49,45-54,Female,Bachelor,4.9,1.8,1.0,4.3,12.0,Late Night,Neutral,Unknown,False,0
+58,55+,Unknown,Bachelor,4.5,3.4,5.9,3.0,16.8,Morning,Unknown,Good,False,0
+54,45-54,Female,Bachelor,4.5,3.9,3.6,2.2,14.2,Late Night,Unknown,Unknown,False,1
+36,35-44,Male,High School,4.8,1.9,4.9,5.7,17.3,Morning,Anxious,Good,False,0
+41,35-44,Female,Bachelor,4.8,2.2,2.9,2.2,12.1,Afternoon,Neutral,Fair,False,1
+49,45-54,Male,Bachelor,4.7,2.8,2.9,0.4,10.8,Unknown,Unknown,Fair,False,0
+15,13-24,Female,Bachelor,2.8,1.7,3.2,3.1,10.8,Morning,Sad,Fair,False,0
+49,45-54,Female,Doctorate,0.6,1.2,5.0,1.2,8.0,Late Night,Happy,Fair,False,0
+51,45-54,Female,High School,0.4,3.6,4.9,0.9,9.8,Late Night,Happy,Fair,False,0
+20,13-24,Male,Bachelor,1.8,3.9,5.1,2.5,13.3,Morning,Happy,Fair,False,0
+28,25-34,Female,Unknown,3.0,2.1,5.6,0.9,11.6,Unknown,Neutral,Fair,False,0
+17,13-24,Female,Bachelor,2.7,1.8,5.0,5.7,15.2,Morning,Anxious,Good,False,0
+15,13-24,Female,Bachelor,2.7,2.3,0.3,0.1,5.4,Evening,Unknown,Good,False,1
+19,13-24,Male,Bachelor,4.5,2.1,1.2,3.9,11.7,Late Night,Sad,Poor,False,1
+40,35-44,Unknown,Bachelor,2.5,1.9,3.0,2.5,9.9,Unknown,Sad,Unknown,False,0
+28,25-34,Female,Master,1.5,3.6,3.5,5.2,13.8,Unknown,Neutral,Poor,False,0
+53,45-54,Male,High School,2.7,1.7,1.5,1.1,7.0,Afternoon,Happy,Poor,False,0
+41,35-44,Female,High School,2.4,3.2,5.8,1.4,12.8,Late Night,Neutral,Good,False,0
+23,13-24,Female,Bachelor,1.2,1.2,3.4,2.8,8.6,Afternoon,Anxious,Good,False,0
+29,25-34,Unknown,Master,4.3,2.1,5.8,1.1,13.3,Unknown,Anxious,Good,False,1
+29,25-34,Male,Bachelor,2.1,0.7,4.9,3.5,11.2,Late Night,Unknown,Fair,False,0
+40,35-44,Female,High School,3.5,2.8,3.1,0.9,10.3,Morning,Unknown,Good,False,0
+56,55+,Female,Bachelor,4.2,3.3,2.2,5.7,15.4,Morning,Anxious,Fair,False,0
+27,25-34,Unknown,Master,4.2,3.9,3.0,1.4,12.5,Late Night,Anxious,Good,False,1
+46,45-54,Male,High School,2.6,1.2,2.1,5.4,11.3,Unknown,Anxious,Good,False,0
+53,45-54,Male,Bachelor,3.7,1.2,5.6,1.3,11.8,Morning,Neutral,Poor,False,0
