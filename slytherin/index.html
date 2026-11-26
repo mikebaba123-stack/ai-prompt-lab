@@ -15,7 +15,7 @@
   --abyss:#020a06; --deep:#04140d; --lake:#072519; --emerald:#0f6b43; --jade:#1fa86b;
   --glow:#3dffa4; --silver:#d7dee0; --silver-dim:#8fa39b; --ink:#e9f2ee; --gold:#c9b27c; --danger:#ff6b81;
   --card:rgba(8,34,23,.6); --line:rgba(170,220,200,.16); --field:rgba(0,0,0,.35);
-  --r:18px; --hour:52px;
+  --r:18px; --hour:52px; color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
@@ -509,6 +509,7 @@ on conflict (key) do update set value = excluded.value;</pre>
 <footer><div class="big">SLYTHERIN</div><p>ตารางเรียน · กิจกรรม · ประวัติ · ซิงก์กับ Discord</p></footer>
 
 <dialog id="dlg"></dialog>
+<dialog id="ask"><div class="dlg-head"><h3 id="askMsg" style="font-size:1.05rem;white-space:pre-line"></h3></div><div class="dlg-foot" style="display:flex;gap:8px;justify-content:flex-end"><button class="btn sm" id="askNo">ไม่ใช่</button><button class="btn danger sm" id="askYes">ยืนยัน</button></div></dialog>
 <div class="toasts" id="toasts"></div>
 
 <script>
@@ -568,6 +569,14 @@ const FIELDS = {
 };
 const LABEL = { subject:"วิชา", title:"ชื่อกิจกรรม", date:"วันที่", start_time:"เวลาเริ่ม", end_time:"เวลาสิ้นสุด", teacher:"อาจารย์", organizer:"ผู้จัด", location:"สถานที่", note:"หมายเหตุ", years:"ชั้นปี", category:"ประเภท" };
 const ACT = { add:["➕","เพิ่ม"], edit:["✏️","แก้ไข"], cancel:["🚫","ยกเลิก"], restore:["↩️","คืนสถานะ"], delete:["🗑️","ลบ"] };
+function ask(msg) {
+  return new Promise(ok => {
+    const d = $("#ask"); $("#askMsg").textContent = msg;
+    const done = v => { d.close(); ok(v); };
+    $("#askYes").onclick = () => done(true); $("#askNo").onclick = () => done(false); d.oncancel = () => ok(false);
+    d.showModal();
+  });
+}
 function toast(msg, bad) { const t = document.createElement("div"); t.className = "toast" + (bad ? " bad" : ""); t.textContent = msg; $("#toasts").append(t); setTimeout(() => t.remove(), bad ? 6000 : 3200); }
 
 /* ---------------- stores ---------------- */
@@ -809,7 +818,7 @@ function openDetail(kind, id) {
     const actor = $("#dActor").value.trim();
     if (!actor) { $("#dErr").textContent = "กรุณาใส่ชื่อผู้แก้ไขก่อน"; $("#dActor").focus(); return; }
     setActor(actor);
-    if (a === "delete" && !confirm(`ลบ “${it[K.name]}” (${fmtDay(it.date)})?\nกู้คืนได้จากประวัติการแก้ไข`)) return;
+    if (a === "delete" && !(await ask(`ลบ “${it[K.name]}” (${fmtDay(it.date)})?\nกู้คืนได้จากประวัติการแก้ไข`))) return;
     b.disabled = true;
     await act(kind, [it.id], a, actor) && dlg.close();
     b.disabled = false;
@@ -896,7 +905,7 @@ function setupForm(kind) {
     const actor = g("actor").value.trim(); if (!actor) { g("err").textContent = "กรุณาใส่ชื่อผู้แก้ไข"; g("actor").focus(); return; }
     setActor(actor);
     const it = find(kind, st.id); if (!it) return;
-    if (a === "delete" && !confirm(`ลบ “${it[KIND[kind].name]}”?`)) return;
+    if (a === "delete" && !(await ask(`ลบ “${it[KIND[kind].name]}”?\nกู้คืนได้จากประวัติการแก้ไข`))) return;
     const ids = g("series").checked && st.series ? seriesIds(kind, st.series) : [st.id];
     const op = a === "cancel" ? (it.cancelled ? "restore" : "cancel") : a;
     if (await act(kind, ids, op, actor)) { if (a === "delete") clearForm(kind); else fillForm(kind, find(kind, st.id), false, true); }
@@ -1022,7 +1031,7 @@ async function loadHistory(reset) {
 $("#hist").onclick = async e => {
   const a = e.target.closest("[data-undel]"); if (!a) return; e.preventDefault();
   const [kind, id] = a.dataset.undel.split("|");
-  const actor = S.actor || (prompt("ชื่อผู้กู้คืน") || "").trim(); if (!actor) return; setActor(actor);
+  const actor = S.actor; if (!actor) return toast("ใส่ชื่อผู้แก้ไขในฟอร์มเพิ่ม/แก้ไขก่อน แล้วกดกู้คืนอีกครั้ง", true);
   const it = await S.store.getDeleted(kind, id);
   if (!it || !it.deleted) return toast("รายการนี้ถูกกู้คืนไปแล้ว");
   if (await act(kind, [id], "undelete", actor)) loadHistory(true);
@@ -1054,7 +1063,7 @@ $("#sbSave").onclick = async () => {
 };
 $("#sbDemo").onclick = async () => { LS.del("sly.sb"); await Remote.close(); S.store = Local; S.connErr = ""; paintConn(); await reload(); toast("กลับสู่โหมดสาธิตแล้ว"); };
 $("#copySql").onclick = () => navigator.clipboard?.writeText($("#sqlWebhook").textContent).then(() => toast("📋 คัดลอกแล้ว"), () => toast("คัดลอกไม่ได้ ลองเลือกข้อความเอง", true));
-$("#wipe").onclick = async () => { if (!confirm("ลบข้อมูลสาธิตทั้งหมดในเบราว์เซอร์นี้?")) return; ["classes", "activities", "log"].forEach(k => LS.del(Local.key(k))); await reload(); toast("ลบข้อมูลสาธิตแล้ว"); };
+$("#wipe").onclick = async () => { if (!(await ask("ลบข้อมูลสาธิตทั้งหมดในเบราว์เซอร์นี้?"))) return; ["classes", "activities", "log"].forEach(k => LS.del(Local.key(k))); await reload(); toast("ลบข้อมูลสาธิตแล้ว"); };
 $("#seed").onclick = async () => {
   const y = S.year || 1, wk = mondayOf(parseYmd(schoolDate())), by = "ระบบตัวอย่าง";
   const subj = CONFIG.subjects, rooms = ["ห้องใต้ดิน 1","หอคอยตะวันออก","ห้อง 3C","เรือนกระจก 3","หอดูดาว","ห้อง 4F"];
