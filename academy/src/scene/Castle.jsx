@@ -1,7 +1,8 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useMemo, useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { MeshReflectorMaterial, Sparkles, Environment, Lightformer } from "@react-three/drei";
+import { MeshReflectorMaterial, Sparkles, Environment, Lightformer, PerformanceMonitor } from "@react-three/drei";
+import Basilisk from "./Basilisk.jsx";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 
 /* ---------------- procedural textures ---------------- */
@@ -86,8 +87,8 @@ function tube(curve, seg, rad, radius) {
 }
 
 /* ---------------- scene parts ---------------- */
-function Hall({ high }) {
-  const marbleFloor = useMemo(() => canvasTex(1024, 1024, marble, [6, 6]), []);
+function Hall({ high, ultra }) {
+  const marbleFloor = useMemo(() => canvasTex(ultra ? 2048 : 1024, ultra ? 2048 : 1024, marble, [6, 6]), [ultra]);
   const marbleStone = useMemo(() => canvasTex(512, 512, marble, [1, 3]), []);
   const glass = useMemo(() => canvasTex(512, 768, stainedGlass), []);
   const glassSide = useMemo(() => canvasTex(512, 768, stainedGlass), []);
@@ -97,10 +98,10 @@ function Hall({ high }) {
   const stone = <meshStandardMaterial map={marbleStone} color="#5a6660" roughness={.28} metalness={.35} />;
   return (
     <group>
-      <mesh rotation-x={-Math.PI / 2} position={[0, 0, -4]}>
+      <mesh rotation-x={-Math.PI / 2} position={[0, 0, -4]} receiveShadow>
         <planeGeometry args={[40, 40]} />
         {high
-          ? <MeshReflectorMaterial map={marbleFloor} blur={[300, 80]} resolution={512} mixBlur={1} mixStrength={18} roughness={.9} depthScale={1} minDepthThreshold={.4} maxDepthThreshold={1.4} color="#7c8a84" metalness={.5} mirror={0} />
+          ? <MeshReflectorMaterial map={marbleFloor} blur={[300, 80]} resolution={ultra ? 1024 : 512} mixBlur={1} mixStrength={18} roughness={.9} depthScale={1} minDepthThreshold={.4} maxDepthThreshold={1.4} color="#7c8a84" metalness={.5} mirror={0} />
           : <meshStandardMaterial map={marbleFloor} color="#7c8a84" roughness={.35} metalness={.4} />}
       </mesh>
       {/* back wall + great window */}
@@ -201,36 +202,14 @@ function Candles({ count = 30 }) {
   );
 }
 
-function Serpent() {
-  const ref = useRef();
-  const skin = useMemo(() => canvasTex(256, 256, scales, [1, 1]), []);
-  const { geo, head, dir } = useMemo(() => {
-    const pts = [];
-    for (let i = 0; i <= 90; i++) { const t = i / 90, a = t * Math.PI * 5 + .4, r = 1.15 - .35 * t; pts.push(new THREE.Vector3(Math.cos(a) * r, .2 + 3.6 * t + Math.sin(t * 14) * .04, Math.sin(a) * r)); }
-    pts.push(new THREE.Vector3(.35, 4.2, .8), new THREE.Vector3(.2, 4.5, 1.6));
-    const c = new THREE.CatmullRomCurve3(pts), sm = (a, b, v) => { const k = Math.min(1, Math.max(0, (v - a) / (b - a))); return k * k * (3 - 2 * k); };
-    return { geo: tube(c, 520, 18, u => .03 + .13 * sm(0, .45, u)), head: c.getPointAt(1), dir: c.getTangentAt(1) };
-  }, []);
-  const headRef = useRef(), tongue = useRef();
-  useEffect(() => { headRef.current.position.copy(head).addScaledVector(dir, .1); headRef.current.lookAt(head.clone().addScaledVector(dir, 2)); }, [head, dir]);
-  useFrame(({ clock }) => { const t = clock.elapsedTime; ref.current.rotation.y = Math.sin(t * .15) * .5; ref.current.position.y = Math.sin(t * .5) * .05; tongue.current.scale.y = .5 + .5 * Math.abs(Math.sin(t * 6)); });
-  const mat = <meshStandardMaterial color="#c0c6c8" map={skin} bumpMap={skin} bumpScale={.6} metalness={1} roughness={.24} />;
+function Plinth() {
   return (
     <group position={[0, 0, -7]}>
-      {/* obsidian plinth */}
-      <mesh position={[0, .6, 0]}><cylinderGeometry args={[1.25, 1.45, 1.2, 8]} /><meshStandardMaterial color="#0b100e" metalness={.7} roughness={.2} /></mesh>
+      <mesh position={[0, .6, 0]} castShadow receiveShadow><cylinderGeometry args={[1.25, 1.45, 1.2, 8]} /><meshStandardMaterial color="#0b100e" metalness={.7} roughness={.2} /></mesh>
       <mesh position={[0, 1.22, 0]}><torusGeometry args={[1.26, .04, 8, 48]} /><meshStandardMaterial color="#b89b62" metalness={1} roughness={.25} /></mesh>
-      <mesh position={[0, 2.6, 0]}><cylinderGeometry args={[.32, .45, 2.8, 8]} /><meshStandardMaterial color="#0b100e" metalness={.7} roughness={.2} /></mesh>
+      <mesh position={[0, 2.6, 0]} castShadow><cylinderGeometry args={[.32, .45, 2.8, 8]} /><meshStandardMaterial color="#0b100e" metalness={.7} roughness={.2} /></mesh>
       <mesh position={[0, 4.15, 0]}><octahedronGeometry args={[.42, 0]} /><meshStandardMaterial color="#0b6b45" emissive="#1fe08a" emissiveIntensity={1.6} toneMapped={false} metalness={.3} roughness={.1} /></mesh>
       <pointLight position={[0, 4.2, .4]} color="#3dffa4" intensity={6} distance={7} decay={1.5} />
-      <group ref={ref} position={[0, 1.1, 0]}>
-        <mesh geometry={geo}>{mat}</mesh>
-        <group ref={headRef}>
-          <mesh scale={[1.15, .7, 1.7]} position={[0, 0, .14]}><sphereGeometry args={[.17, 24, 16]} />{mat}</mesh>
-          {[-1, 1].map(s => <mesh key={s} position={[s * .12, .07, .26]}><sphereGeometry args={[.03, 10, 8]} /><meshBasicMaterial color={[.4, 3, 1.6]} toneMapped={false} /></mesh>)}
-          <mesh ref={tongue} position={[0, -.03, .5]} rotation-x={Math.PI / 2}><cylinderGeometry args={[.008, .008, .22, 5]} /><meshBasicMaterial color="#ff4d6d" /></mesh>
-        </group>
-      </group>
     </group>
   );
 }
@@ -239,42 +218,67 @@ const PRESETS = {
   dashboard: [[1.2, 2.4, 6.5], [0, 3, -8]], schedule: [[-2.4, 2.8, 4.5], [1, 3.4, -9]], calendar: [[2.6, 3.2, 5], [-1, 3.6, -9]],
   tasks: [[-1.5, 1.9, 3.5], [0, 2.8, -8]], board: [[2, 2.2, 3], [-.5, 3.2, -9]], connect: [[0, 4.2, 7.5], [0, 3.2, -10]]
 };
-function Rig({ route }) {
-  const { camera, pointer } = useThree(), look = useRef(new THREE.Vector3(0, 3, -8)), tmp = useMemo(() => new THREE.Vector3(), []);
+function Rig({ route, cinema, headRef }) {
+  const { camera, pointer } = useThree(), look = useRef(new THREE.Vector3(0, 3, -8)), tmp = useMemo(() => new THREE.Vector3(), []), tgt = useMemo(() => new THREE.Vector3(), []);
   useFrame(({ clock }, dt) => {
-    const [p, l] = PRESETS[route] || PRESETS.dashboard, t = clock.elapsedTime, k = 1 - Math.pow(.02, dt);
+    const t = clock.elapsedTime, k = 1 - Math.pow(.02, dt);
+    if (cinema && headRef.current.ready) {
+      // orbit the basilisk's head; the pointer swings the camera around it
+      const h = headRef.current.pos, ang = t * .12 + pointer.x * 1.6, rad = 5.2 - headRef.current.rear * 1.2;
+      tmp.set(h.x + Math.sin(ang) * rad, Math.max(1.5, Math.min(7.5, h.y + 1.6 + pointer.y * 1.5)), h.z + Math.cos(ang) * rad);
+      tmp.x = Math.max(-6.4, Math.min(6.4, tmp.x)); tmp.z = Math.max(-14, Math.min(6, tmp.z));
+      { const dx = tmp.x, dz = tmp.z + 7, d = Math.hypot(dx, dz); if (d < 2.8) { tmp.x = dx / (d || 1) * 2.8; tmp.z = dz / (d || 1) * 2.8 - 7; } } // keep clear of the plinth
+      camera.position.lerp(tmp, k * .35); look.current.lerp(tgt.copy(h), k * .6); camera.lookAt(look.current);
+      return;
+    }
+    const [p, l] = PRESETS[route] || PRESETS.dashboard;
     tmp.set(p[0] + Math.sin(t * .07) * .6 + pointer.x * .5, p[1] + Math.sin(t * .11) * .15 + pointer.y * .25, p[2]);
     camera.position.lerp(tmp, k * .5);
-    look.current.lerp(tmp.set(l[0], l[1], l[2]), k * .5);
+    look.current.lerp(tgt.set(l[0], l[1], l[2]), k * .5);
     camera.lookAt(look.current);
   });
   return null;
 }
 
-export default function Castle({ route, fx }) {
-  const high = fx === "high";
+function KeyLight({ castShadow, ultra }) {
+  const ref = useRef(), { scene } = useThree();
+  useEffect(() => { const l = ref.current; l.target.position.set(0, 0, -7); scene.add(l.target); return () => scene.remove(l.target); }, [scene]);
+  return <spotLight ref={ref} position={[2.5, 11, -2]} angle={.75} penumbra={.7} intensity={140} distance={30} decay={1.6} color="#d8fff0" castShadow={castShadow}
+    shadow-mapSize={ultra ? [4096, 4096] : [2048, 2048]} shadow-bias={-.0004} shadow-normalBias={.03} />;
+}
+
+export default function Castle({ route, fx, cinema }) {
+  const ultra = fx === "ultra", high = ultra || fx === "high", shadows = high;
+  const maxDpr = ultra ? Math.min(window.devicePixelRatio || 1, 2.5) : high ? Math.min(window.devicePixelRatio || 1, 1.75) : 1;
+  const [dpr, setDpr] = useState(maxDpr);
+  useEffect(() => setDpr(maxDpr), [maxDpr]);
+  const headRef = useRef({ pos: new THREE.Vector3(), rear: 0, ready: false });
+  const onHead = (p, rear) => { headRef.current.pos.copy(p); headRef.current.rear = rear; headRef.current.ready = true; };
   return (
-    <Canvas className="scene" dpr={high ? [1, 1.75] : 1} gl={{ antialias: !high, powerPreference: "high-performance" }} camera={{ position: [1.2, 2.4, 7], fov: 52, near: .1, far: 80 }}>
+    <Canvas className="scene" dpr={dpr} shadows={shadows ? "soft" : false} gl={{ antialias: !high, powerPreference: "high-performance" }} camera={{ position: [1.2, 2.4, 7], fov: 52, near: .1, far: 80 }}>
+      <PerformanceMonitor onDecline={() => setDpr(d => Math.max(1, +(d * .8).toFixed(2)))} onIncline={() => setDpr(d => Math.min(maxDpr, +(d * 1.1).toFixed(2)))} flipflops={4} />
       <color attach="background" args={["#050907"]} />
-      <fogExp2 attach="fog" args={["#06120d", .055]} />
-      <ambientLight intensity={.18} />
-      <hemisphereLight args={["#5dffb0", "#050907", .25]} />
+      <fogExp2 attach="fog" args={["#06120d", .05]} />
+      <ambientLight intensity={.2} />
+      <hemisphereLight args={["#5dffb0", "#050907", .3]} />
       <directionalLight position={[0, 8, -14]} intensity={1.2} color="#7dffc0" />
-      <Environment resolution={128} frames={1}>
+      <KeyLight castShadow={shadows} ultra={ultra} />
+      <Environment resolution={ultra ? 256 : 128} frames={1}>
         <Lightformer intensity={3} color="#2bff9c" position={[0, 5, -10]} scale={[10, 8, 1]} />
         <Lightformer intensity={2} color="#ffd6a0" position={[5, 6, 4]} scale={[4, 4, 1]} />
         <Lightformer intensity={1.5} color="#c0c6c8" position={[-6, 3, 2]} rotation-y={Math.PI / 2} scale={[6, 3, 1]} />
       </Environment>
-      <Hall high={high} />
+      <Hall high={high} ultra={ultra} />
       <Shafts />
       <Mist />
-      <Serpent />
+      <Plinth />
+      <Basilisk quality={ultra ? "ultra" : "high"} onHead={onHead} />
       <Candles count={high ? 34 : 18} />
       <Sparkles count={high ? 140 : 60} scale={[14, 9, 18]} position={[0, 4, -5]} size={2.2} speed={.25} opacity={.55} color="#9dffd0" />
-      <Rig route={route} />
+      <Rig route={route} cinema={cinema} headRef={headRef} />
       {high && (
-        <EffectComposer multisampling={0}>
-          <Bloom mipmapBlur intensity={.9} luminanceThreshold={.85} luminanceSmoothing={.2} />
+        <EffectComposer multisampling={ultra ? 8 : 4}>
+          <Bloom mipmapBlur intensity={.95} luminanceThreshold={.85} luminanceSmoothing={.2} />
           <Vignette darkness={.75} offset={.25} />
         </EffectComposer>
       )}

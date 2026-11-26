@@ -18,10 +18,12 @@ const routeOf = () => { const h = location.hash.slice(1); return ROUTES.some(r =
 function webgl() { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch (e) { return false; } }
 
 export default function App() {
-  const [route, setRoute] = useState(routeOf), ready = useApp(s => s.ready), fx = useApp(s => s.fx), year = useApp(s => s.profile.year), mode = useApp(s => s.mode);
+  // eslint-disable-next-line
+  const [cinema, setCinema] = useState(false), [route, setRoute] = useState(routeOf), ready = useApp(s => s.ready), fx = useApp(s => s.fx), year = useApp(s => s.profile.year), mode = useApp(s => s.mode);
   useEffect(() => {
     boot();
-    if (!getState().fx) setFx(!webgl() ? "off" : matchMedia("(pointer:coarse)").matches || innerWidth < 900 ? "low" : "high");
+    if (!getState().fx) setFx(!webgl() ? "off" : matchMedia("(pointer:coarse)").matches || innerWidth < 900 ? "low" : (devicePixelRatio || 1) * screen.width >= 2560 ? "ultra" : "high");
+    const k = e => e.key === "Escape" && setCinema(false); addEventListener("keydown", k);
     const f = () => { setRoute(routeOf()); window.scrollTo({ top: 0 }); };
     addEventListener("hashchange", f); return () => removeEventListener("hashchange", f);
   }, []);
@@ -29,10 +31,10 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="backdrop" aria-hidden="true">
-        {fx && fx !== "off" && webgl() && <Suspense fallback={null}><Castle route={route} fx={fx} /></Suspense>}
+        {fx && fx !== "off" && webgl() && <Suspense fallback={null}><Castle route={route} fx={fx} cinema={cinema} /></Suspense>}
         <div className="veil" />
       </div>
-      <div className="shell">
+      <div className={"shell" + (cinema ? " hidden" : "")}>
         <aside className="side">
           <a className="brand" href="#dashboard"><Crest size={40} /><span><b>Slytherin</b><small>Academy</small></span></a>
           <nav aria-label="เมนูหลัก">{ROUTES.map(([k, l, ic]) => (
@@ -44,6 +46,7 @@ export default function App() {
             <label htmlFor="yr" className="muted small">ชั้นปีของฉัน</label>
             <select id="yr" value={year} onChange={e => setProfile({ year: +e.target.value })}>{[1, 2, 3, 4, 5, 6, 7].map(y => <option key={y} value={y}>ชั้นปีที่ {y}</option>)}<option value={0}>ทุกชั้นปี</option></select>
             <span className={"mode " + mode}><span className="dot" />{mode === "supabase" ? "ฐานข้อมูลกลาง" : "โหมดสาธิต"}</span>
+            {fx !== "off" && <button className="btn ghost sm watch" onClick={() => setCinema(true)}>👁 ชมบาซิลิสก์</button>}
           </div>
         </aside>
         <main className="main">
@@ -54,6 +57,11 @@ export default function App() {
           </AnimatePresence>
         </main>
       </div>
+      <AnimatePresence>{cinema && (
+        <motion.div className="cinema" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .8 }}>
+          <div className="cinema-title"><div className="eyebrow">The Chamber's Guardian</div><h2>บาซิลิสก์</h2><p>ราชันแห่งงูผู้เฝ้าห้องโถงใต้ปราสาท · ขยับเมาส์เพื่อหมุนมุมกล้อง</p></div>
+          <button className="btn primary" onClick={() => setCinema(false)}>กลับสู่แดชบอร์ด (Esc)</button>
+        </motion.div>)}</AnimatePresence>
       <EditorHost /><ConfirmHost /><Toast />
     </MotionConfig>
   );

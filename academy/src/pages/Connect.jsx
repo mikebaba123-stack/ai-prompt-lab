@@ -55,7 +55,7 @@ export default function Connect() {
           <p className="muted small">Webhook เก็บในตารางที่หน้าเว็บอ่านไม่ได้ คนเปิดเว็บจึงเอาไปใช้สแปมห้องไม่ได้ และการลบเป็นการซ่อน กู้คืนได้จากฐานข้อมูล</p>
         </Card>
         <Card eyebrow="Visuals" title="คุณภาพภาพ 3D">
-          <div className="seg wide">{[["high", "สูงสุด", "เงาสะท้อนพื้น แสงเรือง"], ["low", "ประหยัด", "สำหรับมือถือ"], ["off", "ปิด 3D", "ภาพนิ่ง"]].map(([k, l, s]) => (
+          <div className="seg wide">{[["ultra", "4K Ultra", "ความละเอียดสูงสุด เงาคมชัด"], ["high", "สูง", "เงาสะท้อนพื้น แสงเรือง"], ["low", "ประหยัด", "สำหรับมือถือ"], ["off", "ปิด 3D", "ภาพนิ่ง"]].map(([k, l, s]) => (
             <button key={k} className={fx === k ? "on" : ""} onClick={() => setFx(k)}><b>{l}</b><span className="muted small">{s}</span></button>))}</div>
         </Card>
       </div>
