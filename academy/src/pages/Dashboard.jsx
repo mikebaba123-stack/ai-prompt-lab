@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { BookOpen, GraduationCap, Clock3, Sparkles, MapPin, WandSparkles, MessageCircle, ArrowRight } from "lucide-react";
-import { Card, CountUp, Empty } from "../components/ui.jsx";
+import { Card, CountUp, Empty, Crest } from "../components/ui.jsx";
 import WeekGrid from "../components/WeekGrid.jsx";
 import { openEditor } from "../components/forms.jsx";
 import { useApp, setProfile } from "../lib/store.js";
@@ -123,6 +123,7 @@ export default function Dashboard() {
           </div>
         )}
         <motion.div className="hero-in" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }}>
+          <motion.div className="hero-crest" initial={{ opacity: 0, scale: .85, rotateY: -35 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: 1.2, ease: [.2, .7, .2, 1] }}><Crest size={84} /></motion.div>
           <div className="kick"><Sparkles size={12} /> The serpent's legacy</div>
           <h1>{greet},<br /><em>{profile.name || "ผู้สืบทอดแห่งสลิธีริน"}</em></h1>
           {profile.name

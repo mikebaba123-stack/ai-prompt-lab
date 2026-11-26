@@ -144,7 +144,7 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
       <div className="sb-main">
         <span className="sb-sheen" aria-hidden="true" />
         <header className="sb-head">
-          <a className="sb-brand" href="#dashboard" onClick={onClose}><Crest size={30} />{!mini && <span><b>SLYTHERIN</b><small>Academy portal</small></span>}</a>
+          <a className="sb-brand" href="#dashboard" onClick={onClose}><Crest size={36} />{!mini && <span><b>SLYTHERIN</b><small>Academy portal</small></span>}</a>
           <button className="sb-btn sb-collapse" onClick={onToggle} aria-label={mini ? "ขยายแถบเมนู" : "ย่อแถบเมนู"}>{mini ? <ChevronsRight size={15} /> : <ChevronsLeft size={15} />}</button>
           <button className="sb-btn sb-close" onClick={onClose} aria-label="ปิดเมนู"><X size={15} /></button>
         </header>
