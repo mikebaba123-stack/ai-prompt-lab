@@ -301,39 +301,87 @@ dialog::backdrop{background:rgba(0,6,3,.7);backdrop-filter:blur(4px)}
   <defs>
     <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="#aebdb7"/><stop offset=".7" stop-color="#f2f7f5"/><stop offset="1" stop-color="#7a8c85"/></linearGradient>
     <linearGradient id="emer" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1fa86b"/><stop offset=".55" stop-color="#0b4f31"/><stop offset="1" stop-color="#03170e"/></linearGradient>
-    <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7e3a1"/><stop offset=".5" stop-color="#d4a93f"/><stop offset="1" stop-color="#8a6a1e"/></linearGradient>
+    <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset=".55" stop-color="#f0c419"/><stop offset="1" stop-color="#b98a0c"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a9a5e"/><stop offset="1" stop-color="#0b4a2c"/></linearGradient>
+    <linearGradient id="shieldg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27a565"/><stop offset="1" stop-color="#0e6b3d"/></linearGradient>
     <symbol id="crest" viewBox="0 0 260 300">
-      <!-- silver mantling -->
-      <g fill="none" stroke="url(#silver)" stroke-width="7" stroke-linecap="round">
-        <path d="M112 52 C70 40 40 60 34 92 C28 120 48 132 40 156 C34 176 18 182 22 204 C26 224 46 226 52 244"/>
-        <path d="M148 52 C190 40 220 60 226 92 C232 120 212 132 220 156 C226 176 242 182 238 204 C234 224 214 226 208 244"/>
-        <path d="M60 84 C44 92 46 112 62 112 C74 112 72 96 62 98" stroke-width="5"/>
-        <path d="M200 84 C216 92 214 112 198 112 C186 112 188 96 198 98" stroke-width="5"/>
-        <path d="M44 170 C30 160 34 140 50 144 C60 147 56 160 48 156" stroke-width="5"/>
-        <path d="M216 170 C230 160 226 140 210 144 C200 147 204 160 212 156" stroke-width="5"/>
+      <g>
+        <!-- leaves -->
+        <path d="M58 92 C30 96 14 124 22 150 C30 132 42 118 62 112 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M50 150 C24 160 16 192 30 214 C34 192 44 178 62 170 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M56 206 C36 220 36 248 50 262 C52 242 58 230 70 222 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M100 52 C76 38 50 44 40 62 C58 56 74 58 92 70 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <!-- silver scrolls: dark outline + bright stroke -->
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <g stroke="#3e4a45" stroke-width="13">
+            <path d="M112 64 C82 48 50 58 44 86 C40 108 62 114 64 100 C66 90 54 88 54 96"/>
+            <path d="M64 112 C38 112 28 140 40 156 C50 168 66 160 62 150 C60 144 52 146 54 152"/>
+            <path d="M66 168 C40 172 32 204 46 218 C56 228 70 218 66 210 C64 204 56 206 58 212"/>
+            <path d="M70 222 C50 230 48 256 60 266 C70 274 80 264 74 258"/>
+            <path d="M44 86 C30 92 22 104 18 118"/>
+            <path d="M40 156 C28 160 20 170 16 184"/>
+          </g>
+          <g stroke="url(#silver)" stroke-width="8">
+            <path d="M112 64 C82 48 50 58 44 86 C40 108 62 114 64 100 C66 90 54 88 54 96"/>
+            <path d="M64 112 C38 112 28 140 40 156 C50 168 66 160 62 150 C60 144 52 146 54 152"/>
+            <path d="M66 168 C40 172 32 204 46 218 C56 228 70 218 66 210 C64 204 56 206 58 212"/>
+            <path d="M70 222 C50 230 48 256 60 266 C70 274 80 264 74 258"/>
+            <path d="M44 86 C30 92 22 104 18 118"/>
+            <path d="M40 156 C28 160 20 170 16 184"/>
+          </g>
+        </g>
       </g>
-      <g fill="none" stroke="#1a7a4c" stroke-width="3" stroke-linecap="round" opacity=".9">
-        <path d="M112 60 C76 52 50 70 46 96 C42 120 60 132 52 156 C46 172 32 180 34 200"/>
-        <path d="M148 60 C184 52 210 70 214 96 C218 120 200 132 208 156 C214 172 228 180 226 200"/>
+      <g transform="translate(260 0) scale(-1 1)">
+        <!-- leaves -->
+        <path d="M58 92 C30 96 14 124 22 150 C30 132 42 118 62 112 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M50 150 C24 160 16 192 30 214 C34 192 44 178 62 170 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M56 206 C36 220 36 248 50 262 C52 242 58 230 70 222 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <path d="M100 52 C76 38 50 44 40 62 C58 56 74 58 92 70 Z" fill="url(#leaf)" stroke="#c9d4cf" stroke-width="2.5"/>
+        <!-- silver scrolls: dark outline + bright stroke -->
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <g stroke="#3e4a45" stroke-width="13">
+            <path d="M112 64 C82 48 50 58 44 86 C40 108 62 114 64 100 C66 90 54 88 54 96"/>
+            <path d="M64 112 C38 112 28 140 40 156 C50 168 66 160 62 150 C60 144 52 146 54 152"/>
+            <path d="M66 168 C40 172 32 204 46 218 C56 228 70 218 66 210 C64 204 56 206 58 212"/>
+            <path d="M70 222 C50 230 48 256 60 266 C70 274 80 264 74 258"/>
+            <path d="M44 86 C30 92 22 104 18 118"/>
+            <path d="M40 156 C28 160 20 170 16 184"/>
+          </g>
+          <g stroke="url(#silver)" stroke-width="8">
+            <path d="M112 64 C82 48 50 58 44 86 C40 108 62 114 64 100 C66 90 54 88 54 96"/>
+            <path d="M64 112 C38 112 28 140 40 156 C50 168 66 160 62 150 C60 144 52 146 54 152"/>
+            <path d="M66 168 C40 172 32 204 46 218 C56 228 70 218 66 210 C64 204 56 206 58 212"/>
+            <path d="M70 222 C50 230 48 256 60 266 C70 274 80 264 74 258"/>
+            <path d="M44 86 C30 92 22 104 18 118"/>
+            <path d="M40 156 C28 160 20 170 16 184"/>
+          </g>
+        </g>
       </g>
       <!-- helm -->
-      <path d="M108 58 C108 30 152 30 152 58 L152 70 L108 70 Z" fill="url(#silver)" stroke="#5d6e67" stroke-width="2"/>
-      <path d="M114 50 H146 M114 56 H146" stroke="#4a5953" stroke-width="2.4"/>
-      <path d="M130 30 C128 18 140 12 146 18 C138 18 136 24 134 30 Z" fill="#a23a3a"/>
+      <path d="M104 34 C118 24 142 24 156 34" fill="none" stroke="#7a1f1f" stroke-width="11" stroke-linecap="round"/>
+      <path d="M104 34 C118 24 142 24 156 34" fill="none" stroke="#c43a3a" stroke-width="7" stroke-linecap="round" stroke-dasharray="7 5"/>
+      <path d="M108 80 L108 52 C108 32 152 32 152 52 L152 80 Z" fill="url(#silver)" stroke="#3e4a45" stroke-width="3"/>
+      <path d="M130 36 V80" stroke="#7d8c86" stroke-width="2"/>
+      <rect x="114" y="54" width="32" height="14" rx="3" fill="#26302c"/>
+      <path d="M118 54 V68 M124 54 V68 M130 54 V68 M136 54 V68 M142 54 V68" stroke="#9aa9a3" stroke-width="1.6"/>
+      <path d="M102 80 H158 L152 90 H108 Z" fill="url(#silver)" stroke="#3e4a45" stroke-width="2.5"/>
       <!-- shield -->
-      <g transform="translate(30 62)">
-        <path d="M100 6 L186 28 C186 120 160 180 100 224 C40 180 14 120 14 28 Z" fill="url(#emer)" stroke="url(#silver)" stroke-width="5"/>
-        <path d="M100 18 L174 37 C172 118 150 168 100 208 C50 168 28 118 26 37 Z" fill="none" stroke="rgba(215,222,224,.35)" stroke-width="1.2"/>
-        <path class="snake" d="M138 52 C110 36 66 46 70 78 C74 108 134 98 136 130 C138 166 86 176 62 156 C52 148 54 136 64 134" fill="none" stroke="url(#silver)" stroke-width="11" stroke-linecap="round"/>
-        <path d="M128 44 C140 40 154 46 156 56 C150 64 138 62 132 58 Z" fill="url(#silver)"/>
-        <circle cx="146" cy="52" r="2.6" fill="#3dffa4"/>
-        <path d="M156 56 l10 2 m-10 -2 l8 6" stroke="#ff4d6d" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M62 88 H198 C198 170 182 236 130 278 C78 236 62 170 62 88 Z" fill="#3e4a45"/>
+      <path d="M66 92 H194 C194 168 178 230 130 272 C82 230 66 168 66 92 Z" fill="url(#shieldg)" stroke="url(#silver)" stroke-width="4"/>
+      <!-- serpent: outline, body, scales -->
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path id="snakeBody" d="M104 116 C122 102 160 104 164 128 C168 152 128 152 112 166 C94 182 96 214 122 226 C148 238 172 220 168 198 C164 178 138 176 132 192 C128 204 140 212 150 206" stroke="#2f3a36" stroke-width="17"/>
+        <path class="snake" d="M104 116 C122 102 160 104 164 128 C168 152 128 152 112 166 C94 182 96 214 122 226 C148 238 172 220 168 198 C164 178 138 176 132 192 C128 204 140 212 150 206" stroke="url(#silver)" stroke-width="12"/>
+        <path d="M104 116 C122 102 160 104 164 128 C168 152 128 152 112 166 C94 182 96 214 122 226 C148 238 172 220 168 198 C164 178 138 176 132 192" stroke="#8d9c96" stroke-width="5" stroke-dasharray="2 5" opacity=".7"/>
       </g>
-      <!-- gold banner -->
-      <path d="M26 252 L46 240 L46 280 L26 290 L36 266 Z M234 252 L214 240 L214 280 L234 290 L224 266 Z" fill="#8a6a1e"/>
-      <path d="M44 240 Q130 262 216 240 L216 278 Q130 300 44 278 Z" fill="url(#goldg)" stroke="#5f4813" stroke-width="2"/>
-      <path id="bannerPath" d="M56 266 Q130 284 204 266" fill="none"/>
-      <text font-family="Cinzel,serif" font-weight="700" font-size="21" fill="#3a2a08" letter-spacing="2"><textPath href="#bannerPath" startOffset="50%" text-anchor="middle">SLYTHERIN</textPath></text>
+      <path d="M110 112 C100 102 82 104 76 114 C84 124 100 126 112 122 Z" fill="url(#silver)" stroke="#2f3a36" stroke-width="2.5"/>
+      <circle cx="90" cy="112" r="2.6" fill="#0b3"/>
+      <path d="M76 114 l-11 -2 m11 2 l-10 5" stroke="#c43a3a" stroke-width="2" stroke-linecap="round"/>
+      <!-- banner -->
+      <path d="M22 250 L46 238 L46 282 L22 294 L34 266 Z M238 250 L214 238 L214 282 L238 294 L226 266 Z" fill="#a37a0a" stroke="#5f4813" stroke-width="2"/>
+      <path d="M40 238 Q130 262 220 238 L220 280 Q130 304 40 280 Z" fill="url(#goldg)" stroke="#5f4813" stroke-width="2.5"/>
+      <path id="bannerPath" d="M54 266 Q130 286 206 266" fill="none"/>
+      <text font-family="Cinzel,serif" font-weight="700" font-size="22" fill="#2c4a1c" letter-spacing="1.5"><textPath href="#bannerPath" startOffset="50%" text-anchor="middle">SLYTHERIN</textPath></text>
     </symbol>
   </defs>
 </svg>
