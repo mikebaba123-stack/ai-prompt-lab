@@ -117,7 +117,7 @@ export default function Dashboard() {
         <div className="hero-sheen" />
         {fx && fx !== "off" && (
           <div className="hero-3d" aria-hidden="true">
-            <Canvas camera={{ position: [0, 0, 4.5], fov: 45 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
+            <Canvas camera={{ position: [0, 0, 7.6], fov: 42 }} dpr={[1, 1.75]} gl={{ alpha: true, antialias: true }}>
               <ambientLight intensity={.8} /><directionalLight color="#e1eee9" position={[-3, 4, 5]} intensity={2.5} /><SerpentArtifact />
             </Canvas>
           </div>
@@ -125,7 +125,7 @@ export default function Dashboard() {
         <motion.div className="hero-in" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }}>
           <motion.div className="hero-crest" initial={{ opacity: 0, scale: .85, rotateY: -35 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: 1.2, ease: [.2, .7, .2, 1] }}><Crest size={84} /></motion.div>
           <div className="kick"><Sparkles size={12} /> The serpent's legacy</div>
-          <h1>{greet},<br /><em>{profile.name || "ผู้สืบทอดแห่งสลิธีริน"}</em></h1>
+          <h1>{greet},<br /><em>{profile.name || "นักเรียนบ้านสลิธีริน"}</em></h1>
           {profile.name
             ? <p className="quote">“ความยิ่งใหญ่ไม่ได้มาจากการสืบทอด แต่ถูกเรียกขึ้นจากเงามืด หลอมด้วยความทะเยอทะยาน และเป็นของผู้ที่กล้าเอื้อมคว้า”</p>
             : <form className="name-set" onSubmit={e => { e.preventDefault(); if (nameDraft.trim()) setProfile({ name: nameDraft.trim() }); }}>

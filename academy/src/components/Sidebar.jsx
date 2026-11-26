@@ -133,7 +133,7 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
   };
   const toggle = id => setExpanded(e => ({ ...e, [id]: !e[id] }));
   const hl = text => { if (!query) return text; const i = text.toLowerCase().indexOf(query); return i < 0 ? text : <>{text.slice(0, i)}<mark>{text.slice(i, i + query.length)}</mark>{text.slice(i + query.length)}</>; };
-  const initials = (profile.name || "ผู้สืบทอด").trim().split(/\s+/).map(w => [...w][0]).slice(0, 2).join("").toUpperCase();
+  const initials = (profile.name || "นักเรียนสลิธีริน").trim().split(/\s+/).map(w => [...w][0]).slice(0, 2).join("").toUpperCase();
   const linked = mode === "supabase" && discord;
   const weekly = c => (c.sessions || []).length;
   const pendingOf = id => pendingAll.filter(a => a.course_id === id).length;
@@ -218,7 +218,7 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
                   <input autoFocus value={nameDraft} maxLength={60} onChange={e => setNameDraft(e.target.value)} onBlur={() => setEditName(false)} aria-label="ชื่อของคุณ" /><button aria-label="บันทึกชื่อ" onMouseDown={e => e.preventDefault()}><Check size={13} /></button>
                 </form>
               : <div className="sb-me-t">
-                  <p>{profile.name || "ผู้สืบทอด"} <button onClick={() => { setNameDraft(profile.name || ""); setEditName(true); }} aria-label="แก้ไขชื่อ"><Pencil size={11} /></button></p>
+                  <p>{profile.name || "นักเรียนสลิธีริน"} <button onClick={() => { setNameDraft(profile.name || ""); setEditName(true); }} aria-label="แก้ไขชื่อ"><Pencil size={11} /></button></p>
                   <select aria-label="ชั้นปีของฉัน" value={profile.year} onChange={e => setProfile({ year: +e.target.value })}>{[1, 2, 3, 4, 5, 6, 7].map(y => <option key={y} value={y}>ชั้นปีที่ {y}</option>)}<option value={0}>ทุกชั้นปี</option></select>
                 </div>)}
           </div>
