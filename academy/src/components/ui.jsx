@@ -2,21 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, animate } from "framer-motion";
 import { useApp } from "../lib/store.js";
 
-/* silver filigree corners: what makes a card look engraved */
-const Corner = ({ style }) => (
-  <svg className="corner" style={style} viewBox="0 0 40 40" aria-hidden="true">
-    <path d="M2 34 V12 Q2 2 12 2 H34" />
-    <path d="M7 30 V14 Q7 7 14 7 H30" opacity=".45" />
-    <path d="M12 20 q2 -8 10 -9" />
-    <path d="M13 13 l3 3 -3 3 -3 -3 z" className="gem" />
-  </svg>
-);
 export function Card({ title, eyebrow, action, children, className = "", delay = 0, ...rest }) {
   return (
-    <motion.section className={"card " + className} initial={{ opacity: 0, y: 24, filter: "blur(6px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: .7, delay, ease: [.2, .7, .2, 1] }} {...rest}>
-      <Corner style={{ top: 6, left: 6 }} /><Corner style={{ top: 6, right: 6, transform: "scaleX(-1)" }} />
-      <Corner style={{ bottom: 6, left: 6, transform: "scaleY(-1)" }} /><Corner style={{ bottom: 6, right: 6, transform: "scale(-1,-1)" }} />
+    <motion.section className={"card " + className} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: .6, delay, ease: [.2, .7, .2, 1] }} {...rest}>
+      <span className="card-hair" aria-hidden="true" />
       {(title || action) && (
         <header className="card-head">
           <div>{eyebrow && <div className="eyebrow">{eyebrow}</div>}{title && <h3>{title}</h3>}</div>
@@ -28,23 +18,15 @@ export function Card({ title, eyebrow, action, children, className = "", delay =
   );
 }
 
-export function Crest({ size = 56, className = "" }) {
+/* the house crest: a gold serpent coiled on an obsidian shield */
+export function Crest({ size = 44, className = "" }) {
   return (
-    <svg className={"crest " + className} width={size} height={size * 1.15} viewBox="0 0 200 230" aria-label="ตรา Slytherin Academy" role="img">
-      <defs>
-        <linearGradient id="cr-silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset=".45" stopColor="#a9b2b4" /><stop offset=".7" stopColor="#eef2f3" /><stop offset="1" stopColor="#7d8789" /></linearGradient>
-        <linearGradient id="cr-em" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#0d7a55" /><stop offset="1" stopColor="#03251a" /></linearGradient>
-        <linearGradient id="cr-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#e3cd96" /><stop offset="1" stopColor="#8c7342" /></linearGradient>
-      </defs>
-      <path d="M100 8 L184 30 C184 120 158 178 100 222 C42 178 16 120 16 30 Z" fill="url(#cr-em)" stroke="url(#cr-silver)" strokeWidth="6" />
-      <path d="M100 22 L170 40 C168 116 146 164 100 202 C54 164 32 116 30 40 Z" fill="none" stroke="#B89B62" strokeOpacity=".55" strokeWidth="1.4" />
-      <path d="M58 54 H142" stroke="url(#cr-gold)" strokeWidth="2" />
-      <path d="M100 40 l6 8 -6 8 -6 -8 z" fill="url(#cr-gold)" />
-      <path d="M132 76 C106 62 70 72 74 98 C78 122 128 116 130 142 C132 170 90 178 70 160 C62 152 64 142 72 140" fill="none" stroke="#2a3133" strokeWidth="15" strokeLinecap="round" />
-      <path d="M132 76 C106 62 70 72 74 98 C78 122 128 116 130 142 C132 170 90 178 70 160 C62 152 64 142 72 140" fill="none" stroke="url(#cr-silver)" strokeWidth="10" strokeLinecap="round" />
-      <path d="M124 70 C134 64 150 68 152 78 C146 86 134 84 128 80 Z" fill="url(#cr-silver)" stroke="#2a3133" strokeWidth="2" />
-      <circle cx="141" cy="74" r="2.4" fill="#3dffa4" />
-      <path d="M152 78 l9 1 m-9 -1 l8 5" stroke="#d64b5f" strokeWidth="1.6" strokeLinecap="round" />
+    <svg className={"crest " + className} width={size} height={size * 54 / 48} viewBox="0 0 48 54" role="img" aria-label="ตรา Slytherin Academy">
+      <defs><linearGradient id="cr-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#e3cd96" /><stop offset="1" stopColor="#a68850" /></linearGradient></defs>
+      <path d="M24 2 43 9v16c0 13-8.3 22.2-19 27C13.3 47.2 5 38 5 25V9L24 2Z" fill="#07130f" stroke="#bfc8c9" strokeWidth="1.5" />
+      <path d="M24 6.5 39.5 12v13c0 10.6-6.6 18.3-15.5 22.4C15.1 43.3 8.5 35.6 8.5 25V12L24 6.5Z" fill="none" stroke="#b89b62" strokeOpacity=".25" strokeWidth=".6" />
+      <path d="M30.5 13c-7-2.8-12 1-11 5.4.7 3.1 5.6 3.4 6.7 6.4 1.2 3.4-2.1 5.6-5.4 5.1-3.4-.5-5.7 1.7-4.4 5.2 1.3 3.6 6.8 5 10.8 2.9 5.7-3 7.2-9.7 3.4-14.4-2.2-2.8-5.3-3.2-5.2-5.1.1-1.3 2.1-2.1 5.1-.7" fill="none" stroke="url(#cr-g)" strokeLinecap="round" strokeWidth="2" />
+      <circle cx="31.3" cy="12.8" r="1.4" fill="#57d7a6" />
     </svg>
   );
 }
