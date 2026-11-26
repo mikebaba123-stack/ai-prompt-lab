@@ -424,3 +424,120 @@ textarea { min-height: 90px; resize: vertical }
 .sb-main { z-index: 2 } .sb-rail { z-index: 1 }
 .sb.mini .sb-flyout { left: calc(100% + var(--sb-rail) + 12px) }
 .sb-search input:focus, .sb-search input:focus-visible { border: 0; outline: none; box-shadow: none }
+
+/* =====================================================================
+   Readability layer (glassy dashboards): frosted, brighter panels,
+   larger type, stronger contrast, clean numerals — same emerald luxury.
+   ===================================================================== */
+:root { --muted: #b3c2bb; --dim: #94a59d; --faint: #7a8a83; --line: rgba(255,255,255,.12); --line-2: rgba(255,255,255,.2) }
+body { font-size: 15px; color: #e4ece8 }
+.veil { background: radial-gradient(circle at 70% 10%, rgba(9,104,75,.16), transparent 40%), linear-gradient(90deg, rgba(5,10,8,.72) 0%, rgba(5,10,8,.5) 35%, rgba(5,10,8,.32) 100%) }
+
+/* frosted glass panels */
+.card, .event-card, .hero-panel, .modal {
+  border-radius: 22px; border: 1px solid rgba(255,255,255,.13);
+  background: linear-gradient(150deg, rgba(255,255,255,.09), rgba(255,255,255,.035) 45%, rgba(255,255,255,.02)), rgba(7,18,13,.58);
+  backdrop-filter: blur(26px) saturate(1.35); -webkit-backdrop-filter: blur(26px) saturate(1.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.16), inset 0 -1px 0 rgba(255,255,255,.03), 0 20px 50px rgba(0,0,0,.28) }
+.card:hover { border-color: rgba(255,255,255,.2) }
+.hero-panel { background: linear-gradient(90deg, rgba(4,14,10,.82) 0%, rgba(6,22,16,.55) 50%, rgba(255,255,255,.03) 100%); border-color: rgba(255,255,255,.16) }
+.hero-panel::after { border-radius: 15px; border-color: rgba(209,189,142,.18) }
+.modal { background: linear-gradient(150deg, rgba(255,255,255,.08), rgba(255,255,255,.02)), rgba(8,20,15,.92) }
+.modal::after { border-radius: 15px }
+.card-hair { left: 22px; right: 22px }
+
+/* type: bigger, brighter */
+.eyebrow { font-size: .68rem; letter-spacing: .2em; color: #cdb47f }
+.card-head h3, .sec-head h3 { font-size: 1.6rem; color: #f3f7f5 }
+.page-head h1 { color: #f6f9f7 }
+.page-head .muted, .card .muted { color: #b3c2bb }
+.kick { font-size: .7rem; color: #d1bd8e }
+.quote { font-size: .92rem; color: #c3d0ca }
+.ay { font-size: .7rem; color: #a9b8b1 } .ay strong { color: #e8efeb }
+.link { font-size: .72rem; color: #b3c2bb }
+.top-l { font-size: .7rem; color: #a9b8b1 }
+.foot { font-size: .64rem; color: #8a9a93 }
+.chip { font-size: .72rem; padding: 3px 10px; color: #cfdad5; border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06) }
+.btn { font-size: .82rem } .btn.sm { font-size: .74rem }
+.btn:not(.primary):not(.danger):not(.discord) { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); color: #e1ebe6 }
+.btn:not(.primary):not(.danger):not(.discord):hover { background: rgba(255,255,255,.13); border-color: rgba(143,240,196,.4) }
+.field > label { font-size: .78rem; color: #b3c2bb }
+input, select, textarea { font-size: .9rem; color: #eef4f1; background: rgba(0,0,0,.3); border-color: rgba(255,255,255,.14) }
+.seg { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.12) } .seg button { font-size: .8rem; color: #b3c2bb } .seg button.on { background: #e9f4ef; color: #064E3B; font-weight: 600 }
+
+/* numbers: clean sans, bold */
+.stat-num, .cd-time, .begins b, .year-big b, .ritual-time b, .date-block b, .ev-date b, .event-card .ev-date b, .rows .ev-date b, .events .ev-date b, .clock-time {
+  font-family: var(--sans); font-weight: 600; letter-spacing: -.01em }
+.stat-num { font-size: 2.6rem; color: #fff }
+.stat-label { font-size: .86rem; color: #c3d0ca }
+.stat-note { font-size: .66rem; color: #a9b8b1 }
+.stat-ico { width: 40px; height: 40px; border-radius: 12px; background: rgba(61,214,150,.14); border-color: rgba(143,240,196,.25); color: #a5f0d1 }
+.year-big { font-size: 1.4rem; color: #d6e1dc } .year-big b { font-size: 2.6rem; color: #fff }
+.year-dots button { width: 30px; height: 30px; font-family: var(--sans); font-size: .78rem; color: #b3c2bb; border-color: rgba(255,255,255,.18) }
+.year-dots button.on { background: #e9f4ef; color: #064E3B; border-color: transparent; font-weight: 600 }
+.clock-time { font-size: 2.3rem; color: #fff; letter-spacing: .02em } .clock-time small { font-family: var(--sans); font-weight: 500 }
+.clock-date { font-size: .74rem; color: #b3c2bb }
+.begins { border-radius: 12px } .begins span { font-size: .62rem; color: #c2a876 } .begins b { font-size: 1.2rem; color: #ead7a6 }
+.ritual-row { border-radius: 16px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12) }
+.ritual-row h4 { font-size: 1.02rem; color: #f1f6f3 } .ritual-row p { font-size: .78rem; color: #a9b8b1 }
+.code { font-size: .66rem } .date-block { border-radius: 14px } .date-block span { font-size: .6rem } .date-block b { font-size: 1.5rem }
+.ritual-time b { font-size: 1.3rem; color: #fff } .ritual-time span { font-size: .7rem; color: #a9b8b1 }
+.owl-t { font-size: .9rem; color: #e8efeb } .owl-b { font-size: .8rem; color: #a9b8b1 } .owl-m { font-size: .68rem; color: #8a9a93 } .owl-t em { font-size: .6rem }
+.event-card h4 { font-size: .92rem; color: #eef4f1 } .event-card p { font-size: .72rem; color: #a9b8b1 } .ev-tag { font-size: .62rem }
+.event-card .ev-date span { font-size: .58rem } .event-card .ev-date { border-radius: 14px; background: rgba(255,255,255,.06) }
+.dc-state { font-size: 1.35rem; color: #f1f6f3 }
+
+/* week grid + calendar: lighter glass blocks, larger labels */
+.wk-day { font-size: .8rem; color: #d6e1dc } .wk-hours div { font-size: .68rem; color: #94a59d }
+.wk-col { background-image: repeating-linear-gradient(to bottom, rgba(255,255,255,.06) 0 1px, transparent 1px var(--hp)) }
+.wk-ev { border-radius: 10px; background: linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, rgba(255,255,255,.08)), rgba(255,255,255,.04)); border-color: rgba(255,255,255,.12); backdrop-filter: blur(6px) }
+.wk-ev:hover { background: linear-gradient(135deg, color-mix(in srgb, var(--c) 32%, rgba(255,255,255,.1)), rgba(255,255,255,.06)) }
+.wk-ev b { font-size: .76rem; color: #f3f7f5 } .wk-ev span { font-size: .66rem; color: #c3d0ca }
+.cal { border-radius: 16px; background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.1) }
+.cal-h { font-size: .74rem; color: #c3d0ca; background: rgba(8,18,14,.7) }
+.cal-c { background: rgba(8,18,14,.6) } .cal-c:hover { background: rgba(255,255,255,.06) }
+.cal-n { font-size: .82rem; color: #d6e1dc } .cal-tag { font-size: .64rem }
+.cal-c.today .cal-n { background: #e9f4ef; color: #064E3B; font-weight: 600 }
+.day-list li, .events li, .rows li { border-radius: 14px; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1) }
+.day-list li:hover, .events li:hover, .rows li:hover { background: rgba(255,255,255,.09) }
+.day-list .tm { font-size: .68rem; color: #c2a876 } .day-list b, .rows b { font-size: .95rem; color: #f1f6f3 }
+.feed-title { color: #f1f6f3 } .feed p { font-size: .86rem; color: #b3c2bb }
+.course h3 { color: #f3f7f5 } .course dl { font-size: .86rem } .course dd { color: #dce6e1 }
+.steps li { font-size: .88rem; color: #c3d0ca } .status-line { font-size: .88rem; color: #d6e1dc }
+.toast { font-size: .88rem }
+
+/* ---------- sidebar (Glassy Sidebar V10 look) ---------- */
+.sb-item { font-size: .86rem; color: #c9d8d1; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.05); margin-bottom: 2px }
+.sb-item:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.12) }
+.sb-item.sub { background: none; border-color: transparent; font-size: .8rem; color: #b3c2bb; margin: 0 }
+.sb-item.proj { background: none; border-color: transparent; font-size: .82rem }
+.sb-item.proj:hover, .sb-item.sub:hover { background: rgba(255,255,255,.07) }
+.sb-cap { font-size: .62rem; color: #94a59d }
+.sb-search { height: 40px; border-radius: 14px; background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.12); color: #a9b8b1 }
+.sb-search input { font-size: .84rem } .sb-search input::placeholder { color: #8a9a93 }
+.sb-badge { font-size: .66rem; min-width: 22px; height: 22px }
+.sb-brand b { font-size: 1.18rem } .sb-brand small { font-size: .56rem }
+.sb-member { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 16px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12) }
+.sb-ring { width: 40px; height: 40px; flex: none; transform: rotate(-90deg) }
+.sb-ring circle { fill: none; stroke: rgba(255,255,255,.12); stroke-width: 3.5 }
+.sb-ring circle.v { stroke: #8ff0c4; stroke-linecap: round; filter: drop-shadow(0 0 3px rgba(61,214,150,.8)) }
+.sb-ring text { transform: rotate(90deg); transform-origin: 20px 20px; font-size: 9px; font-weight: 600; fill: #e9f4ef; font-family: var(--sans) }
+.sb-member .sb-member-t { display: block; flex: 1; min-width: 0 }
+.sb-member-t b { display: block; font-size: .76rem; font-weight: 600; color: #eef4f1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.sb-member-t span { display: block; font-size: .64rem; color: #a9b8b1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.sb-up { flex: none; padding: 5px 10px; border-radius: 999px; font-size: .66rem; font-weight: 600; color: #1c1508; background: linear-gradient(135deg, #f1dca6, #c9a968); box-shadow: 0 4px 12px rgba(184,155,98,.35); transition: filter .2s }
+.sb-up:hover { filter: brightness(1.08) } .sb-up.ok { color: #04281b; background: linear-gradient(135deg, #c9f7e2, #7fe0b4) }
+.sb-me-t p { font-size: .84rem } .sb-me-t select { font-size: .7rem; color: #a9b8b1 }
+/* the light rail: bright frosted silver with emerald icons */
+.sb-rail { background: linear-gradient(180deg, rgba(244,250,247,.94), rgba(222,236,229,.9)); box-shadow: inset 1px 0 0 rgba(255,255,255,.8), inset 0 1px 0 #fff }
+.sb-tool { color: #1f4a3a; background: transparent; border-color: transparent; border-radius: 50% }
+.sb-tool:hover, .sb-tool.on { color: #064E3B; background: rgba(6,78,59,.1); border-color: rgba(6,78,59,.12); box-shadow: none }
+.sb-tool.primary { color: #e9f7f0; background: linear-gradient(135deg, #0b7a55, #064E3B); box-shadow: 0 6px 16px rgba(6,78,59,.35), 0 0 14px rgba(61,214,150,.35) }
+.sb-tool.primary:hover { color: #fff; box-shadow: 0 6px 20px rgba(6,78,59,.45), 0 0 22px rgba(61,214,150,.55) }
+.sb-rail-sep { background: rgba(6,78,59,.15) }
+.sb-rail-label { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .6rem; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: #6c8a7c; margin-bottom: 8px; white-space: nowrap }
+.sb::before { background: linear-gradient(160deg, rgba(255,255,255,.45), rgba(61,214,150,.2) 35%, rgba(255,255,255,.08) 60%, rgba(61,214,150,.25)) }
+.sb-main { background: linear-gradient(165deg, rgba(30,70,55,.62), rgba(10,28,21,.7) 45%, rgba(6,16,12,.8)) }
+.shell { --sb-panel: 16.75rem } .shell.sb-collapsed { --sb-panel: 4.6rem }
+@media (max-width: 1023px) { .shell, .shell.sb-collapsed { --sb-panel: min(17rem, calc(100vw - 6.5rem)) } }
+.sb-member { gap: 9px; padding: 9px 10px } .sb-up { padding: 4px 9px; font-size: .64rem }

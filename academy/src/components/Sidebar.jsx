@@ -39,6 +39,7 @@ function buildMenu(routes) {
   ];
 }
 
+const RAIL_LABEL = { dashboard: "Overview", schedule: "Schedule", calendar: "Calendar", tasks: "Exams & tasks", board: "House board", connect: "Connections" };
 const go = to => { if (location.hash.slice(1) !== to) location.hash = to; };
 
 function Tip({ label, children }) {
@@ -199,11 +200,16 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
         {/* membership + profile */}
         <footer className="sb-foot">
           {!mini && (
-            <a href="#connect" className="sb-member" onClick={onClose}>
-              <div className="sb-member-t"><span><MessageCircle size={13} /> สมาชิกบ้านสลิธีริน</span><em className={linked ? "ok" : ""}>{linked ? "Discord ✓" : mode === "supabase" ? "ฐานข้อมูลกลาง" : "โหมดสาธิต"}</em></div>
-              <div className="sb-meter"><motion.span initial={{ width: 0 }} animate={{ width: (totalAssign ? doneCount / totalAssign * 100 : 0) + "%" }} transition={{ duration: 1 }} /></div>
-              <div className="sb-member-s">ส่งงานแล้ว {doneCount}/{totalAssign} · {courses.reduce((s, c) => s + (c.sessions || []).reduce((t, x) => t + (nm(x.end) - nm(x.start)) / 60, 0), 0).toFixed(1).replace(/\.0$/, "")} ชม./สัปดาห์</div>
-            </a>
+            <div className="sb-member">
+              <svg className="sb-ring" viewBox="0 0 40 40" aria-hidden="true">
+                <circle cx="20" cy="20" r="16" />
+                <motion.circle cx="20" cy="20" r="16" className="v" strokeDasharray="100.5" initial={{ strokeDashoffset: 100.5 }}
+                  animate={{ strokeDashoffset: 100.5 * (1 - (totalAssign ? doneCount / totalAssign : 0)) }} transition={{ duration: 1.1, ease: [.2, .7, .2, 1] }} />
+                <text x="20" y="23.5" textAnchor="middle">{totalAssign ? Math.round(doneCount / totalAssign * 100) : 0}%</text>
+              </svg>
+              <div className="sb-member-t"><b>สมาชิกบ้านสลิธีริน</b><span>ส่งงาน {doneCount}/{totalAssign} · {courses.reduce((s, c) => s + (c.sessions || []).reduce((t, x) => t + (nm(x.end) - nm(x.start)) / 60, 0), 0).toFixed(1).replace(/\.0$/, "")} ชม./สัปดาห์</span></div>
+              <a href="#connect" className={"sb-up" + (linked ? " ok" : "")} onClick={onClose}>{linked ? "Discord ✓" : "เชื่อมต่อ"}</a>
+            </div>
           )}
           <div className="sb-me">
             <div className="sb-avatar">{initials}<i className={linked ? "ok" : ""} /></div>
@@ -240,6 +246,7 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
           <input ref={fileRef} type="file" accept="application/json,.json" hidden onChange={e => { const f = e.target.files[0]; e.target.value = ""; if (f) importFile(f); }} />
         </div>
         <div className="sb-rail-g end">
+          <span className="sb-rail-label" aria-hidden="true">{RAIL_LABEL[route] || ""}</span>
           <Tip label="เชื่อมต่อและตั้งค่า"><motion.button className={"sb-tool" + (route === "connect" ? " on" : "")} whileTap={{ scale: .9 }} onClick={() => { go("connect"); onClose(); }} aria-label="เชื่อมต่อและตั้งค่า"><Settings2 size={17} strokeWidth={1.7} /></motion.button></Tip>
         </div>
       </nav>
