@@ -9,7 +9,7 @@ import Calendar from "./pages/Calendar.jsx";
 import { Tasks, Board } from "./pages/Tasks.jsx";
 import Connect from "./pages/Connect.jsx";
 
-const Castle = lazy(() => import("./scene/Castle.jsx"));
+const Nightscape = lazy(() => import("./scene/Nightscape.jsx"));
 const ROUTES = [
   ["dashboard", "แดชบอร์ด", "◈", Dashboard], ["schedule", "ตารางเรียน", "☰", Schedule], ["calendar", "ปฏิทิน", "▦", Calendar],
   ["tasks", "สอบ & งาน", "✎", Tasks], ["board", "ประกาศ & กิจกรรม", "✦", Board], ["connect", "เชื่อมต่อ", "⚙", Connect]
@@ -31,7 +31,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="backdrop" aria-hidden="true">
-        {fx && fx !== "off" && webgl() && <Suspense fallback={null}><Castle route={route} fx={fx} cinema={cinema} /></Suspense>}
+        {fx && fx !== "off" && webgl() && <Suspense fallback={null}><Nightscape fx={fx} /></Suspense>}
         <div className="veil" />
       </div>
       <div className={"shell" + (cinema ? " hidden" : "")}>
@@ -46,7 +46,7 @@ export default function App() {
             <label htmlFor="yr" className="muted small">ชั้นปีของฉัน</label>
             <select id="yr" value={year} onChange={e => setProfile({ year: +e.target.value })}>{[1, 2, 3, 4, 5, 6, 7].map(y => <option key={y} value={y}>ชั้นปีที่ {y}</option>)}<option value={0}>ทุกชั้นปี</option></select>
             <span className={"mode " + mode}><span className="dot" />{mode === "supabase" ? "ฐานข้อมูลกลาง" : "โหมดสาธิต"}</span>
-            {fx !== "off" && <button className="btn ghost sm watch" onClick={() => setCinema(true)}>👁 ชมบาซิลิสก์</button>}
+            {fx !== "off" && <button className="btn ghost sm watch" onClick={() => setCinema(true)}>👁 ชมปราสาท</button>}
           </div>
         </aside>
         <main className="main">
@@ -59,7 +59,7 @@ export default function App() {
       </div>
       <AnimatePresence>{cinema && (
         <motion.div className="cinema" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .8 }}>
-          <div className="cinema-title"><div className="eyebrow">The Chamber's Guardian</div><h2>บาซิลิสก์</h2><p>ราชันแห่งงูผู้เฝ้าห้องโถงใต้ปราสาท · ขยับเมาส์เพื่อหมุนมุมกล้อง</p></div>
+          <div className="cinema-title"><div className="eyebrow">The Black Lake</div><h2>ปราสาทแห่งทะเลสาบดำ</h2><p>หมอกยามค่ำคืนเหนือผืนน้ำ · ขยับเมาส์เพื่อมองรอบ ๆ</p></div>
           <button className="btn primary" onClick={() => setCinema(false)}>กลับสู่แดชบอร์ด (Esc)</button>
         </motion.div>)}</AnimatePresence>
       <EditorHost /><ConfirmHost /><Toast />
