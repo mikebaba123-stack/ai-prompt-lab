@@ -1,0 +1,39 @@
+# แจ้งเตือน Discord อัตโนมัติเมื่อตารางเรียนบ้านสลิธีรินเปลี่ยน
+#
+# ตั้งค่าครั้งแรก:
+#   1) Discord: Edit Channel → Integrations → Webhooks → New Webhook → Copy Webhook URL
+#   2) GitHub: Settings → Secrets and variables → Actions → New repository secret
+#        DISCORD_WEBHOOK_URL = (URL จากข้อ 1)
+#      (ไม่บังคับ) Variables: DISCORD_ROLE_ID = ID ยศที่จะแท็ก, SITE_URL = ลิงก์เว็บ
+#   3) แก้ slytherin/schedule.json แล้ว push → Discord ได้ข้อความทันที
+name: Slytherin schedule → Discord
+
+on:
+  push:
+    paths:
+      - slytherin/schedule.json
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Get previous schedule
+        run: git show HEAD~1:slytherin/schedule.json > /tmp/old.json 2>/dev/null || echo '{"years":{}}' > /tmp/old.json
+      - name: Send Discord notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_ROLE_ID: ${{ vars.DISCORD_ROLE_ID }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then echo "::warning::ยังไม่ได้ตั้ง secret DISCORD_WEBHOOK_URL"; fi
+          node scripts/notify-discord.mjs /tmp/old.json slytherin/schedule.json

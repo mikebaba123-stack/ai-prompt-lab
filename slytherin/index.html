@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บ้านสลิธีริน</title>
+<meta name="description" content="บ้านสลิธีริน — ตารางเรียนทุกชั้นปี กิจกรรม คะแนนบ้าน และประกาศจาก Discord">
+<meta name="theme-color" content="#04140d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700&family=Noto+Serif+Thai:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --abyss:#020a06; --deep:#04140d; --lake:#072519; --emerald:#0f6b43; --jade:#1fa86b;
+  --glow:#3dffa4; --silver:#d7dee0; --silver-dim:#8fa39b; --ink:#e9f2ee; --gold:#c9b27c;
+  --card:rgba(8,34,23,.55); --line:rgba(170,220,200,.16);
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--abyss);color:var(--ink);font-family:"Noto Serif Thai",serif;line-height:1.7;overflow-x:hidden;min-height:100vh}
+a{color:inherit}
+::selection{background:var(--jade);color:#000}
+
+/* ---------- background layers ---------- */
+#sky{position:fixed;inset:0;z-index:-3}
+.fog{position:fixed;inset:-20%;z-index:-2;pointer-events:none;
+  background:
+   radial-gradient(40% 30% at 20% 30%,rgba(31,168,107,.18),transparent 70%),
+   radial-gradient(35% 25% at 80% 70%,rgba(15,107,67,.22),transparent 70%),
+   radial-gradient(60% 40% at 50% 110%,rgba(61,255,164,.10),transparent 70%);
+  animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) scale(1.08)}}
+.caustics{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.08;mix-blend-mode:screen;
+  background:repeating-radial-gradient(circle at 30% 20%,transparent 0 22px,rgba(61,255,164,.6) 23px,transparent 26px);
+  animation:wave 16s linear infinite}
+@keyframes wave{to{background-position:240px 160px}}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,4vw,48px);transition:.4s}
+nav.solid{background:rgba(2,12,8,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;gap:10px;align-items:center;font-family:Cinzel,serif;font-weight:700;letter-spacing:.18em;text-decoration:none}
+.brand svg{width:30px;height:30px}
+.links{display:flex;gap:6px;list-style:none}
+.links a{text-decoration:none;padding:8px 14px;border-radius:999px;font-size:.95rem;color:var(--silver);transition:.25s}
+.links a:hover,.links a.on{background:rgba(61,255,164,.12);color:#fff;box-shadow:inset 0 0 0 1px rgba(61,255,164,.35)}
+.burger{display:none;background:none;border:0;color:var(--ink);font-size:1.6rem;cursor:pointer}
+@media(max-width:860px){
+  .burger{display:block}
+  .links{position:fixed;top:62px;right:12px;left:12px;flex-direction:column;background:rgba(3,16,10,.96);
+    border:1px solid var(--line);border-radius:16px;padding:10px;display:none}
+  .links.open{display:flex}
+}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:grid;place-items:center;text-align:center;position:relative;padding:110px 16px 60px;overflow:hidden}
+.crest-wrap{position:relative;width:min(300px,62vw);aspect-ratio:1/1.15;margin:0 auto 18px}
+.crest-wrap::before{content:"";position:absolute;inset:-30%;border-radius:50%;
+  background:radial-gradient(circle,rgba(61,255,164,.35),transparent 60%);filter:blur(20px);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45;transform:scale(.92)}}
+.crest{position:relative;width:100%;height:100%;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(-1deg)}}
+.crest .snake{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 3.4s .4s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.crest .eye{animation:blink 6s 3.5s infinite}
+@keyframes blink{0%,96%,100%{opacity:1}98%{opacity:0}}
+.ring{position:absolute;inset:-14%;border:1px dashed rgba(215,222,224,.25);border-radius:50%;animation:spin 60s linear infinite}
+.ring.r2{inset:-24%;border-style:dotted;animation-duration:90s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+h1.title{font-family:"Cinzel Decorative",serif;font-weight:900;font-size:clamp(2.6rem,11vw,7.5rem);line-height:1;letter-spacing:.06em;
+  background:linear-gradient(100deg,#7d8f88 0%,#f4fbf8 20%,#9fb5ad 35%,#ffffff 50%,#7fe8b8 62%,#c9d6d1 80%,#6f827b 100%);
+  background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:sheen 7s linear infinite;filter:drop-shadow(0 4px 30px rgba(61,255,164,.25))}
+@keyframes sheen{to{background-position:-250% 0}}
+.th-name{font-size:clamp(1.2rem,4vw,2rem);font-weight:800;color:var(--silver);letter-spacing:.3em;margin-top:6px}
+.motto{margin:18px auto 0;max-width:640px;color:var(--silver-dim);font-size:clamp(.95rem,2.6vw,1.1rem)}
+.virtues{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.virtues span{padding:6px 16px;border:1px solid rgba(215,222,224,.25);border-radius:999px;font-size:.9rem;background:rgba(10,40,27,.5);backdrop-filter:blur(6px)}
+.next{margin:34px auto 0;display:inline-flex;gap:18px;align-items:center;padding:14px 22px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(15,107,67,.45),rgba(4,20,13,.7));border:1px solid rgba(61,255,164,.3);
+  box-shadow:0 0 40px rgba(61,255,164,.12),inset 0 1px 0 rgba(255,255,255,.08);text-align:left;max-width:100%}
+.next .lbl{font-size:.8rem;color:var(--silver-dim);letter-spacing:.1em}
+.next .what{font-weight:800;font-size:1.1rem}
+.next .cd{font-family:Cinzel,serif;font-size:1.6rem;color:var(--glow);text-shadow:0 0 18px rgba(61,255,164,.6);white-space:nowrap}
+.scroll-cue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--silver-dim);font-size:.8rem;letter-spacing:.3em;animation:bob 2s infinite}
+@keyframes bob{50%{transform:translate(-50%,8px)}}
+
+/* ---------- sections ---------- */
+section.block{padding:100px clamp(16px,5vw,64px);max-width:1240px;margin:0 auto;position:relative}
+.eyebrow{font-family:Cinzel,serif;letter-spacing:.4em;color:var(--jade);font-size:.8rem;text-transform:uppercase}
+h2{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;line-height:1.25;margin:6px 0 10px;
+  background:linear-gradient(180deg,#fff,#a9bdb5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--silver-dim);max-width:680px}
+.divider{height:80px;width:100%;max-width:900px;margin:0 auto;display:block}
+.divider path{stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 2.4s ease}
+.divider.in path{stroke-dashoffset:0}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px);
+  box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(61,255,164,.12),transparent 50%);opacity:0;transition:.3s}
+.card:hover::after{opacity:1}
+
+/* traits */
+.traits{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:40px}
+.trait{padding:28px 24px;transform-style:preserve-3d;transition:transform .2s}
+.trait .ico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:1.8rem;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--emerald),#052a1b);box-shadow:0 0 24px rgba(61,255,164,.25),inset 0 0 0 1px rgba(61,255,164,.35)}
+.trait h3{font-size:1.25rem;margin-bottom:6px}
+.trait p{color:var(--silver-dim);font-size:.95rem}
+
+/* schedule */
+.sched-head{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:end}
+.updated{font-size:.85rem;color:var(--silver-dim);display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--glow);box-shadow:0 0 10px var(--glow);animation:pulse 2s infinite}
+.years{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 16px}
+.year{cursor:pointer;border:1px solid var(--line);background:rgba(6,28,19,.6);color:var(--silver);
+  font-family:Cinzel,serif;font-weight:700;width:64px;height:72px;border-radius:14px;display:grid;place-items:center;line-height:1.1;transition:.25s;font-size:1.5rem}
+.year small{font-family:"Noto Serif Thai";font-size:.65rem;font-weight:400;color:var(--silver-dim)}
+.year:hover{transform:translateY(-3px);border-color:rgba(61,255,164,.5)}
+.year.on{background:linear-gradient(160deg,var(--jade),var(--emerald) 60%,#063d26);color:#fff;border-color:var(--glow);box-shadow:0 10px 30px rgba(61,255,164,.3)}
+.year.on small{color:#d9ffe9}
+.days{display:flex;gap:6px;overflow-x:auto;padding:12px 0 6px;scrollbar-width:none}
+.day{cursor:pointer;flex:1 0 auto;min-width:86px;padding:10px 14px;border-radius:12px;border:1px solid transparent;background:none;color:var(--silver-dim);font:inherit;transition:.2s;position:relative}
+.day.on{color:#fff;background:rgba(61,255,164,.1);border-color:rgba(61,255,164,.35)}
+.day.today::before{content:"วันนี้";position:absolute;top:-9px;right:8px;font-size:.62rem;background:var(--glow);color:#032;padding:0 6px;border-radius:6px;font-weight:800}
+.timeline{margin-top:20px;display:grid;gap:14px;position:relative;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--glow),var(--emerald),transparent)}
+.cls{padding:18px 22px;display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;animation:rise .5s both}
+.cls::before{content:"";position:absolute;left:-25px;top:50%;width:12px;height:12px;border-radius:50%;background:var(--deep);border:2px solid var(--jade);transform:translateY(-50%)}
+.timeline .cls{overflow:visible}
+@keyframes rise{from{opacity:0;transform:translateX(-14px)}}
+.cls .t{font-family:Cinzel,serif;color:var(--glow);font-weight:700;letter-spacing:.05em}
+.cls .s{font-weight:800;font-size:1.1rem}
+.cls .room{font-size:.85rem;color:var(--silver-dim);text-align:right}
+.cls.now{border-color:var(--glow);box-shadow:0 0 0 1px var(--glow),0 0 40px rgba(61,255,164,.25)}
+.cls.now::before{background:var(--glow);box-shadow:0 0 12px var(--glow)}
+.cls.now .s::after{content:" • กำลังเรียน";color:var(--glow);font-size:.8rem;font-weight:600}
+.cls.done{opacity:.5}
+.empty{padding:30px;text-align:center;color:var(--silver-dim)}
+@media(max-width:640px){.cls{grid-template-columns:1fr;gap:2px}.cls .room{text-align:left}}
+
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-top:40px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.log{padding:24px}
+.log h3{font-size:1.1rem;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+.log ul{list-style:none;display:grid;gap:12px;max-height:360px;overflow:auto}
+.log li{padding:12px 14px;border-radius:12px;background:rgba(0,0,0,.25);border-left:3px solid var(--jade);font-size:.92rem}
+.log li b{color:var(--glow);font-family:Cinzel,serif;font-size:.8rem;display:block}
+.chip{display:inline-block;font-size:.72rem;padding:1px 8px;border-radius:999px;background:rgba(61,255,164,.12);color:var(--glow);margin-right:4px}
+
+/* activities */
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
+.act{padding:0;display:flex;flex-direction:column;transition:transform .35s}
+.act:hover{transform:translateY(-6px)}
+.act .top{padding:22px 22px 18px;background:linear-gradient(135deg,rgba(31,168,107,.35),rgba(4,20,13,.2));border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center}
+.date{min-width:62px;text-align:center;border-radius:12px;padding:6px 4px;background:rgba(0,0,0,.35);border:1px solid rgba(215,222,224,.2)}
+.date .d{font-family:Cinzel,serif;font-size:1.7rem;font-weight:700;line-height:1;color:#fff}
+.date .m{font-size:.75rem;color:var(--silver-dim)}
+.act h3{font-size:1.1rem;line-height:1.4}
+.act .body{padding:18px 22px 22px;color:var(--silver-dim);font-size:.93rem;flex:1;display:flex;flex-direction:column;gap:10px}
+.act .meta{font-size:.82rem;color:var(--silver)}
+.act.past{opacity:.45}
+.soon{position:absolute;top:14px;right:14px;font-size:.7rem;background:var(--glow);color:#032;font-weight:800;padding:2px 10px;border-radius:999px}
+
+/* points */
+.cup{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px;align-items:end}
+@media(max-width:640px){.cup{grid-template-columns:repeat(2,1fr)}}
+.glass{text-align:center}
+.tube{height:260px;border-radius:40px 40px 20px 20px;border:1px solid rgba(215,222,224,.3);position:relative;overflow:hidden;
+  background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,0) 40%,rgba(255,255,255,.05))}
+.fill{position:absolute;left:0;right:0;bottom:0;height:0;transition:height 2.2s cubic-bezier(.2,.7,.2,1);
+  background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7) 0 2px,transparent 3px),radial-gradient(circle at 70% 60%,rgba(255,255,255,.5) 0 2px,transparent 3px);
+  background-size:14px 14px,18px 18px}
+.glass .n{font-family:Cinzel,serif;font-size:1.6rem;font-weight:700;margin-top:10px}
+.glass .h{font-size:.85rem;color:var(--silver-dim)}
+.glass.us .tube{border-color:var(--glow);box-shadow:0 0 40px rgba(61,255,164,.3)}
+.glass.us .n{color:var(--glow)}
+
+/* discord */
+.dc{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+@media(max-width:900px){.dc{grid-template-columns:1fr}}
+.dc .card{padding:28px}
+.dc iframe{width:100%;height:420px;border:0;border-radius:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:999px;font-weight:800;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:800;
+  background:linear-gradient(135deg,#5865f2,#3b44c4);color:#fff;box-shadow:0 10px 30px rgba(88,101,242,.35);transition:.25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(88,101,242,.5)}
+.btn.ghost{background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--silver)}
+.steps{counter-reset:s;list-style:none;display:grid;gap:12px;margin-top:14px}
+.steps li{counter-increment:s;padding-left:42px;position:relative;color:var(--silver-dim);font-size:.93rem}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--emerald);color:#fff;font-family:Cinzel,serif;font-weight:700}
+code{background:rgba(0,0,0,.4);padding:1px 6px;border-radius:6px;font-size:.85em;color:var(--glow)}
+
+footer{text-align:center;padding:60px 16px 80px;color:var(--silver-dim);font-size:.9rem;border-top:1px solid var(--line);margin-top:60px}
+footer .big{font-family:"Cinzel Decorative",serif;font-size:1.4rem;color:var(--silver);letter-spacing:.1em}
+
+#spark{position:fixed;inset:0;pointer-events:none;z-index:60}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.crest .snake{stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas><div class="fog"></div><div class="caustics"></div><canvas id="spark"></canvas>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#aebdb7"/><stop offset=".7" stop-color="#f2f7f5"/><stop offset="1" stop-color="#7a8c85"/>
+    </linearGradient>
+    <linearGradient id="emer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1fa86b"/><stop offset=".55" stop-color="#0b4f31"/><stop offset="1" stop-color="#03170e"/>
+    </linearGradient>
+    <symbol id="crest" viewBox="0 0 200 230">
+      <path d="M100 6 L186 28 C186 120 160 180 100 224 C40 180 14 120 14 28 Z" fill="url(#emer)" stroke="url(#silver)" stroke-width="5"/>
+      <path d="M100 18 L174 37 C172 118 150 168 100 208 C50 168 28 118 26 37 Z" fill="none" stroke="rgba(215,222,224,.35)" stroke-width="1.2"/>
+      <path class="snake" d="M138 52 C110 36 66 46 70 78 C74 108 134 98 136 130 C138 166 86 176 62 156 C52 148 54 136 64 134"
+            fill="none" stroke="url(#silver)" stroke-width="11" stroke-linecap="round"/>
+      <path d="M128 44 C140 40 154 46 156 56 C150 64 138 62 132 58 Z" fill="url(#silver)"/>
+      <circle class="eye" cx="146" cy="52" r="2.6" fill="#3dffa4"/>
+      <path d="M156 56 l10 2 m-10 -2 l8 6" stroke="#ff4d6d" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<nav id="nav">
+  <a class="brand" href="#top"><svg><use href="#crest"/></svg>SLYTHERIN</a>
+  <button class="burger" aria-label="เมนู" onclick="document.querySelector('.links').classList.toggle('open')">☰</button>
+  <ul class="links">
+    <li><a href="#top">หน้าแรก</a></li>
+    <li><a href="#house">บ้านของเรา</a></li>
+    <li><a href="#schedule">ตารางเรียน</a></li>
+    <li><a href="#activities">กิจกรรม</a></li>
+    <li><a href="#points">คะแนนบ้าน</a></li>
+    <li><a href="#discord">Discord</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div>
+    <div class="crest-wrap">
+      <div class="ring"></div><div class="ring r2"></div>
+      <svg class="crest" viewBox="0 0 200 230"><use href="#crest"/></svg>
+    </div>
+    <h1 class="title">SLYTHERIN</h1>
+    <div class="th-name">บ้านสลิธีริน</div>
+    <p class="motto">ใต้ผืนน้ำของทะเลสาบดำ แสงมรกตไม่เคยดับ เราไม่ได้รอให้โชคชะตาเลือก เราเลือกเอง</p>
+    <div class="virtues"><span>🐍 ความทะเยอทะยาน</span><span>🗝️ ไหวพริบ</span><span>👑 ความเป็นผู้นำ</span><span>💎 ความมุ่งมั่น</span></div>
+    <div class="next" id="next">
+      <div><div class="lbl">คาบถัดไป · <span id="nextYear">ปี 1</span></div><div class="what" id="nextWhat">กำลังโหลดตาราง…</div></div>
+      <div class="cd" id="nextCd">--:--:--</div>
+    </div>
+  </div>
+  <div class="scroll-cue">เลื่อนลง ▾</div>
+</header>
+
+<svg class="divider" viewBox="0 0 900 80" preserveAspectRatio="none"><path d="M0 40 C120 0 200 80 320 40 S520 0 640 40 S820 80 900 40" fill="none" stroke="url(#silver)" stroke-width="2"/></svg>
+
+<section class="block" id="house">
+  <div class="reveal"><div class="eyebrow">The Serpent's Way</div><h2>หัวใจของสลิธีริน</h2>
+  <p class="sub">บ้านของคนที่มองเห็นเส้นทางก่อนใคร และกล้าเดินไปจนสุด</p></div>
+  <div class="traits">
+    <div class="card trait reveal"><div class="ico">🐍</div><h3>ความทะเยอทะยาน</h3><p>เป้าหมายใหญ่ไม่ใช่ความฝัน มันคือแผนที่ยังไม่ได้ลงมือ</p></div>
+    <div class="card trait reveal"><div class="ico">🗝️</div><h3>ไหวพริบ</h3><p>คิดสามก้าวล่วงหน้า หาทางออกที่คนอื่นมองไม่เห็น</p></div>
+    <div class="card trait reveal"><div class="ico">👑</div><h3>ความเป็นผู้นำ</h3><p>รู้ว่าจะพาทีมไปทางไหน และรับผิดชอบกับผลที่ตามมา</p></div>
+    <div class="card trait reveal"><div class="ico">💎</div><h3>ความภักดีต่อพวกพ้อง</h3><p>สลิธีรินดูแลกันเอง ไม่มีใครถูกทิ้งไว้ข้างหลัง</p></div>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 900 80" preserveAspectRatio="none"><path d="M0 40 C120 80 200 0 320 40 S520 80 640 40 S820 0 900 40" fill="none" stroke="url(#silver)" stroke-width="2"/></svg>
+
+<section class="block" id="schedule">
+  <div class="sched-head reveal">
+    <div><div class="eyebrow">Timetable</div><h2>ตารางเรียนทุกชั้นปี</h2>
+    <p class="sub">เลือกชั้นปีและวัน ระบบจะไฮไลต์คาบที่กำลังเรียนอยู่ให้อัตโนมัติ ทุกครั้งที่ตารางมีการแก้ไข Discord ของบ้านจะได้รับแจ้งเตือนทันที</p></div>
+    <div class="updated"><span class="dot"></span>อัปเดตล่าสุด <b id="updatedAt">—</b></div>
+  </div>
+  <div class="years reveal" id="years"></div>
+  <div class="grid2">
+    <div class="card reveal" style="padding:22px">
+      <div class="days" id="days"></div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="card log reveal">
+      <h3>📜 ประกาศการเปลี่ยนแปลงตาราง</h3>
+      <ul id="log"></ul>
+    </div>
+  </div>
+</section>
+
+<svg class="divider" viewBox="0 0 900 80" preserveAspectRatio="none"><path d="M0 40 C120 0 200 80 320 40 S520 0 640 40 S820 80 900 40" fill="none" stroke="url(#silver)" stroke-width="2"/></svg>
+
+<section class="block" id="activities">
+  <div class="reveal"><div class="eyebrow">Activities</div><h2>กิจกรรมของบ้าน</h2>
+  <p class="sub">งานที่กำลังจะมาถึง มาเก็บคะแนนให้บ้านกันเถอะ</p></div>
+  <div class="acts" id="acts"></div>
+</section>
+
+<section class="block" id="points">
+  <div class="reveal"><div class="eyebrow">House Cup</div><h2>นาฬิกาทรายคะแนนบ้าน</h2>
+  <p class="sub">มรกตทุกเม็ดมาจากความพยายามของพวกเรา</p></div>
+  <div class="cup" id="cup"></div>
+</section>
+
+<section class="block" id="discord">
+  <div class="reveal"><div class="eyebrow">Discord</div><h2>ห้องนั่งเล่นออนไลน์</h2>
+  <p class="sub">ทุกครั้งที่ตารางเรียนของชั้นปีไหนถูกแก้ บอทจะโพสต์สรุปสิ่งที่เปลี่ยนลงห้อง Discord ของบ้านให้อัตโนมัติ</p></div>
+  <div class="dc">
+    <div class="card reveal" id="dcWidget"></div>
+    <div class="card reveal">
+      <h3 style="margin-bottom:6px">🔔 ระบบแจ้งเตือนตารางเรียน</h3>
+      <p style="color:var(--silver-dim);font-size:.95rem">แก้ไฟล์ <code>slytherin/schedule.json</code> แล้ว push ขึ้น GitHub เท่านี้ Discord จะได้ข้อความแบบนี้:</p>
+      <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:#2b2d31;border-left:4px solid #1fa86b;font-family:system-ui,sans-serif;font-size:.88rem">
+        <div style="font-weight:700;color:#fff">🐍 ตารางเรียนอัปเดต · ปี 3</div>
+        <div style="color:#b5bac1;margin-top:6px"><b style="color:#dbdee1">วันพุธ</b><br>➕ 13:30-15:00 ปรุงยา (ห้องใต้ดิน 1)<br>➖ 13:30-15:00 คาถา (หอคอยตะวันออก 2E)</div>
+      </div>
+      <a class="btn ghost" style="margin-top:20px" href="#schedule">ดูตารางเต็ม →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="big">SLYTHERIN</div>
+  <p>สร้างด้วยความทะเยอทะยาน · ตารางเรียนซิงก์กับ Discord</p>
+</footer>
+
+<script>
+const DAYS=[["mon","จันทร์"],["tue","อังคาร"],["wed","พุธ"],["thu","พฤหัสฯ"],["fri","ศุกร์"]];
+const JS_DAY={1:"mon",2:"tue",3:"wed",4:"thu",5:"fri"};
+const HOUSE_COLORS={Slytherin:["#3dffa4","#0f6b43"],Ravenclaw:["#5b8cff","#1d2f7a"],Hufflepuff:["#ffd34d","#8a6a12"],Gryffindor:["#ff5b5b","#7a1414"]};
+const HOUSE_TH={Slytherin:"สลิธีริน",Ravenclaw:"เรเวนคลอว์",Hufflepuff:"ฮัฟเฟิลพัฟ",Gryffindor:"กริฟฟินดอร์"};
+const $=s=>document.querySelector(s);
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let DATA=null, year=store.get("sly-year")||"1", day=JS_DAY[new Date().getDay()]||"mon";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
+const fmtDate=iso=>new Date(iso).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
+
+fetch("schedule.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{DATA=d;init()}).catch(()=>{
+  $("#timeline").innerHTML='<div class="empty">โหลด schedule.json ไม่ได้ (ต้องเปิดผ่านเว็บเซิร์ฟเวอร์ เช่น GitHub Pages)</div>';
+  $("#nextWhat").textContent="ไม่พบตาราง";
+});
+
+function init(){
+  $("#updatedAt").textContent=new Date(DATA.updatedAt).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});
+  const ys=Object.keys(DATA.years);
+  if(!ys.includes(year)) year=ys[0];
+  $("#years").innerHTML=ys.map(y=>`<button class="year" data-y="${y}">${y}<small>ชั้นปี</small></button>`).join("");
+  $("#years").onclick=e=>{const b=e.target.closest(".year");if(!b)return;year=b.dataset.y;store.set("sly-year",year);renderSched();tickNext()};
+  $("#days").innerHTML=DAYS.map(([k,t])=>`<button class="day ${JS_DAY[new Date().getDay()]===k?"today":""}" data-d="${k}">${t}</button>`).join("");
+  $("#days").onclick=e=>{const b=e.target.closest(".day");if(!b)return;day=b.dataset.d;renderSched()};
+  $("#log").innerHTML=(DATA.updates||[]).slice().reverse().map(u=>`<li><b>${fmtDate(u.date)}</b>${(u.years||[]).map(y=>`<span class="chip">${esc(y)}</span>`).join("")} ${esc(u.text)}</li>`).join("")||'<li>ยังไม่มีการเปลี่ยนแปลง</li>';
+  renderSched();renderActs();renderCup();renderDiscord();tickNext();setInterval(tickNext,1000);setInterval(renderSched,60000);
+}
+
+function renderSched(){
+  document.querySelectorAll(".year").forEach(b=>b.classList.toggle("on",b.dataset.y===year));
+  document.querySelectorAll(".day").forEach(b=>b.classList.toggle("on",b.dataset.d===day));
+  const list=(DATA.years[year]||{})[day]||[];
+  const now=new Date(), isToday=JS_DAY[now.getDay()]===day, nm=now.getHours()*60+now.getMinutes();
+  $("#timeline").innerHTML=list.length?list.map((c,i)=>{
+    const [a,b]=c.time.split("-");let st="";
+    if(isToday){if(nm>=mins(a)&&nm<mins(b))st="now";else if(nm>=mins(b))st="done"}
+    return `<div class="card cls ${st}" style="animation-delay:${i*70}ms"><div class="t">${esc(c.time.replace("-"," – "))}</div><div class="s">${esc(c.subject)}</div><div class="room">📍 ${esc(c.room)}</div></div>`;
+  }).join(""):'<div class="empty">🌙 ไม่มีคาบเรียน พักผ่อนใต้ทะเลสาบได้เลย</div>';
+}
+
+function nextClass(){
+  const now=new Date();
+  for(let add=0;add<8;add++){
+    const d=new Date(now);d.setDate(d.getDate()+add);
+    const key=JS_DAY[d.getDay()];if(!key)continue;
+    for(const c of (DATA.years[year][key]||[])){
+      const [h,m]=c.time.split("-")[0].split(":").map(Number);
+      const t=new Date(d);t.setHours(h,m,0,0);
+      if(t>now) return {c,t,dayTh:DAYS.find(x=>x[0]===key)[1],add};
+    }
+  }
+}
+function tickNext(){
+  if(!DATA)return;const n=nextClass();$("#nextYear").textContent="ปี "+year;
+  if(!n){$("#nextWhat").textContent="ไม่มีคาบในสัปดาห์นี้";$("#nextCd").textContent="—";return}
+  $("#nextWhat").textContent=`${n.c.subject} · ${n.add===0?"วันนี้":"วัน"+n.dayTh} ${n.c.time.split("-")[0]}`;
+  let s=Math.floor((n.t-new Date())/1000);const h=Math.floor(s/3600);s%=3600;
+  $("#nextCd").textContent=[h,Math.floor(s/60),s%60].map(v=>String(v).padStart(2,"0")).join(":");
+}
+
+function renderActs(){
+  const today=new Date();today.setHours(0,0,0,0);let flagged=false;
+  $("#acts").innerHTML=(DATA.activities||[]).map(a=>{
+    const d=new Date(a.date+"T00:00:00"),past=d<today,soon=!past&&!flagged;if(soon)flagged=true;
+    return `<article class="card act reveal ${past?"past":""}">${soon?'<span class="soon">เร็วๆ นี้</span>':""}
+      <div class="top"><div class="date"><div class="d">${d.getDate()}</div><div class="m">${d.toLocaleDateString("th-TH",{month:"short"})}</div></div><h3>${esc(a.title)}</h3></div>
+      <div class="body"><p>${esc(a.desc)}</p><div class="meta">🕰️ ${esc(a.time)} น. · 📍 ${esc(a.place)} <span class="chip" style="margin-left:6px">${esc(a.tag)}</span></div></div></article>`;
+  }).join("");
+  observe();
+}
+
+function renderCup(){
+  const p=DATA.housePoints||{},max=Math.max(...Object.values(p),1);
+  $("#cup").innerHTML=Object.entries(p).sort((a,b)=>b[1]-a[1]).map(([h,v])=>{
+    const [c1,c2]=HOUSE_COLORS[h]||["#ccc","#555"];
+    return `<div class="glass ${h==="Slytherin"?"us":""}"><div class="tube"><div class="fill" data-h="${v/max*92}" style="background-color:${c2};background-image:radial-gradient(circle at 30% 30%,${c1} 0 2px,transparent 3px),radial-gradient(circle at 70% 60%,${c1} 0 2px,transparent 3px),linear-gradient(${c1}55,${c2})"></div></div>
+      <div class="n" data-v="${v}">0</div><div class="h">${HOUSE_TH[h]||h}</div></div>`;
+  }).join("");
+  const io=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;io.disconnect();
+    document.querySelectorAll(".fill").forEach(f=>f.style.height=f.dataset.h+"%");
+    document.querySelectorAll(".glass .n").forEach(n=>{const v=+n.dataset.v,t0=performance.now();
+      (function step(t){const k=Math.min(1,(t-t0)/2000);n.textContent=Math.round(v*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)})(t0)});
+  },{threshold:.3});io.observe($("#cup"));
+}
+
+function renderDiscord(){
+  const dc=DATA.discord||{},el=$("#dcWidget");
+  if(/^\d{15,22}$/.test(dc.serverId||"")){
+    el.innerHTML=`<iframe src="https://discord.com/widget?id=${dc.serverId}&theme=dark" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" title="Discord"></iframe>`+(dc.inviteUrl?`<a class="btn" style="margin-top:16px" href="${esc(dc.inviteUrl)}" target="_blank" rel="noopener">เข้าห้อง Discord</a>`:"");
+  }else{
+    el.innerHTML=`<h3>🔗 เชื่อมเซิร์ฟเวอร์ Discord ของบ้าน</h3>
+      <ol class="steps">
+        <li>ใน Discord: Server Settings → Widget → เปิด <b>Enable Server Widget</b> แล้วคัดลอก Server ID</li>
+        <li>ใส่ Server ID และลิงก์เชิญใน <code>schedule.json</code> ที่ช่อง <code>discord</code></li>
+        <li>สร้าง Webhook ในห้องประกาศ (Edit Channel → Integrations → Webhooks)</li>
+        <li>นำ URL ไปใส่ใน GitHub → Settings → Secrets → Actions ชื่อ <code>DISCORD_WEBHOOK_URL</code></li>
+      </ol>`;
+  }
+}
+
+/* reveal + nav */
+let io2;
+function observe(){
+  io2=io2||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io2.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll(".reveal:not(.in),.divider:not(.in)").forEach(el=>io2.observe(el));
+}
+observe();
+const secs=[...document.querySelectorAll("header[id],section[id]")];
+addEventListener("scroll",()=>{
+  $("#nav").classList.toggle("solid",scrollY>40);
+  let cur=secs[0].id;secs.forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});
+  document.querySelectorAll(".links a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+cur));
+},{passive:true});
+document.querySelectorAll(".links a").forEach(a=>a.onclick=()=>document.querySelector(".links").classList.remove("open"));
+
+/* card spotlight + tilt */
+document.addEventListener("pointermove",e=>{
+  const c=e.target.closest(".card");if(!c)return;const r=c.getBoundingClientRect();
+  c.style.setProperty("--mx",e.clientX-r.left+"px");c.style.setProperty("--my",e.clientY-r.top+"px");
+  if(c.classList.contains("trait")){const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`}
+});
+document.querySelectorAll(".trait").forEach(t=>t.addEventListener("pointerleave",()=>t.style.transform=""));
+
+/* background: rising emerald motes */
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+(function(){
+  const cv=$("#sky"),x=cv.getContext("2d");let W,H,P=[];
+  function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;P=Array.from({length:Math.min(110,W/10)},()=>mk(true))}
+  function mk(any){return{x:Math.random()*W,y:any?Math.random()*H:H+10,r:Math.random()*2+.4,v:Math.random()*.4+.1,p:Math.random()*6.28,a:Math.random()*.6+.2}}
+  size();addEventListener("resize",size);
+  function f(){
+    const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#010604");g.addColorStop(.6,"#03130c");g.addColorStop(1,"#062217");
+    x.fillStyle=g;x.fillRect(0,0,W,H);
+    for(const q of P){q.y-=q.v;q.p+=.02;q.x+=Math.sin(q.p)*.3;if(q.y<-10)Object.assign(q,mk(false));
+      x.beginPath();x.arc(q.x,q.y,q.r,0,7);x.fillStyle=`rgba(90,255,170,${q.a*(.6+.4*Math.sin(q.p*2))})`;x.shadowBlur=12;x.shadowColor="#3dffa4";x.fill()}
+    x.shadowBlur=0;if(!reduce)requestAnimationFrame(f);
+  }f();
+})();
+
+/* cursor sparkles */
+(function(){
+  if(reduce||matchMedia("(pointer:coarse)").matches)return;
+  const cv=$("#spark"),x=cv.getContext("2d");let S=[];
+  const sz=()=>{cv.width=innerWidth;cv.height=innerHeight};sz();addEventListener("resize",sz);
+  addEventListener("pointermove",e=>{for(let i=0;i<2;i++)S.push({x:e.clientX,y:e.clientY,vx:(Math.random()-.5)*1.4,vy:(Math.random()-.5)*1.4-.4,l:1})});
+  (function f(){x.clearRect(0,0,cv.width,cv.height);S=S.filter(s=>(s.l-=.025)>0);
+    for(const s of S){s.x+=s.vx;s.y+=s.vy;x.fillStyle=`rgba(${Math.random()<.5?"215,230,225":"61,255,164"},${s.l})`;x.fillRect(s.x,s.y,2,2)}
+    requestAnimationFrame(f)})();
+})();
+</script>
+</body>
+</html>
