@@ -25,14 +25,14 @@ export default function Connect() {
       <header className="page-head"><div><div className="eyebrow">Connections</div><h1>เชื่อมต่อ</h1><p className="muted">ฐานข้อมูลกลาง การแจ้งเตือน Discord และคุณภาพภาพ 3D</p></div></header>
       <div className="two">
         <Card eyebrow="Database" title="ฐานข้อมูลกลาง (Supabase)">
-          <p className={"status-line " + (mode === "supabase" ? "ok" : err ? "bad" : "")}><span className="dot" />{mode === "supabase" ? "เชื่อมต่อแล้ว · ทุกคนเห็นข้อมูลชุดเดียวกันแบบเรียลไทม์" : err ? "เชื่อมต่อไม่สำเร็จ: " + err : "โหมดสาธิต · ข้อมูลอยู่ในเบราว์เซอร์เครื่องนี้เท่านั้น"}</p>
+          <p className={"status-line " + (mode === "supabase" || mode === "shared" ? "ok" : err ? "bad" : "")}><span className="dot" />{mode === "supabase" ? "เชื่อมต่อแล้ว · ทุกคนเห็นข้อมูลชุดเดียวกันแบบเรียลไทม์" : mode === "shared" ? "ใช้ฐานข้อมูลในเว็บ · ทุกคนที่มีลิงก์เห็นและแก้ข้อมูลชุดเดียวกัน (ไม่ต้องตั้งค่า)" : err ? "เชื่อมต่อไม่สำเร็จ: " + err : "โหมดสาธิต · ข้อมูลอยู่ในเบราว์เซอร์เครื่องนี้เท่านั้น"}</p>
           <form className="form" onSubmit={go}>
             <div className="field"><label htmlFor="sb-url">Project URL</label><input id="sb-url" type="url" value={url} disabled={locked} placeholder="https://xxxx.supabase.co" onChange={e => setUrl(e.target.value)} autoComplete="off" /></div>
             <div className="field"><label htmlFor="sb-key">anon / publishable key</label><input id="sb-key" type="password" value={key} disabled={locked} placeholder="eyJhbGciOi… หรือ sb_publishable_…" onChange={e => setKey(e.target.value)} autoComplete="off" /></div>
             {locked && <p className="muted small">ค่าเชื่อมต่อกำหนดไว้ใน config.js แล้ว ทุกคนที่เปิดเว็บใช้ฐานข้อมูลเดียวกัน</p>}
             <div className="row">
               <button className="btn primary" disabled={busy || locked}>{busy ? "กำลังเชื่อมต่อ…" : "บันทึกและเชื่อมต่อ"}</button>
-              {mode === "supabase" && !locked && <button type="button" className="btn ghost" onClick={useDemo}>กลับไปโหมดสาธิต</button>}
+              {mode === "supabase" && !locked && <button type="button" className="btn ghost" onClick={useDemo}>เลิกใช้ Supabase</button>}
             </div>
           </form>
           {mode === "demo" && (

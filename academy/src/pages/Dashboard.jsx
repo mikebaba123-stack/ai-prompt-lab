@@ -80,7 +80,8 @@ function StatCard({ icon: Icon, value, label, note, href, alert, delay }) {
 
 function DiscordStatus() {
   const mode = useApp(s => s.mode), discord = useApp(s => s.discord), err = useApp(s => s.error);
-  const st = mode !== "supabase" ? ["idle", "โหมดสาธิต", "ยังไม่ได้เชื่อมฐานข้อมูลกลาง การแจ้งเตือนจึงยังไม่ทำงาน"]
+  const st = mode === "shared" ? ["ok", "ฐานข้อมูลในเว็บพร้อมใช้", "ทุกคนที่มีลิงก์เห็นข้อมูลชุดเดียวกัน · แจ้งเตือน Discord ใช้ได้บนเว็บที่ลงโฮสต์เองพร้อม Supabase"]
+    : mode !== "supabase" ? ["idle", "โหมดสาธิต", "ยังไม่ได้เชื่อมฐานข้อมูลกลาง การแจ้งเตือนจึงยังไม่ทำงาน"]
     : discord ? ["ok", "เชื่อมต่อแล้ว", "ทุกการเพิ่ม แก้ไข หรือลบ จะส่งเข้าห้อง Discord ของบ้านทันที"]
     : discord === false ? ["warn", "ยังไม่ได้ตั้ง Webhook", "ฐานข้อมูลพร้อมแล้ว เหลือใส่ Discord webhook อีกขั้นเดียว"]
     : ["warn", "ตรวจสอบสถานะไม่ได้", "อัปเดตไฟล์ setup.sql เวอร์ชันล่าสุดในฐานข้อมูล"];

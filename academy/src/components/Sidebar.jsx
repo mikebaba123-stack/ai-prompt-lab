@@ -51,9 +51,13 @@ function exportData() {
   const d = getState().data, out = {};
   for (const k of KINDS) out[k] = d[k].map(({ id, deleted, created_at, updated_at, ...rest }) => rest);
   const blob = new Blob([JSON.stringify({ app: "slytherin-academy", exported_at: new Date().toISOString(), ...out }, null, 2)], { type: "application/json" });
-  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "slytherin-academy-backup.json"; a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-  toast("ส่งออกข้อมูลแล้ว");
+  const fallback = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "slytherin-academy-backup.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); toast("ส่งออกข้อมูลแล้ว"); };
+  const use = window.claude && window.claude.use;
+  if (typeof use !== "function") return fallback();
+  use("downloads").then(dl => {
+    if (!dl) return fallback();
+    return blob.text().then(text => dl.save({ filename: "slytherin-academy-backup.json", data: text })).then(() => toast("ส่งออกข้อมูลแล้ว"), () => toast("ยกเลิกการดาวน์โหลด"));
+  }).catch(fallback);
 }
 async function importFile(file) {
   try {
@@ -96,7 +100,7 @@ const { route, expanded, toggle, mini, badges, hl, run } = ctx;
 }
 
 export default function Sidebar({ routes, route, open, onClose, collapsed, onToggle, onCinema, canCinema }) {
-  const data = useApp(s => s.data), done = useApp(s => s.done), profile = useApp(s => s.profile), mode = useApp(s => s.mode), discord = useApp(s => s.discord);
+  const data = useApp(s => s.data), readOnly = useApp(s => s.readOnly), done = useApp(s => s.done), profile = useApp(s => s.profile), mode = useApp(s => s.mode), discord = useApp(s => s.discord);
   const menu = useMemo(() => buildMenu(routes), [routes]);
   const [expanded, setExpanded] = useState(() => LS.get("sa.sb.exp", { schedule: true }));
   const [q, setQ] = useState(""), [editName, setEditName] = useState(false), [nameDraft, setNameDraft] = useState("");
@@ -208,7 +212,7 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
                 <text x="20" y="23.5" textAnchor="middle">{totalAssign ? Math.round(doneCount / totalAssign * 100) : 0}%</text>
               </svg>
               <div className="sb-member-t"><b>สมาชิกบ้านสลิธีริน</b><span>ส่งงาน {doneCount}/{totalAssign} · {courses.reduce((s, c) => s + (c.sessions || []).reduce((t, x) => t + (nm(x.end) - nm(x.start)) / 60, 0), 0).toFixed(1).replace(/\.0$/, "")} ชม./สัปดาห์</span></div>
-              <a href="#connect" className={"sb-up" + (linked ? " ok" : "")} onClick={onClose}>{linked ? "Discord ✓" : "เชื่อมต่อ"}</a>
+              <a href="#connect" className={"sb-up" + (linked || mode === "shared" ? " ok" : "")} onClick={onClose}>{linked ? "Discord ✓" : mode === "shared" ? (readOnly ? "ดูอย่างเดียว" : "ออนไลน์") : "เชื่อมต่อ"}</a>
             </div>
           )}
           <div className="sb-me">

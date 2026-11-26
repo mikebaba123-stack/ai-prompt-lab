@@ -57,10 +57,51 @@ const Remote = {
   close() { if (this.chan) this.db.removeChannel(this.chan); this.chan = null; }
 };
 
+/* ---------- shared database built into the published page (claude.ai artifact `db`) ---------- */
+const withTimeout = (p, ms, msg) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error(msg)), ms))]);
+const Shared = {
+  name: "shared", db: null, subs: [],
+  async init() {
+    const use = window.claude && window.claude.use;
+    if (typeof use !== "function") return false;
+    const db = await withTimeout(use("db"), 12000, "timeout").catch(() => null);
+    if (!db) return false;
+    this.db = db;
+    try {
+      const user = await withTimeout(use("user"), 5000, "timeout").catch(() => null);
+      const can = user ? await user.can("data.write") : null;
+      if (can === false) set({ readOnly: true });
+    } catch (e) {}
+    for (const k of KINDS) this.subs.push(this.db.collection(k).onSnapshot(() => refreshSoon(), () => {}));
+    return true;
+  },
+  async load() {
+    const res = await withTimeout(Promise.all(KINDS.map(k => this.db.collection(k).get())), 10000, "ติดต่อฐานข้อมูลไม่ได้ ลองรีเฟรชอีกครั้ง");
+    const out = {};
+    res.forEach((snap, i) => { out[KINDS[i]] = snap.docs.map(d => ({ ...d.data(), id: d.id })).filter(x => !x.deleted).sort((a, b) => (a.created_at || "").localeCompare(b.created_at || "")); });
+    return out;
+  },
+  async insert(kind, row) {
+    const now = new Date().toISOString(), ref = this.db.collection(kind).doc();
+    await this.call(() => ref.set(JSON.parse(JSON.stringify({ ...row, deleted: false, created_at: now, updated_at: now }))));
+  },
+  async update(kind, id, patch) { await this.call(() => this.db.collection(kind).doc(id).update(JSON.parse(JSON.stringify({ ...patch, updated_at: new Date().toISOString() })))); },
+  async call(fn) {
+    try { await fn(); }
+    catch (e) {
+      if (e && e.code === "invalid_argument") { set({ readOnly: true }); throw new Error("บัญชีนี้ดูได้อย่างเดียว แก้ไขข้อมูลไม่ได้"); }
+      if (e && e.code === "quota_exceeded") throw new Error("ฐานข้อมูลเต็ม ลบรายการเก่าที่ไม่ใช้ก่อน");
+      throw new Error((e && e.message) || "บันทึกไม่สำเร็จ");
+    }
+  },
+  async discordReady() { return null; },
+  close() { this.subs.forEach(u => u()); this.subs = []; }
+};
+
 /* ---------- reactive state ---------- */
 let state = {
   ready: false, mode: "demo", error: "", discord: null,
-  data: EMPTY,
+  data: EMPTY, readOnly: false,
   profile: LS.get("sa.profile", { name: "", year: 1 }),
   done: LS.get("sa.done", {}),           // assignments this viewer has submitted
   fx: LS.get("sa.fx", null),             // 3D quality: high | low | off
@@ -89,11 +130,13 @@ export async function connect(url, key) {
   await reload();
   return state.mode === "supabase";
 }
-export async function useDemo() { Remote.close(); backend = Demo; LS.del("sa.sb"); set({ mode: "demo", error: "", discord: null }); await reload(); }
+export async function useDemo() { Remote.close(); if (await Shared.init()) { backend = Shared; LS.del("sa.sb"); set({ mode: "shared", error: "", discord: null }); await reload(); return; } backend = Demo; LS.del("sa.sb"); set({ mode: "demo", error: "", discord: null }); await reload(); }
 export async function boot() {
   const saved = LS.get("sa.sb", null);
   const url = CONFIG.supabaseUrl || saved?.url, key = CONFIG.supabaseKey || saved?.key;
-  if (url && key) await connect(url, key); else await reload();
+  if (url && key) await connect(url, key);
+  else if (await Shared.init()) { backend = Shared; set({ mode: "shared" }); await reload(); }
+  else await reload();
   addEventListener("storage", e => { if (backend === Demo && e.key?.startsWith("sa.demo.")) refreshSoon(); });
 }
 
@@ -103,7 +146,7 @@ export async function save(kind, row, id) {
     if (id) await backend.update(kind, id, { ...row, updated_by: actor() });
     else await backend.insert(kind, { ...row, created_by: actor(), updated_by: actor() });
     await reload();
-    toast((id ? "บันทึกการแก้ไขแล้ว" : "เพิ่มแล้ว") + (backend === Remote && state.discord ? " · แจ้ง Discord แล้ว" : ""));
+    toast((id ? "บันทึกการแก้ไขแล้ว" : "เพิ่มแล้ว") + (backend === Remote && state.discord ? " · แจ้ง Discord แล้ว" : backend === Shared ? " · ทุกคนเห็นแล้ว" : ""));
     return true;
   } catch (e) { toast("บันทึกไม่สำเร็จ: " + e.message, true); return false; }
 }
