@@ -28,9 +28,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      # รวมไฟล์เว็บ: หน้าเดิมทั้งหมด + Slytherin Academy (ไฟล์เดียวที่ build แล้ว) ที่ /academy/
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '_site' --exclude 'academy' ./ _site/
+          mkdir -p _site/academy
+          cp academy/dist/index.html _site/academy/index.html
+          touch _site/.nojekyll
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
