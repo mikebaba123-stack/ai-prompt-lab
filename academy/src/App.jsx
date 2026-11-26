@@ -1,7 +1,8 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { LayoutDashboard, CalendarDays, CalendarRange, ScrollText, Bell, Settings2, Menu, X, ShieldCheck, MessageCircle, Eye, Check } from "lucide-react";
-import { boot, useApp, setProfile, setFx, getState } from "./lib/store.js";
+import { LayoutDashboard, CalendarDays, CalendarRange, ScrollText, Bell, Settings2, Menu, ShieldCheck, Eye, Check } from "lucide-react";
+import { boot, useApp, setFx, getState, LS } from "./lib/store.js";
+import Sidebar from "./components/Sidebar.jsx";
 import { Crest, Toast, ConfirmHost } from "./components/ui.jsx";
 import { EditorHost } from "./components/forms.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
@@ -31,20 +32,9 @@ function Atmosphere() {
   );
 }
 
-function DiscordHall() {
-  const mode = useApp(s => s.mode), discord = useApp(s => s.discord);
-  const ok = mode === "supabase" && discord;
-  return (
-    <a href="#connect" className="hall">
-      <div className="hall-t"><MessageCircle size={14} /> Discord Hall</div>
-      <div className={"hall-s" + (ok ? " ok" : "")}><span className="dot" />{ok ? "เชื่อมต่อแล้ว · แจ้งเตือนอัตโนมัติ" : mode === "supabase" ? "ยังไม่ได้ใส่ webhook" : "โหมดสาธิต · ยังไม่เชื่อมต่อ"}</div>
-    </a>
-  );
-}
-
 export default function App() {
-  const [cinema, setCinema] = useState(false), [menu, setMenu] = useState(false), [route, setRoute] = useState(routeOf);
-  const ready = useApp(s => s.ready), fx = useApp(s => s.fx), profile = useApp(s => s.profile), anns = useApp(s => s.data.announcements.length);
+  const [cinema, setCinema] = useState(false), [menu, setMenu] = useState(false), [collapsed, setCollapsed] = useState(() => LS.get("sa.sb.mini", false)), [route, setRoute] = useState(routeOf);
+  const ready = useApp(s => s.ready), fx = useApp(s => s.fx), anns = useApp(s => s.data.announcements.length);
   useEffect(() => {
     boot();
     if (!getState().fx) setFx(!webgl() ? "off" : matchMedia("(pointer:coarse)").matches || innerWidth < 900 ? "low" : (devicePixelRatio || 1) * screen.width >= 2560 ? "ultra" : "high");
@@ -54,7 +44,6 @@ export default function App() {
     return () => { removeEventListener("keydown", k); removeEventListener("hashchange", f); };
   }, []);
   const Page = ROUTES.find(r => r[0] === route)[3];
-  const initials = (profile.name || "ผู้สืบทอด").trim().split(/\s+/).map(w => [...w][0]).slice(0, 2).join("").toUpperCase();
   return (
     <MotionConfig reducedMotion="user">
       <div className="backdrop" aria-hidden="true" style={{ backgroundImage: `url(${roomUrl})` }}>
@@ -63,31 +52,9 @@ export default function App() {
       </div>
       {!cinema && <Atmosphere />}
 
-      <div className={"shell" + (cinema ? " hidden" : "")}>
-        <aside className={"side" + (menu ? " open" : "")}>
-          <div className="brand-row">
-            <a className="brand" href="#dashboard"><Crest size={34} /><span><b>SLYTHERIN</b><small>Academy</small></span></a>
-            <button className="icon-btn only-m" onClick={() => setMenu(false)} aria-label="ปิดเมนู"><X size={16} /></button>
-          </div>
-          <div className="ornament"><span>✦</span></div>
-          <p className="side-kicker">Academy portal</p>
-          <nav aria-label="เมนูหลัก">{ROUTES.map(([k, l, Icon]) => (
-            <a key={k} href={"#" + k} className={route === k ? "on" : ""} aria-current={route === k ? "page" : undefined}>
-              {route === k && <motion.span layoutId="nav-glow" className="nav-glow" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-              <Icon size={17} strokeWidth={1.5} /><span>{l}</span>
-              {k === "board" && anns > 0 && <em className="badge">{anns}</em>}
-            </a>))}
-          </nav>
-          <div className="side-foot">
-            <DiscordHall />
-            <div className="me">
-              <div className="avatar">{initials}</div>
-              <div className="me-t"><p>{profile.name || "ผู้สืบทอด"}</p>
-                <select aria-label="ชั้นปีของฉัน" value={profile.year} onChange={e => setProfile({ year: +e.target.value })}>{[1, 2, 3, 4, 5, 6, 7].map(y => <option key={y} value={y}>Slytherin · ชั้นปีที่ {y}</option>)}<option value={0}>Slytherin · ทุกชั้นปี</option></select>
-              </div>
-            </div>
-          </div>
-        </aside>
+      <div className={"shell" + (cinema ? " hidden" : "") + (collapsed ? " sb-collapsed" : "")}>
+        <Sidebar routes={ROUTES} route={route} open={menu} onClose={() => setMenu(false)} collapsed={collapsed}
+          onToggle={() => setCollapsed(c => { LS.set("sa.sb.mini", !c); return !c; })} onCinema={() => setCinema(true)} canCinema={fx !== "off"} />
         {menu && <div className="scrim" onClick={() => setMenu(false)} />}
 
         <main className="main">
