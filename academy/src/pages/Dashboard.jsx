@@ -124,7 +124,7 @@ export default function Dashboard() {
           </div>
         )}
         <motion.div className="hero-in" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }}>
-          <motion.div className="hero-crest" initial={{ opacity: 0, scale: .85, rotateY: -35 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: 1.2, ease: [.2, .7, .2, 1] }}><Crest size={84} /></motion.div>
+          <motion.div className="hero-crest" initial={{ opacity: 0, scale: .85, rotateY: -35 }} animate={{ opacity: 1, scale: 1, rotateY: 0 }} transition={{ duration: 1.2, ease: [.2, .7, .2, 1] }}><Crest size={96} /></motion.div>
           <div className="kick"><Sparkles size={12} /> The serpent's legacy</div>
           <h1>{greet},<br /><em>{profile.name || "นักเรียนบ้านสลิธีริน"}</em></h1>
           {profile.name
@@ -142,6 +142,7 @@ export default function Dashboard() {
       </section>
 
       <div className="dash-grid">
+        <h2 className="dash-sec"><span>Today</span>วันนี้</h2>
         <Card eyebrow="Academic year" title={`ปีการศึกษา ${CONFIG.academicYear}`} className="c-year" delay={.05}>
           <div className="year-big">{profile.year ? <>ชั้นปีที่ <b>{profile.year}</b></> : <b>ทุกชั้นปี</b>}</div>
           <p className="muted small">{CONFIG.term} · {fmtDate(now, { day: "numeric", month: "long", year: "numeric" })}</p>
@@ -150,12 +151,14 @@ export default function Dashboard() {
         <Card eyebrow="Magic clock" className="c-clock" delay={.1}><MagicClock now={now} /></Card>
         <Card eyebrow="Next ritual" title="ชั้นเรียนถัดไป" className="c-count" delay={.15}><NextRitual courses={d.courses} now={now} /></Card>
 
+        <h2 className="dash-sec"><span>Work at a glance</span>งานและการสอบ</h2>
         <div className="stats">
           <StatCard icon={BookOpen} value={d.courses.length} label="รายวิชาที่ลงทะเบียน" note={d.year ? "Year " + d.year : "All years"} href="#schedule" delay={.2} />
-          <StatCard icon={GraduationCap} value={upcomingExams.length} label="การสอบที่กำลังจะมาถึง" note={examDays == null ? "No exams" : examDays === 0 ? "Next · today" : `Next · ${examDays} days`} href="#tasks" delay={.26} />
-          <StatCard icon={Clock3} value={pending.length} label="งานที่ยังไม่ส่ง" note={overdue.length ? `${overdue.length} overdue` : "All on time"} href="#tasks" alert={overdue.length > 0} delay={.32} />
+          <StatCard icon={GraduationCap} value={upcomingExams.length} label="การสอบที่กำลังจะมาถึง" note={examDays == null ? "No exams" : examDays === 0 ? "Next · today" : `Next · ${examDays} days`} href="#exams" delay={.26} />
+          <StatCard icon={Clock3} value={pending.length} label="งานที่ยังไม่ส่ง" note={overdue.length ? `${overdue.length} overdue` : "All on time"} href="#assignments" alert={overdue.length > 0} delay={.32} />
         </div>
 
+        <h2 className="dash-sec"><span>Classes & news</span>การเรียนและข่าวสาร</h2>
         <Card eyebrow="Arcane timetable" title="ตารางเรียนประจำสัปดาห์" className="c-week" delay={.3} action={<a className="link" href="#schedule">ดูเต็ม <ArrowRight size={12} /></a>}>
           {d.courses.length ? <WeekGrid courses={d.courses} compact onPick={c => openEditor("courses", c)} /> : <Empty>ยังไม่มีรายวิชา</Empty>}
         </Card>
@@ -167,8 +170,9 @@ export default function Dashboard() {
             </li>))}
             {!anns.length && <Empty>ยังไม่มีประกาศ</Empty>}</ul>
         </Card>
+        <h2 className="dash-sec"><span>House life</span>บ้านสลิธีริน</h2>
         <section className="c-ev">
-          <div className="sec-head"><div><div className="eyebrow">Beyond the classroom</div><h3>กิจกรรมที่กำลังจะมาถึง</h3></div><a className="link" href="#board">ทั้งหมด <ArrowRight size={12} /></a></div>
+          <div className="sec-head"><div><div className="eyebrow">Beyond the classroom</div><h3>กิจกรรมที่กำลังจะมาถึง</h3></div><a className="link" href="#events">ทั้งหมด <ArrowRight size={12} /></a></div>
           <div className="ev-grid">
             {evs.map((e, i) => { const dt = parseYmd(e.date), col = EV_COLORS[e.category] || "#52c696"; return (
               <motion.button key={e.id} className="event-card" onClick={() => openEditor("events", e)} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .4 + i * .1 }} whileHover={{ y: -5 }}>

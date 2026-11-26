@@ -14,10 +14,11 @@ import { nm } from "../lib/time.js";
    tool rail. Every entry is wired to the existing routes and editors.
    ===================================================================== */
 
-/* menu tree: `to` = an existing route hash, `act` = an existing editor */
+/* menu tree grouped into clear sections: `to` = a route hash, `act` = an editor */
+const GROUPS = [["main", "หน้าหลัก"], ["study", "การเรียน"], ["work", "งานและการสอบ"], ["house", "บ้านสลิธีริน"], ["system", "ระบบ"]];
 function buildMenu(routes) {
-  const r = Object.fromEntries(routes.map(([k, l, Icon]) => [k, { label: l, Icon }]));
-  const item = (k, children) => ({ id: k, label: r[k].label, Icon: r[k].Icon, to: k, children });
+  const r = Object.fromEntries(routes.map(([k, l, Icon, , group]) => [k, { label: l, Icon, group }]));
+  const item = (k, children) => ({ id: k, label: r[k].label, Icon: r[k].Icon, group: r[k].group, to: k, children });
   return [
     item("dashboard"),
     item("schedule", [
@@ -25,21 +26,13 @@ function buildMenu(routes) {
       { id: "schedule-add", label: "เพิ่มรายวิชา", act: ["courses"] }
     ]),
     item("calendar"),
-    item("tasks", [
-      { id: "tasks-all", label: "สอบและงานทั้งหมด", to: "tasks" },
-      { id: "tasks-exam", label: "เพิ่มการสอบ", act: ["exams"] },
-      { id: "tasks-hw", label: "เพิ่มงาน", act: ["assignments"] }
-    ]),
-    item("board", [
-      { id: "board-all", label: "ประกาศและกิจกรรมทั้งหมด", to: "board" },
-      { id: "board-ann", label: "เขียนประกาศ", act: ["announcements"] },
-      { id: "board-ev", label: "เพิ่มกิจกรรม", act: ["events"] }
-    ]),
+    item("exams"), item("assignments"),
+    item("announcements"), item("events"),
     item("connect")
   ];
 }
 
-const RAIL_LABEL = { dashboard: "Overview", schedule: "Schedule", calendar: "Calendar", tasks: "Exams & tasks", board: "House board", connect: "Connections" };
+const RAIL_LABEL = { dashboard: "Overview", schedule: "Schedule", calendar: "Calendar", exams: "Exams", assignments: "Assignments", announcements: "Owl post", events: "Events", connect: "Connections" };
 const go = to => { if (location.hash.slice(1) !== to) location.hash = to; };
 
 function Tip({ label, children }) {
@@ -107,7 +100,8 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
   const searchRef = useRef(), fileRef = useRef();
   const year = profile.year, inYear = x => !year || (x.years || []).includes(year);
   const courses = data.courses.filter(inYear), pendingAll = data.assignments.filter(a => inYear(a) && !done[a.id]);
-  const badges = { board: data.announcements.filter(inYear).length, tasks: pendingAll.length };
+  const nowMs = Date.now(), upExams = data.exams.filter(e => inYear(e) && new Date(e.date + "T23:59").getTime() >= nowMs).length;
+  const badges = { exams: upExams, assignments: pendingAll.length, announcements: data.announcements.filter(inYear).length };
   const totalAssign = data.assignments.filter(inYear).length, doneCount = totalAssign - pendingAll.length;
   const mini = collapsed && !open;                                  // the drawer on mobile is always full width
 
@@ -176,8 +170,15 @@ export default function Sidebar({ routes, route, open, onClose, collapsed, onTog
               </motion.ul>
             ) : (
               <motion.div key="menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                {!mini && <p className="sb-cap">เมนูหลัก</p>}
-                <ul className="sb-menu">{menu.map(m => <Row key={m.id} it={m} ctx={{ route, expanded, toggle, mini, badges, hl, run }} />)}</ul>
+                {GROUPS.map(([g, label], gi) => {
+                  const items = menu.filter(m => m.group === g);
+                  return items.length ? (
+                    <div className="sb-group" key={g}>
+                      {mini ? (gi > 0 && <span className="sb-gsep" />) : <p className="sb-cap">{label}</p>}
+                      <ul className="sb-menu">{items.map(m => <Row key={m.id} it={m} ctx={{ route, expanded, toggle, mini, badges, hl, run }} />)}</ul>
+                    </div>
+                  ) : null;
+                })}
 
                 {/* projects: the viewer's courses as colour-coded shortcuts */}
                 <div className="sb-proj">
